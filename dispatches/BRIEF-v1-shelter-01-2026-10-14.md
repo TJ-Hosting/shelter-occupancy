@@ -1,3 +1,5 @@
+> **Superseded by BRIEF-v2-shelter-01-2026-10-15.md** (2026-10-15, TJ's pre-build interview). Do not execute this version.
+
 # BRIEF v1 — shelter-occupancy: live Toronto shelter occupancy dashboard (MVP)
 
 - **Written:** 2026-10-14 ~22:20 UTC, agent=claude (Cowork, cloud session linked to BANE-PC), for Barney; built by Aco.
