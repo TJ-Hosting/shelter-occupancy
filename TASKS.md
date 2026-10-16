@@ -13,7 +13,7 @@ Start: 2026-10-16 00:07 UTC. Times are the sandbox clock (`date -u`) and commit 
 | 5 | P5 context, link-back, images | done | 00:43 | 00:45 | 2 min |
 | 6 | P6 deploy config + README | done | 00:45 | 00:47 | 2 min |
 | 7 | Evidence: screenshots, data test, contrast check | done | 00:47 | 00:57 | 10 min |
-| 8 | Result file, PR | in progress | 00:57 | | |
+| 8 | Result file, PR | done | 00:57 | 00:58 | 1 min |
 
 ## Phase 0 log
 
@@ -72,3 +72,7 @@ Start: 2026-10-16 00:07 UTC. Times are the sandbox clock (`date -u`) and commit 
 - Dev runs while building the checks: the contrast check failed the light hero, block art, year-over-year band, footer fade and embed labels; fixed in CSS (not by loosening the check). The data test passed 29/29 on its first run.
 - Final run, once: `tests/run-all.sh` at 00:54:45 UTC → data 29/29, map 7/7, contrast all pass, image caps 7/7, 16 screenshots. Screenshots re-captured at 00:56 after unsticking the header in element captures.
 - Snapshot refreshed from live CKAN at 00:54 before the run (same night, 2026-10-14).
+
+## Close
+
+- PR: https://github.com/TJ-Hosting/shelter-occupancy/pull/1 (draft). End 00:58 UTC; total ≈ 0.9 h of the 8 h budget.

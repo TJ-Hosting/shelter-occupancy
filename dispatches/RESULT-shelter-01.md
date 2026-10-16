@@ -4,7 +4,7 @@
 Done, not merged. Branch `feat/dashboard-mvp-2026-10-15` from `main` at `a82fc688`. All six packages built and checked in headless Chromium against live City data (night of 2026-10-14: 6,238 people served in headline programs; beds 97.2%, rooms 99.2%; refugee response 733; City-wide 6,971). **"Last night" finding:** the City's field note says `OCCUPANCY_DATE` is "the evening of the overnight period", counted at 4:00 am next morning, so the page says "Last night (date)" when that evening was yesterday in Toronto, else "Latest count — night of (date)". **Second source:** open CKAN datastore "Central Intake Service Queue Data" (`central-intake-calls`, monthly), so an unmatched-callers card is in, in the City's words, with its own date (Aug 31, 2026). **Images:** generated 0 / 40, spend US$0.00 / US$10 (no API key set; 3 requests in `assets/REQUESTS.md`); 14 pack images shipped.
 
 ## PR
-PR_LINK
+https://github.com/TJ-Hosting/shelter-occupancy/pull/1 (draft; one PR with evidence; not merged)
 
 ## Evidence paths
 `evidence/README.md` · `evidence/data-test.txt` (29/29) · `evidence/map-check.txt` (7/7) · `evidence/contrast-check.txt` (all pass) · `evidence/imagegen-caps.txt` (7/7) · `evidence/screenshots/` (16) · `docs/DATA.md` · `docs/DESIGN.md` · `TASKS.md`
