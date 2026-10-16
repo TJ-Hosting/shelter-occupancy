@@ -84,11 +84,11 @@ Atmosphere only, never data, never people. From the pre-generated pack (`assets/
 | Image | Where | Treatment |
 |---|---|---|
 | `sh-hero-islands-dusk` | hero, dark mode | dark scrim gradients + grain; slow 40 s settle (off with reduced motion) |
-| `sh-hero-islands-sunset` | hero, light mode | same scrim: the hero stays a dark "evening" zone in both modes |
-| `sh-hero-portrait` | hero below 600 px | same |
-| `sh-sc-cot`, `sh-sc-hotel-corridor` | beds and rooms blocks | 28% (dark) / 22% (light), masked into the card's right side |
+| `sh-hero-islands-sunset` | hero, light mode | a scrim dark on the text column and open on the right, so the sunset glows; the hero stays an "evening" zone in both modes |
+| `sh-hero-portrait` | hero below 600 px | a deeper scrim from a third of the way down, because the portrait plate puts bright sky behind the text |
+| `sh-sc-cot`, `sh-sc-hotel-corridor` | beds and rooms blocks | 20% (dark) / 10% (light), masked into the card's right side |
 | `sh-hero-winter-night` | band above the year-over-year chart | dark gradient under the heading |
-| `sh-tex-dusk-sky` | refugee-response panel, 404 | 16% wash |
+| `sh-tex-dusk-sky` | refugee-response panel, 404 | 14% (dark) / 7% (light) wash |
 | `sh-sc-windows`, three spots (tea, key, coat) | "What this shows" | with alt text and a caption saying they are AI-generated atmosphere |
 | `sh-sc-streetcar` | footer | heavy dark scrim |
 | `sh-embed-band` | embed card | dark scrim |
@@ -100,7 +100,7 @@ Atmosphere only, never data, never people. From the pre-generated pack (`assets/
 
 ## 7. Accessibility and motion
 
-- Text contrast meets WCAG AA in both modes; checked in a real browser, including hero text over the image (`evidence/contrast-check.txt`).
+- Text contrast meets WCAG AA in both modes; checked in a real browser, including text over images measured against the rendered pixels behind it (`evidence/contrast-check.txt`). The first run of that check failed the light-mode hero, the beds/rooms art, the year-over-year band, the footer fade and the embed labels; the scrims and image opacities above are the result of fixing those, not of loosening the check.
 - Keyboard: skip link, visible 2px amber focus ring, sortable table headers are buttons with `aria-sort`, charts focusable with arrow-key readout.
 - `prefers-reduced-motion` stops the hero drift, reveals and meter fills; `prefers-contrast: more` raises muted text and hairlines; print hides the map and controls.
 - Mobile-first: one column at 375 px, the programs table scrolls inside its frame, the filter bar stays sticky.
