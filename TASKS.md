@@ -9,8 +9,8 @@ Start: 2026-10-16 00:07 UTC. Budget 8 h · re-plan line 7.5 h (≈ 07:37 UTC).
 | 1 | P1 data pipeline + second source + failure issue | done | 00:14 | 00:25 | 11 min |
 | 2 | P2 dashboard page (map code included, see P3) | done | 00:25 | 00:44 | 19 min |
 | 3 | P3 map | done | 00:44 | 00:47 | 3 min |
-| 4 | P4 embed card | in progress | 00:47 | | |
-| 5 | P5 context, link-back, images | todo | | | |
+| 4 | P4 embed card | done | 00:47 | 00:53 | 6 min |
+| 5 | P5 context, link-back, images | in progress | 00:53 | | |
 | 6 | P6 deploy config + README | todo | | | |
 | 7 | Evidence: screenshots, data test, contrast check | todo | | | |
 | 8 | Result file, PR | todo | | | |
@@ -47,3 +47,7 @@ Start: 2026-10-16 00:07 UTC. Budget 8 h · re-plan line 7.5 h (≈ 07:37 UTC).
 
 - `tests/map-check.mjs` in headless Chromium: 95 pins = 95 distinct coordinates for 116 geocoded programs; 6 unplaced shown and listed; popup carries name, sector, capacity type and occupancy; sector and capacity-type filters update map and table. 7/7 (dev run; the evidence run is at the end).
 - Fixed: markers had no DOM element on first draw because the map had no view yet; the view is now set before markers are added (also avoids fetching tiles for a throwaway view, per the OSM tile policy).
+
+## P4 log
+
+- `/embed/`: self-contained dark card (people served, bed and room rates, night, source with date, link to the dashboard). Checked in headless Chromium at 320×180 and 600×340: content box equals the viewport (no overflow) at both sizes. Fixed a 4 px overflow from the inline image baseline.
