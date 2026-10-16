@@ -1,0 +1,523 @@
+{
+	"about": "Every image the site ships, its source in assets/pack/ and the ledger line that records how it was made.",
+	"images": [
+		{
+			"name": "sh-hero-islands-dusk",
+			"source": "assets/pack/sh-hero-islands-dusk.jpg",
+			"source_sha256": "9c0de68715fdf97db0e5778f108792e118dae9fc986501ac3da9be4dbc81f1a6",
+			"source_size": "1280x720",
+			"use": "hero background, dark mode",
+			"alt": "decorative (alt=\"\")",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 2,
+			"provider": "grok",
+			"date": "2026-10-15T19:27:01",
+			"outputs": [
+				{
+					"file": "assets/img/sh-hero-islands-dusk-640.avif",
+					"width": 640,
+					"height": 360,
+					"bytes": 12626
+				},
+				{
+					"file": "assets/img/sh-hero-islands-dusk-640.webp",
+					"width": 640,
+					"height": 360,
+					"bytes": 19684
+				},
+				{
+					"file": "assets/img/sh-hero-islands-dusk-960.avif",
+					"width": 960,
+					"height": 540,
+					"bytes": 24810
+				},
+				{
+					"file": "assets/img/sh-hero-islands-dusk-960.webp",
+					"width": 960,
+					"height": 540,
+					"bytes": 36678
+				},
+				{
+					"file": "assets/img/sh-hero-islands-dusk-1280.avif",
+					"width": 1280,
+					"height": 720,
+					"bytes": 38665
+				},
+				{
+					"file": "assets/img/sh-hero-islands-dusk-1280.webp",
+					"width": 1280,
+					"height": 720,
+					"bytes": 56176
+				}
+			]
+		},
+		{
+			"name": "sh-hero-islands-sunset",
+			"source": "assets/pack/sh-hero-islands-sunset.jpg",
+			"source_sha256": "44b55643e61f4d181fa71c717ce7fe333b5fae6281869fcf1ee6d0dd06850e81",
+			"source_size": "1280x720",
+			"use": "hero background, light mode",
+			"alt": "decorative (alt=\"\")",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 1,
+			"provider": "grok",
+			"date": "2026-10-15T19:26:31",
+			"outputs": [
+				{
+					"file": "assets/img/sh-hero-islands-sunset-640.avif",
+					"width": 640,
+					"height": 360,
+					"bytes": 10651
+				},
+				{
+					"file": "assets/img/sh-hero-islands-sunset-640.webp",
+					"width": 640,
+					"height": 360,
+					"bytes": 15390
+				},
+				{
+					"file": "assets/img/sh-hero-islands-sunset-960.avif",
+					"width": 960,
+					"height": 540,
+					"bytes": 20443
+				},
+				{
+					"file": "assets/img/sh-hero-islands-sunset-960.webp",
+					"width": 960,
+					"height": 540,
+					"bytes": 27960
+				},
+				{
+					"file": "assets/img/sh-hero-islands-sunset-1280.avif",
+					"width": 1280,
+					"height": 720,
+					"bytes": 33226
+				},
+				{
+					"file": "assets/img/sh-hero-islands-sunset-1280.webp",
+					"width": 1280,
+					"height": 720,
+					"bytes": 44458
+				}
+			]
+		},
+		{
+			"name": "sh-hero-portrait",
+			"source": "assets/pack/sh-hero-portrait.jpg",
+			"source_sha256": "31020ba5434ca7d2cb63983ca798d69656ab6302a35c3beb0659cf1d852e2b8c",
+			"source_size": "720x1280",
+			"use": "hero background on narrow screens",
+			"alt": "decorative (alt=\"\")",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 3,
+			"provider": "grok",
+			"date": "2026-10-15T19:27:31",
+			"outputs": [
+				{
+					"file": "assets/img/sh-hero-portrait-480.avif",
+					"width": 480,
+					"height": 853,
+					"bytes": 18672
+				},
+				{
+					"file": "assets/img/sh-hero-portrait-480.webp",
+					"width": 480,
+					"height": 853,
+					"bytes": 25900
+				},
+				{
+					"file": "assets/img/sh-hero-portrait-720.avif",
+					"width": 720,
+					"height": 1280,
+					"bytes": 35013
+				},
+				{
+					"file": "assets/img/sh-hero-portrait-720.webp",
+					"width": 720,
+					"height": 1280,
+					"bytes": 45812
+				}
+			]
+		},
+		{
+			"name": "sh-hero-winter-night",
+			"source": "assets/pack/sh-hero-winter-night.jpg",
+			"source_sha256": "ce293e5b2098ed22b5603c8b9e9d01bf36c275f42ac868c5b1f97d06c68ba4ac",
+			"source_size": "1280x720",
+			"use": "band above the year-over-year chart",
+			"alt": "decorative (alt=\"\")",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 4,
+			"provider": "grok",
+			"date": "2026-10-15T19:28:01",
+			"outputs": [
+				{
+					"file": "assets/img/sh-hero-winter-night-640.avif",
+					"width": 640,
+					"height": 360,
+					"bytes": 22208
+				},
+				{
+					"file": "assets/img/sh-hero-winter-night-640.webp",
+					"width": 640,
+					"height": 360,
+					"bytes": 33814
+				},
+				{
+					"file": "assets/img/sh-hero-winter-night-1280.avif",
+					"width": 1280,
+					"height": 720,
+					"bytes": 62001
+				},
+				{
+					"file": "assets/img/sh-hero-winter-night-1280.webp",
+					"width": 1280,
+					"height": 720,
+					"bytes": 94450
+				}
+			]
+		},
+		{
+			"name": "sh-sc-cot",
+			"source": "assets/pack/sh-sc-cot.jpg",
+			"source_sha256": "9e51db9120631f2581a922f7bd9572dd095eb01f06c371ac9f7012d1248fc180",
+			"source_size": "1248x832",
+			"use": "beds block illustration",
+			"alt": "decorative (alt=\"\")",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 6,
+			"provider": "grok",
+			"date": "2026-10-15T19:29:02",
+			"outputs": [
+				{
+					"file": "assets/img/sh-sc-cot-480.avif",
+					"width": 480,
+					"height": 320,
+					"bytes": 5004
+				},
+				{
+					"file": "assets/img/sh-sc-cot-480.webp",
+					"width": 480,
+					"height": 320,
+					"bytes": 6576
+				},
+				{
+					"file": "assets/img/sh-sc-cot-960.avif",
+					"width": 960,
+					"height": 640,
+					"bytes": 15117
+				},
+				{
+					"file": "assets/img/sh-sc-cot-960.webp",
+					"width": 960,
+					"height": 640,
+					"bytes": 18830
+				}
+			]
+		},
+		{
+			"name": "sh-sc-hotel-corridor",
+			"source": "assets/pack/sh-sc-hotel-corridor.jpg",
+			"source_sha256": "13df596b92ca9a8826e5704439ddc869a39b631fae22653da9bf60ba3931ef97",
+			"source_size": "1248x832",
+			"use": "rooms block illustration",
+			"alt": "decorative (alt=\"\")",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 10,
+			"provider": "grok",
+			"date": "2026-10-15T19:31:48",
+			"outputs": [
+				{
+					"file": "assets/img/sh-sc-hotel-corridor-480.avif",
+					"width": 480,
+					"height": 320,
+					"bytes": 7484
+				},
+				{
+					"file": "assets/img/sh-sc-hotel-corridor-480.webp",
+					"width": 480,
+					"height": 320,
+					"bytes": 9788
+				},
+				{
+					"file": "assets/img/sh-sc-hotel-corridor-960.avif",
+					"width": 960,
+					"height": 640,
+					"bytes": 20814
+				},
+				{
+					"file": "assets/img/sh-sc-hotel-corridor-960.webp",
+					"width": 960,
+					"height": 640,
+					"bytes": 26690
+				}
+			]
+		},
+		{
+			"name": "sh-sc-windows",
+			"source": "assets/pack/sh-sc-windows.jpg",
+			"source_sha256": "4d03e897cd0acc0d22f691f902511f71ce5431e4023e6ec84a07ae14283eb68a",
+			"source_size": "1248x832",
+			"use": "context section illustration",
+			"alt": "Illustration: a brick apartment building at night in falling snow, its windows lit in warm colours.",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 8,
+			"provider": "grok",
+			"date": "2026-10-15T19:30:32",
+			"outputs": [
+				{
+					"file": "assets/img/sh-sc-windows-640.avif",
+					"width": 640,
+					"height": 427,
+					"bytes": 18997
+				},
+				{
+					"file": "assets/img/sh-sc-windows-640.webp",
+					"width": 640,
+					"height": 427,
+					"bytes": 29054
+				},
+				{
+					"file": "assets/img/sh-sc-windows-1248.avif",
+					"width": 1248,
+					"height": 832,
+					"bytes": 53838
+				},
+				{
+					"file": "assets/img/sh-sc-windows-1248.webp",
+					"width": 1248,
+					"height": 832,
+					"bytes": 76398
+				}
+			]
+		},
+		{
+			"name": "sh-sc-streetcar",
+			"source": "assets/pack/sh-sc-streetcar.jpg",
+			"source_sha256": "5dfd9bdc610d118a8c19adce6ce331a6daae1d0b7dcf9b6732ac0aefc6a95420",
+			"source_size": "1248x832",
+			"use": "footer band",
+			"alt": "decorative (alt=\"\")",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 9,
+			"provider": "grok",
+			"date": "2026-10-15T19:31:18",
+			"outputs": [
+				{
+					"file": "assets/img/sh-sc-streetcar-640.avif",
+					"width": 640,
+					"height": 427,
+					"bytes": 17156
+				},
+				{
+					"file": "assets/img/sh-sc-streetcar-640.webp",
+					"width": 640,
+					"height": 427,
+					"bytes": 25898
+				},
+				{
+					"file": "assets/img/sh-sc-streetcar-1248.avif",
+					"width": 1248,
+					"height": 832,
+					"bytes": 45665
+				},
+				{
+					"file": "assets/img/sh-sc-streetcar-1248.webp",
+					"width": 1248,
+					"height": 832,
+					"bytes": 65406
+				}
+			]
+		},
+		{
+			"name": "sh-tex-dusk-sky",
+			"source": "assets/pack/sh-tex-dusk-sky.jpg",
+			"source_sha256": "f5cb0040cd5c61b08e78746fc864515ad360fde834c57afbe05c7d963116eb61",
+			"source_size": "1280x720",
+			"use": "refugee-response panel and 404 background",
+			"alt": "decorative (alt=\"\")",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 15,
+			"provider": "grok",
+			"date": "2026-10-15T19:35:35",
+			"outputs": [
+				{
+					"file": "assets/img/sh-tex-dusk-sky-640.avif",
+					"width": 640,
+					"height": 360,
+					"bytes": 4190
+				},
+				{
+					"file": "assets/img/sh-tex-dusk-sky-640.webp",
+					"width": 640,
+					"height": 360,
+					"bytes": 4188
+				},
+				{
+					"file": "assets/img/sh-tex-dusk-sky-1280.avif",
+					"width": 1280,
+					"height": 720,
+					"bytes": 11879
+				},
+				{
+					"file": "assets/img/sh-tex-dusk-sky-1280.webp",
+					"width": 1280,
+					"height": 720,
+					"bytes": 11262
+				}
+			]
+		},
+		{
+			"name": "sh-embed-band",
+			"source": "assets/pack/sh-embed-band.jpg",
+			"source_sha256": "8768dcad7b59853836a824026f6fe5f2a5e4c6b869695f8d07e556c7d3a5920a",
+			"source_size": "1280x720",
+			"use": "embed card background",
+			"alt": "decorative (alt=\"\")",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 25,
+			"provider": "grok",
+			"date": "2026-10-15T19:41:41",
+			"outputs": [
+				{
+					"file": "assets/img/sh-embed-band-640.avif",
+					"width": 640,
+					"height": 360,
+					"bytes": 5637
+				},
+				{
+					"file": "assets/img/sh-embed-band-640.webp",
+					"width": 640,
+					"height": 360,
+					"bytes": 7162
+				},
+				{
+					"file": "assets/img/sh-embed-band-1280.avif",
+					"width": 1280,
+					"height": 720,
+					"bytes": 13844
+				},
+				{
+					"file": "assets/img/sh-embed-band-1280.webp",
+					"width": 1280,
+					"height": 720,
+					"bytes": 16704
+				}
+			]
+		},
+		{
+			"name": "sh-spot-tea",
+			"source": "assets/pack/sh-spot-tea.jpg",
+			"source_sha256": "ae85b0eaf5f57322662464ab923aa93325a8186cabb82d966320c84a922c94d4",
+			"source_size": "1024x1024",
+			"use": "context section spot",
+			"alt": "Illustration: a steaming mug of tea on a windowsill, the Toronto skyline blurred outside.",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 22,
+			"provider": "grok",
+			"date": "2026-10-15T19:39:55",
+			"outputs": [
+				{
+					"file": "assets/img/sh-spot-tea-320.avif",
+					"width": 320,
+					"height": 320,
+					"bytes": 7348
+				},
+				{
+					"file": "assets/img/sh-spot-tea-320.webp",
+					"width": 320,
+					"height": 320,
+					"bytes": 11292
+				},
+				{
+					"file": "assets/img/sh-spot-tea-640.avif",
+					"width": 640,
+					"height": 640,
+					"bytes": 19537
+				},
+				{
+					"file": "assets/img/sh-spot-tea-640.webp",
+					"width": 640,
+					"height": 640,
+					"bytes": 27330
+				}
+			]
+		},
+		{
+			"name": "sh-spot-key",
+			"source": "assets/pack/sh-spot-key.jpg",
+			"source_sha256": "d074af0599005f05aa94acc5a162f4c2c61f4d5137302cc065bd8e93d95caa08",
+			"source_size": "1024x1024",
+			"use": "context section spot",
+			"alt": "Illustration: a door key on a ring beside a lamp on a nightstand.",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 23,
+			"provider": "grok",
+			"date": "2026-10-15T19:40:41",
+			"outputs": [
+				{
+					"file": "assets/img/sh-spot-key-320.avif",
+					"width": 320,
+					"height": 320,
+					"bytes": 4537
+				},
+				{
+					"file": "assets/img/sh-spot-key-320.webp",
+					"width": 320,
+					"height": 320,
+					"bytes": 6358
+				},
+				{
+					"file": "assets/img/sh-spot-key-640.avif",
+					"width": 640,
+					"height": 640,
+					"bytes": 12126
+				},
+				{
+					"file": "assets/img/sh-spot-key-640.webp",
+					"width": 640,
+					"height": 640,
+					"bytes": 17108
+				}
+			]
+		},
+		{
+			"name": "sh-spot-coat",
+			"source": "assets/pack/sh-spot-coat.jpg",
+			"source_sha256": "08b29e6c2120bf7ab69bbe4a0ae08eff9e6ffa33fa985d7d7b39931268ee756e",
+			"source_size": "1024x1024",
+			"use": "context section spot",
+			"alt": "Illustration: a winter coat and scarf hanging on a wall hook.",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 21,
+			"provider": "grok",
+			"date": "2026-10-15T19:39:24",
+			"outputs": [
+				{
+					"file": "assets/img/sh-spot-coat-320.avif",
+					"width": 320,
+					"height": 320,
+					"bytes": 4618
+				},
+				{
+					"file": "assets/img/sh-spot-coat-320.webp",
+					"width": 320,
+					"height": 320,
+					"bytes": 6748
+				},
+				{
+					"file": "assets/img/sh-spot-coat-640.avif",
+					"width": 640,
+					"height": 640,
+					"bytes": 12950
+				},
+				{
+					"file": "assets/img/sh-spot-coat-640.webp",
+					"width": 640,
+					"height": 640,
+					"bytes": 18144
+				}
+			]
+		}
+	]
+}
