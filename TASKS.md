@@ -1,18 +1,18 @@
 # TASKS — shelter-01 (brief v2)
 
 Executor: Claude Code on the web. Branch `feat/dashboard-mvp-2026-10-15`, cut from `main` at `a82fc688a922a75bacefe7a3806f23767c9fcde7` (brief v2 + image pack commit; the brief named `546f23af` as the pre-pack SHA).
-Start: 2026-10-16 00:07 UTC. Budget 8 h · re-plan line 7.5 h (≈ 07:37 UTC).
+Start: 2026-10-16 00:07 UTC. Times are the sandbox clock (`date -u`) and commit timestamps. Budget 8 h · re-plan line 7.5 h (≈ 07:37 UTC).
 
 | # | Step | Status | Start (UTC) | End (UTC) | Wall-clock |
 |---|---|---|---|---|---|
 | 0 | Phase 0: branch, tools, CKAN, schema → docs/DATA.md, keys, hosts | done | 00:07 | 00:14 | 7 min |
 | 1 | P1 data pipeline + second source + failure issue | done | 00:14 | 00:25 | 11 min |
-| 2 | P2 dashboard page (map code included, see P3) | done | 00:25 | 00:44 | 19 min |
-| 3 | P3 map | done | 00:44 | 00:47 | 3 min |
-| 4 | P4 embed card | done | 00:47 | 00:53 | 6 min |
-| 5 | P5 context, link-back, images | done | 00:53 | 01:03 | 10 min |
-| 6 | P6 deploy config + README | in progress | 01:03 | | |
-| 7 | Evidence: screenshots, data test, contrast check | todo | | | |
+| 2 | P2 dashboard page (map code included, see P3) | done | 00:25 | 00:39 | 14 min |
+| 3 | P3 map | done | 00:39 | 00:41 | 2 min |
+| 4 | P4 embed card | done | 00:41 | 00:43 | 2 min |
+| 5 | P5 context, link-back, images | done | 00:43 | 00:45 | 2 min |
+| 6 | P6 deploy config + README | done | 00:45 | 00:47 | 2 min |
+| 7 | Evidence: screenshots, data test, contrast check | in progress | 00:47 | | |
 | 8 | Result file, PR | todo | | | |
 
 ## Phase 0 log
@@ -60,3 +60,9 @@ Start: 2026-10-16 00:07 UTC. Budget 8 h · re-plan line 7.5 h (≈ 07:37 UTC).
 - No key → 3 requests in `assets/REQUESTS.md` (2560 px heroes, clean doorway). Generated 0/40, spend US$0.00/10.
 - Share image 1200×630 rendered from `sh-og-share` (downscaled, not upscaled) with no figures, so it never goes stale.
 - `CREDITS.md`: data, tiles, libraries with SHA-384, font, pack, generated images, tools.
+
+## P6 log
+
+- `CNAME` (data.tj-hosting.ca), `.nojekyll`, self-contained `404.html` (absolute paths, rendered locally without errors).
+- README: local run, daily refresh and the `data-refresh` issue, the 60-day scheduled-workflow rule (quoted from GitHub's docs; whether bot commits count is [unverified]) and how to re-enable, accuracy rules, iframe snippet, post-merge steps.
+- Site runs locally from `python3 -m http.server`.
