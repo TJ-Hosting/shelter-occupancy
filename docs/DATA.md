@@ -118,6 +118,45 @@ The turn-away card shows `Unmatched callers` for the latest operational date wit
 3. Coordinates are cached in `data/geocodes.json` (key = normalised address + city), so the daily job only geocodes new addresses.
 4. Programs with no address, or no confident match, are listed as unplaced on the map; nothing is guessed.
 
-## 6. Transformations
+## 6. Transformations (`scripts/fetch_data.py`)
 
-*(Filled in with P1 — see below.)*
+The pipeline is standard-library Python. In order:
+
+1. **Package checks.** `package_show`: fail if `is_retired` is true or `refresh_rate` is not `Daily`. Every resource with an active datastore is used (so the January roll-over, when the City adds a new yearly file, needs no code change).
+2. **Schema checks.** For each resource, `datastore_search?limit=0` must list all 29 required columns (every field in 1.2 except `_id`, `ORGANIZATION_ID`, `SHELTER_ID`); otherwise the run fails. The dump's row count must equal the API's `total`. A SHA-256 of each resource's `(field, type)` list goes into `meta.json`.
+3. **Parsing.** Text fields are trimmed and inner whitespace collapsed. `OCCUPANCY_DATE` is normalised to `YYYY-MM-DD` from the three formats in 1.1 (`YY-MM-DD` is read as 20YY: the 2021 file's 365 values run `21-01-01` → `21-12-31`). Numbers must parse as integers (rates as decimals); any other value fails the run. `CAPACITY_TYPE` must be one of the two known values.
+4. **Bed or room.** Each row is a bed program or a room program, from `CAPACITY_TYPE`. Only that type's fields are read. **Beds and rooms are never added together** anywhere in the pipeline or the page.
+5. **De-duplication.** Rows are keyed by (`OCCUPANCY_DATE`, `PROGRAM_ID`); if two resources ever overlap, the newer resource's row wins. (No duplicates exist today.)
+6. **Panels.** `PROGRAM_AREA` = `Temporary Refugee Response` → refugee panel; anything else → headline (§3). An unknown new area value goes to the headline and raises a warning, which fails the workflow and opens the `data-refresh` issue so a person checks the split.
+7. **Sums.** Per night and per panel: `people` = Σ `SERVICE_USER_COUNT`; for beds and for rooms separately: Σ occupied, Σ actual capacity, Σ funded capacity, Σ unoccupied, Σ unavailable, number of programs.
+8. **Rates.** A panel's bed rate = Σ `OCCUPIED_BEDS` ÷ Σ `CAPACITY_ACTUAL_BED` × 100; room rate likewise. This is the City's own per-program formula (1.2) applied to the panel's totals. Rounded half-up to one decimal, in integer arithmetic. Per-program rates are the City's published `OCCUPANCY_RATE_*` values, unchanged.
+9. **Check.** For last night the script asserts headline + refugee = City-wide for people, programs, and (separately) beds and rooms occupied and capacity.
+10. **Staleness.** The run fails if the newest night is more than 5 days old.
+11. **Second source.** Central Intake Service Queue Data is fetched the same way (schema check on `Date`, `Unmatched callers`, `Single call`, `Repeat caller`). If it fails, the previous values are kept, the run records a warning, and the workflow fails after committing the occupancy data, so the turn-away card keeps its own older date rather than blocking the main refresh.
+12. **Geocoding** as in §5, for last night's programs only.
+
+### Outputs
+
+| File | Contents | Size (2026-10-16) |
+|---|---|---|
+| `data/latest.json` | Last night (`occupancy_date`): headline, refugee and City-wide totals (people; beds and rooms blocks with occupied, actual and funded capacity, unoccupied, unavailable, rate, programs, near-full and full counts); the same by sector inside each; totals by program area; the latest turn-away value with its date; one row per program (City fields + panel + geocode or unplaced reason). | ~106 KB |
+| `data/history.json` | Every night since 2021-01-01, columnar: for headline and refugee, people, programs, beds occupied and capacity, rooms occupied and capacity. Plus the Central Intake daily series. Compact JSON. | ~183 KB |
+| `data/meta.json` | Source package and resource ids, row counts, date ranges, schema hashes, the City's `last_refreshed`, generation time, geocoding counts, near-full threshold, warnings. | ~3 KB |
+| `data/geocodes.json` | Geocode cache: normalised address + postal code → coordinates, source, matched string, date checked. | ~16 KB |
+
+The workflow commits only when `latest.json` or `history.json` change (two runs on the same City data produce byte-identical files; only `meta.json`'s timestamp differs).
+
+## 7. "Near full" — the definition used here
+
+A program is **at or near full** when the City's own occupancy rate for its capacity type (`OCCUPANCY_RATE_BEDS` or `OCCUPANCY_RATE_ROOMS`) is **95% or higher** — at most 1 in 20 of its in-service beds or rooms unoccupied. **Full** means 100%. The headline counts programs (bed programs and room programs together; counting programs adds no beds to rooms). Two caveats shown on the page:
+
+- The City notes that unoccupied beds and rooms "may be held for a service user or may be vacant", so an unoccupied space is not necessarily open to a new person.
+- Programs with nobody staying that night are not in the data at all ("Programs with no service user occupancy will not be included in reporting for that day"), so totals cover programs that reported at least one person.
+
+This threshold is this project's choice, not a City definition. It lives in `scripts/fetch_data.py` (`NEAR_FULL`) and is echoed into `latest.json` and on the page.
+
+## 8. What the data cannot say
+
+- How many people are homeless in Toronto: the data covers City-funded overnight programs only, not people sleeping outside, in other systems, or in programs not tracked in SMIS. The page shows no such figure.
+- Whether a bed is open right now: the count is taken at 4:00 am and published the next day.
+- Anything about individuals: the data is program-level and is never joined with person-level data.

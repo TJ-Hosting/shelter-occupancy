@@ -1,0 +1,88 @@
+{
+	"generated_at": "2026-10-16T00:23:53Z",
+	"occupancy_date": "2026-10-14",
+	"package": "daily-shelter-overnight-service-occupancy-capacity",
+	"package_url": "https://open.toronto.ca/dataset/daily-shelter-overnight-service-occupancy-capacity/",
+	"package_last_refreshed": "2026-10-15 13:36:59.370233",
+	"package_refresh_rate": "Daily",
+	"package_is_retired": false,
+	"resources": [
+		{
+			"resource_id": "da8854b8-e570-4de2-b051-a906b62fe7f8",
+			"name": "daily-shelter-overnight-service-occupancy-capacity-2021",
+			"rows": 50944,
+			"first_date": "2021-01-01",
+			"last_date": "2021-12-31",
+			"schema_hash": "7fc773bc24314979c56ad0a754f66e302e9c543cffda3c020805057f5d355cc5",
+			"fields": 32
+		},
+		{
+			"resource_id": "1cc46acb-c6d3-4537-93ef-3ebad039275c",
+			"name": "daily-shelter-overnight-service-occupancy-capacity-2022",
+			"rows": 49478,
+			"first_date": "2022-01-01",
+			"last_date": "2022-12-31",
+			"schema_hash": "7fc773bc24314979c56ad0a754f66e302e9c543cffda3c020805057f5d355cc5",
+			"fields": 32
+		},
+		{
+			"resource_id": "62786156-b463-4c04-b286-c23f32c726ab",
+			"name": "daily-shelter-overnight-service-occupancy-capacity-2023",
+			"rows": 48345,
+			"first_date": "2023-01-01",
+			"last_date": "2023-12-31",
+			"schema_hash": "7fc773bc24314979c56ad0a754f66e302e9c543cffda3c020805057f5d355cc5",
+			"fields": 32
+		},
+		{
+			"resource_id": "fc409fd7-0348-49d7-bba9-70ac1a8c727c",
+			"name": "daily-shelter-overnight-service-occupancy-capacity-2024",
+			"rows": 48794,
+			"first_date": "2024-01-01",
+			"last_date": "2024-12-31",
+			"schema_hash": "3a5d06d97de0944497c7004ae3c7983e10ae73dc52489dae9c6c974eb281b967",
+			"fields": 32
+		},
+		{
+			"resource_id": "5dc4fbfc-0951-45e8-ae30-962af9dcaf7c",
+			"name": "daily-shelter-overnight-service-occupancy-capacity-2025",
+			"rows": 51543,
+			"first_date": "2025-01-01",
+			"last_date": "2025-12-31",
+			"schema_hash": "3a5d06d97de0944497c7004ae3c7983e10ae73dc52489dae9c6c974eb281b967",
+			"fields": 32
+		},
+		{
+			"resource_id": "42714176-4f05-44e6-b157-2b57f29b856a",
+			"name": "Daily shelter overnight occupancy",
+			"rows": 38725,
+			"first_date": "2026-01-01",
+			"last_date": "2026-10-14",
+			"schema_hash": "3a5d06d97de0944497c7004ae3c7983e10ae73dc52489dae9c6c974eb281b967",
+			"fields": 32
+		}
+	],
+	"schema_hash": "2154ca62db25e7625381b0650bb7a1f4467afde4c645ae85afe3fe6741980ea8",
+	"rows": 287829,
+	"nights": 2113,
+	"turnaways": {
+		"package": "central-intake-calls",
+		"resource_id": "61191143-8143-4425-bf89-2c1523961227",
+		"resource": "Central Intake Service Queue Data",
+		"last_refreshed": "2026-09-18 18:27:32.38203",
+		"refresh_rate": "Monthly",
+		"schema_hash": "179f0aa6ce45b3d030795cb45109ef1fdd1cc7a8d9d62333acec386aecb6649e",
+		"ok": true
+	},
+	"geocoding": {
+		"programs": 122,
+		"placed": 116,
+		"unplaced": 6,
+		"by_source": {
+			"address-points": 115,
+			"nominatim": 1
+		}
+	},
+	"near_full_threshold": 95.0,
+	"warnings": []
+}
