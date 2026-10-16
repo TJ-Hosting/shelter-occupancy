@@ -1,0 +1,123 @@
+# DATA — sources, schema and every transformation
+
+Every figure on the dashboard comes from City of Toronto Open Data. This file records what the City publishes, exactly what the pipeline does to it, and which rules decide what goes where. Checked live from the sandbox on 2026-10-16 (00:08–00:15 UTC) unless a line says otherwise.
+
+## 1. Primary source
+
+**Daily Shelter & Overnight Service Occupancy & Capacity** — package `daily-shelter-overnight-service-occupancy-capacity` (CKAN id `21c83b32-d5a8-4106-a54f-010dbe49f6f2`), owner Toronto Shelter & Support Services (TSSS).
+
+- API base: `https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/`
+- `package_show` (2026-10-16 00:09 UTC): `refresh_rate` **Daily**, `last_refreshed` **2026-10-15 13:36:59**, `is_retired` **false**, `num_resources` 24, `date_published` 2021-06-28.
+- Licence: CKAN reports `license_id` `notspecified`. The City's portal publishes its data under the **Open Government Licence – Toronto** v1.0 (https://open.toronto.ca/open-data-licence/, checked 2026-10-16). Its default attribution statement, used on every page: "Contains information licensed under the Open Government Licence – Toronto."
+- Limitations, verbatim from the package (`limitations`):
+  > This is unaudited data compiled directly from an administrative database. Data reflect only the state of each program's records in the database and may not always accurately reflect the actual current situation in each program.
+
+### 1.1 Resources used (datastore, queried through the CKAN API)
+
+| Year | Resource id | Rows (2026-10-16) | Dates | `OCCUPANCY_DATE` type and format |
+|---|---|---|---|---|
+| 2026 (current) | `42714176-4f05-44e6-b157-2b57f29b856a` | 38,725 | 2026-01-01 → 2026-10-14 (287 days) | `date`, `YYYY-MM-DD` |
+| 2025 | `5dc4fbfc-0951-45e8-ae30-962af9dcaf7c` | 51,543 | 2025-01-01 → 2025-12-31 | `date`, `YYYY-MM-DD` |
+| 2024 | `fc409fd7-0348-49d7-bba9-70ac1a8c727c` | 48,794 | 2024-01-01 → 2024-12-31 | `date`, `YYYY-MM-DD` |
+| 2023 | `62786156-b463-4c04-b286-c23f32c726ab` | 48,345 | 2023-01-01 → 2023-12-31 | **`text`**, `YYYY-MM-DDT00:00:00` |
+| 2022 | `1cc46acb-c6d3-4537-93ef-3ebad039275c` | 49,478 | 2022-01-01 → 2022-12-31 | **`text`**, `YY-MM-DD` |
+| 2021 | `da8854b8-e570-4de2-b051-a906b62fe7f8` | 50,944 | 2021-01-01 → 2021-12-31 | **`text`**, `YY-MM-DD` |
+
+The pipeline pulls each resource as CSV from `…/datastore/dump/<id>` (the same rows the API serves; one request per year instead of hundreds of paged `datastore_search` calls) and reads field types from `datastore_search?limit=0`.
+
+### 1.2 Schema (32 fields, identical names in all six resources)
+
+Field definitions are the City's own "data features" (`datastore_search` → `fields[].info.notes`), quoted or closely paraphrased.
+
+| Field | Type | City definition (short) | Used for |
+|---|---|---|---|
+| `_id` | int | row id | — |
+| `OCCUPANCY_DATE` | date / text (see 1.1) | "This date refers to the evening of the overnight period being reported. The occupancy data is retrieved at 4:00 am the following morning, so an OCCUPANCY_DATE of January 1, 2021 would refer to data collected at 4:00 am on January 2, 2021." | the night shown |
+| `ORGANIZATION_ID` | text | stable id of the operator | — |
+| `ORGANIZATION_NAME` | text | operator name | table, map popup |
+| `SHELTER_ID` | text | stable id of the shelter group | — |
+| `SHELTER_GROUP` | text | shelter group (lead shelter + satellites + hotels) | table |
+| `LOCATION_ID` | text | stable id of the location | geocode key |
+| `LOCATION_NAME` | text | location name | table, map |
+| `LOCATION_ADDRESS` | text | street address | geocoding |
+| `LOCATION_POSTAL_CODE` | text | postal code | geocoding (Nominatim fallback) |
+| `LOCATION_CITY` | text | city | geocoding |
+| `LOCATION_PROVINCE` | text | province | geocoding |
+| `PROGRAM_ID` | text | stable id of the program | table key |
+| `PROGRAM_NAME` | text | program name | table, map |
+| `SECTOR` | text | Families, Men, Mixed Adult, Women, Youth | sector chart, filters |
+| `PROGRAM_MODEL` | text | Emergency or Transitional | table |
+| `OVERNIGHT_SERVICE_TYPE` | text | Shelter, 24-Hour Respite Site, Motel/Hotel Shelter, … | table |
+| `PROGRAM_AREA` | text | base system or a temporary response program | headline / refugee split (§3) |
+| `SERVICE_USER_COUNT` | text (integer) | "Count of the number of service users staying in an overnight program as of the occupancy time and date. Programs with no service user occupancy will not be included in reporting for that day." | **people served** |
+| `CAPACITY_TYPE` | text | `Bed Based Capacity` or `Room Based Capacity` | beds vs rooms blocks |
+| `CAPACITY_ACTUAL_BED` | text (integer) | "beds showing as available for occupancy in SMIS" | bed capacity |
+| `CAPACITY_FUNDING_BED` | text (integer) | "beds that a program has been approved to provide" | funded beds (secondary line) |
+| `OCCUPIED_BEDS` | text (integer) | beds showing as occupied | occupied beds |
+| `UNOCCUPIED_BEDS` | text (integer) | `CAPACITY_ACTUAL_BED − OCCUPIED_BEDS`; "Beds may be held for a service user or may be vacant." | unoccupied beds |
+| `UNAVAILABLE_BEDS` | text (integer) | `CAPACITY_FUNDING_BED − CAPACITY_ACTUAL_BED` (out of service) | out-of-service beds |
+| `CAPACITY_ACTUAL_ROOM` | text (integer) | rooms showing as available for occupancy | room capacity |
+| `CAPACITY_FUNDING_ROOM` | text (integer) | rooms the program is approved to provide | funded rooms |
+| `OCCUPIED_ROOMS` | text (integer) | rooms showing as occupied | occupied rooms |
+| `UNOCCUPIED_ROOMS` | text (integer) | `CAPACITY_ACTUAL_ROOM − OCCUPIED_ROOMS`; "Rooms may be held for service users or may be vacant." | unoccupied rooms |
+| `UNAVAILABLE_ROOMS` | text (integer) | `CAPACITY_FUNDING_ROOM − CAPACITY_ACTUAL_ROOM` | out-of-service rooms |
+| `OCCUPANCY_RATE_BEDS` | text (decimal, %) | `OCCUPIED_BEDS ÷ CAPACITY_ACTUAL_BED` | per-program bed rate |
+| `OCCUPANCY_RATE_ROOMS` | text (decimal, %) | `OCCUPIED_ROOMS ÷ CAPACITY_ACTUAL_ROOM` | per-program room rate |
+
+### 1.3 Profile of the raw data (all six resources, 2026-10-16)
+
+- 287,829 rows. Every numeric field parses as a number; no stray text values.
+- Bed fields are filled **only** on `Bed Based Capacity` rows and room fields **only** on `Room Based Capacity` rows, in every year (2026 uses `null`, 2022 uses empty strings). So beds and rooms never overlap and are never added.
+- The City's own rate fields reproduce exactly from `OCCUPIED_* ÷ CAPACITY_ACTUAL_*` (0 mismatches at 2-decimal rounding). No row has zero actual capacity.
+- No duplicate (`OCCUPANCY_DATE`, `PROGRAM_ID`) pairs.
+- 1,334–2,346 rows a year have an empty `LOCATION_ADDRESS` (mostly sites the City does not publish an address for); these programs are listed on the map as unplaced, never guessed.
+- `LOCATION_CITY` has a trailing-space variant (`"North York "`) in 2021; the pipeline trims all text fields.
+
+## 2. "Last night" — what the date means
+
+The City's definition of `OCCUPANCY_DATE` (quoted in 1.2) says the date is **the evening of the overnight period**, counted at **4:00 am the next morning**. The dataset refreshes daily (≈ 13:37 UTC on 2026-10-15, which published the night of 2026-10-14).
+
+So the page says **"Last night (<weekday, date>)"** when the newest `OCCUPANCY_DATE` is yesterday in Toronto time, and **"Latest count — night of <date>"** otherwise (for example, between midnight and the City's mid-morning refresh, or when the City skips a day). The rule runs in the browser against the viewer's clock in `America/Toronto`.
+
+## 3. Program areas — what goes where
+
+Every `PROGRAM_AREA` value found in 2021–2026, with row counts across all six years:
+
+| `PROGRAM_AREA` | Rows | Years seen | City definition | Goes to |
+|---|---|---|---|---|
+| Base Shelter and Overnight Services System | 189,546 | 2021–2026 | "Programs that are intended to be regular, year-round programs." | **Headline** |
+| Base Program - Refugee | 10,180 | 2023–2026 | "year-round programs that serve refugee and asylum claimant families and individuals" | **Headline** (it is part of the base, year-round system) |
+| Temporary Programs | 21,639 | 2024–2026 | *not defined in the field notes* | **Headline** |
+| Winter Programs | 9,535 | 2021–2026 | field notes define "Winter Response": "exclusively dedicated to the provision of additional spaces under winter services plans" | **Headline** |
+| COVID-19 Response | 38,294 | 2021–2023 | "create spaces … to support improved physical distancing during the COVID-19 pandemic" | **Headline** (history only) |
+| *(blank)* | 2 | 2021 (Dec 30–31, one program) | — | **Headline** |
+| Temporary Refugee Response | 18,633 | 2021–2026 | "Programs that are intended to create spaces in the overnight services system in order to support refugee and asylum claimant families and individuals." | **Refugee-response panel** (own panel, never in the headline) |
+
+- **Headline** = every row whose `PROGRAM_AREA` is not `Temporary Refugee Response`.
+- **Refugee-response panel** = rows whose `PROGRAM_AREA` is `Temporary Refugee Response`.
+- **City-wide line** = all rows; shown once, small, so every headline figure can be traced (headline + refugee panel = City-wide, for people; beds and rooms separately).
+
+[unverified] "Temporary Programs" first appears in 2024, the year after "COVID-19 Response" last appears; the field notes do not define it. It is kept in the headline because it is not the refugee-response area. Listed under Open questions.
+
+## 4. Second source — turn-aways
+
+The toronto.ca page "Shelter System Requests for Referrals" states that its daily values "are available on Open Data". They are, as an open CKAN datastore:
+
+- Package `central-intake-calls` ("Central Intake calls"), owner TSSS, `refresh_rate` **Monthly**, `last_refreshed` 2026-09-18 18:27:32, `is_retired` false.
+- Resource **Central Intake Service Queue Data** `61191143-8143-4425-bf89-2c1523961227` (2,132 rows, 2020-11-01 → 2026-08-31): fields `Date` (date), `Unmatched callers`, `Single call`, `Repeat caller` (int4).
+  - `Date`: "Operational date for the data, uses the date before midnight to refer to the evening of service."
+  - `Unmatched callers`: "Total individuals who were not able to be offered a space over the past 24 hours, at time of closeout at 4am."
+- Resource **Central Intake Call Wrap-Up Codes Data** `9da03ed6-cd19-4df7-9b0a-03f81bf4995c` (call counts by code). Not used: the City says the two data sets "cannot be combined", and calls are not people.
+
+The turn-away card shows `Unmatched callers` for the latest operational date with **its own date** (it lags the occupancy data by about six weeks), plus the City's caveat from the referrals page: the unmatched count "only includes callers who are seeking space for a single or couple. People seeking space in family sector programs are supported through a different process".
+
+## 5. Geocoding
+
+1. **City Address Points** first: package `address-points-municipal-toronto-one-address-repository`, datastore resource `0b3756af-9caf-4f0f-ac28-9c6617adede4` (525,370 points, refreshed daily), exact match on `ADDRESS_FULL` after normalising the shelter address (trim, drop a trailing period, collapse spaces). Verified: `640 Dixon Rd.` → `640 Dixon Rd` → (−79.5765, 43.6921).
+2. **Nominatim** fallback (addresses outside Toronto, or no exact match): `nominatim.openstreetmap.org/search`, structured query with street, city, postal code, country `ca`; at most 1 request per second, with a real User-Agent, per the OSM Nominatim usage policy.
+3. Coordinates are cached in `data/geocodes.json` (key = normalised address + city), so the daily job only geocodes new addresses.
+4. Programs with no address, or no confident match, are listed as unplaced on the map; nothing is guessed.
+
+## 6. Transformations
+
+*(Filled in with P1 — see below.)*
