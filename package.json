@@ -1,0 +1,14 @@
+{
+	"name": "shelter-occupancy",
+	"private": true,
+	"description": "Toronto shelter occupancy dashboard. Static site; Node is used only for the browser tests.",
+	"license": "MIT",
+	"type": "module",
+	"scripts": {
+		"serve": "python3 -m http.server 8765 --bind 127.0.0.1",
+		"test": "bash tests/run-all.sh"
+	},
+	"devDependencies": {
+		"playwright": "1.56.1"
+	}
+}

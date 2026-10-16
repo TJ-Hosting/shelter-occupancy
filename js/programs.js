@@ -136,10 +136,12 @@ function drawMarkers(rows, refit) {
 	}
 	const surface = css("--surface");
 	const colour = { beds: css("--c-beds"), rooms: css("--c-rooms"), several: css("--key") };
-	const bounds = [];
+	const bounds = [...groups.values()].map((g) => [g[0].geo.lat, g[0].geo.lon]);
+	// Set the view before adding markers: Leaflet only creates marker elements once the map has a view.
+	if (refit && bounds.length) map.fitBounds(bounds, { padding: [28, 28], maxZoom: 15, animate: false });
+	else if (refit) map.setView(TORONTO, 11, { animate: false });
 	for (const group of groups.values()) {
 		const { lat, lon } = group[0].geo;
-		bounds.push([lat, lon]);
 		const fill = group.length > 1 ? colour.several : colour[group[0].capacity_type];
 		const m = L.circleMarker([lat, lon], {
 			radius: group.length > 1 ? 8 : 6.5, color: surface, weight: 2, fillColor: fill, fillOpacity: 1,
@@ -147,9 +149,8 @@ function drawMarkers(rows, refit) {
 		m.bindPopup(() => popup(group), { maxWidth: 320 });
 		m.bindTooltip(group.length > 1 ? `${group.length} programs · ${group[0].address}` : group[0].program, { direction: "top", offset: [0, -6] });
 		m.addTo(layer);
+		m.getElement()?.setAttribute("data-ll", `${lat},${lon}`);	// lets tests/map-check.mjs find a pin
 	}
-	if (refit && bounds.length) map.fitBounds(bounds, { padding: [28, 28], maxZoom: 15 });
-	else if (refit) map.setView(TORONTO, 11);
 }
 
 function popup(group) {
