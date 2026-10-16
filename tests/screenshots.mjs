@@ -34,6 +34,9 @@ for (const theme of ["dark", "light"]) {
 		await page.screenshot({ path: `${out}/${name}-top.png` });
 		await page.screenshot({ path: `${out}/${name}-full.jpg`, fullPage: true, type: "jpeg", quality: 82 });
 		shots.push(`${name}-top.png`, `${name}-full.jpg`);
+		// Element captures scroll the element into view; unstick the masthead and filter bar so they
+		// don't float over it (capture only; the full-page shots above show the page as served).
+		await page.addStyleTag({ content: ".masthead, .filters { position: static !important; }" });
 		const map = page.locator(".map-wrap");
 		await map.scrollIntoViewIfNeeded();
 		await page.waitForLoadState("networkidle");

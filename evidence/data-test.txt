@@ -1,0 +1,36 @@
+Data test — 2026-10-16T00:54:48.766Z
+Page: http://127.0.0.1:8765/ · snapshot night 2026-10-14 · night label shown: "Last night (Wednesday, October 14, 2026)"
+Raw: CKAN daily-shelter-overnight-service-occupancy-capacity, resource 42714176-4f05-44e6-b157-2b57f29b856a, 122 rows for 2026-10-14 (datastore_search, filtered). Newest night in the current resource: 2026-10-14.
+Package last_refreshed 2026-10-15 13:36:59.370233. Panels: headline = PROGRAM_AREA ≠ "Temporary Refugee Response" (107 programs), refugee = "Temporary Refugee Response" (15).
+
+PASS  headline people served                           raw → 6,238          shown → 6,238
+PASS  headline bed rate                                raw → 97.2%          shown → 97.2%
+PASS  headline room rate                               raw → 99.2%          shown → 99.2%
+PASS  headline beds occupied                           raw → 3,439          shown → 3,439
+PASS  headline beds capacity                           raw → 3,539          shown → 3,539
+PASS  headline beds unoccupied                         raw → 100            shown → 100
+PASS  headline rooms occupied                          raw → 1,713          shown → 1,713
+PASS  headline rooms capacity                          raw → 1,726          shown → 1,726
+PASS  headline rooms unoccupied                        raw → 13             shown → 13
+PASS  headline programs                                raw → 107            shown → 107
+PASS  refugee people served                            raw → 733            shown → 733
+PASS  refugee bed rate                                 raw → 84.8%          shown → 84.8%
+PASS  refugee room rate                                raw → 100.0%         shown → 100.0%
+PASS  refugee beds occupied                            raw → 178            shown → 178
+PASS  refugee beds capacity                            raw → 210            shown → 210
+PASS  refugee rooms occupied                           raw → 211            shown → 211
+PASS  refugee rooms capacity                           raw → 211            shown → 211
+PASS  refugee programs                                 raw → 15             shown → 15
+PASS  City-wide people served                          raw → 6,971          shown → 6,971
+PASS  City-wide bed rate                               raw → 96.5%          shown → 96.5%
+PASS  City-wide room rate                              raw → 99.3%          shown → 99.3%
+PASS  embed: people served                             raw → 6,238          shown → 6,238
+PASS  embed: bed rate                                  raw → 97.2%          shown → 97.2%
+PASS  embed: room rate                                 raw → 99.2%          shown → 99.2%
+PASS  night label names the snapshot's night           raw → true           shown → true
+PASS  every occupancy source line says 'as of' that night raw → true           shown → true
+PASS  embed source line says 'as of' that night        raw → Source: City of Toronto Open Data, as of Oct 14, 2026 shown → Source: City of Toronto Open Data, as of Oct 14, 2026
+PASS  unmatched callers (latest operational date)      raw → 73             shown → 73
+PASS  unmatched callers date                           raw → Monday, August 31, 2026 shown → Monday, August 31, 2026
+
+29/29 checks passed.

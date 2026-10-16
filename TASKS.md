@@ -12,8 +12,8 @@ Start: 2026-10-16 00:07 UTC. Times are the sandbox clock (`date -u`) and commit 
 | 4 | P4 embed card | done | 00:41 | 00:43 | 2 min |
 | 5 | P5 context, link-back, images | done | 00:43 | 00:45 | 2 min |
 | 6 | P6 deploy config + README | done | 00:45 | 00:47 | 2 min |
-| 7 | Evidence: screenshots, data test, contrast check | in progress | 00:47 | | |
-| 8 | Result file, PR | todo | | | |
+| 7 | Evidence: screenshots, data test, contrast check | done | 00:47 | 00:57 | 10 min |
+| 8 | Result file, PR | in progress | 00:57 | | |
 
 ## Phase 0 log
 
@@ -66,3 +66,9 @@ Start: 2026-10-16 00:07 UTC. Times are the sandbox clock (`date -u`) and commit 
 - `CNAME` (data.tj-hosting.ca), `.nojekyll`, self-contained `404.html` (absolute paths, rendered locally without errors).
 - README: local run, daily refresh and the `data-refresh` issue, the 60-day scheduled-workflow rule (quoted from GitHub's docs; whether bot commits count is [unverified]) and how to re-enable, accuracy rules, iframe snippet, post-merge steps.
 - Site runs locally from `python3 -m http.server`.
+
+## Evidence log
+
+- Dev runs while building the checks: the contrast check failed the light hero, block art, year-over-year band, footer fade and embed labels; fixed in CSS (not by loosening the check). The data test passed 29/29 on its first run.
+- Final run, once: `tests/run-all.sh` at 00:54:45 UTC → data 29/29, map 7/7, contrast all pass, image caps 7/7, 16 screenshots. Screenshots re-captured at 00:56 after unsticking the header in element captures.
+- Snapshot refreshed from live CKAN at 00:54 before the run (same night, 2026-10-14).

@@ -1,0 +1,24 @@
+dashboard-1440-dark: LAST NIGHT (WEDNESDAY, OCTOBER 14, 2026) · people 6,238 · no console errors
+dashboard-375-dark: LAST NIGHT (WEDNESDAY, OCTOBER 14, 2026) · people 6,238 · no console errors
+dashboard-1440-light: LAST NIGHT (WEDNESDAY, OCTOBER 14, 2026) · people 6,238 · no console errors
+dashboard-375-light: LAST NIGHT (WEDNESDAY, OCTOBER 14, 2026) · people 6,238 · no console errors
+embed 320×180: TORONTO SHELTERS · LAST NIGHT (OCT 14) · fits without overflow
+embed 600×340: TORONTO SHELTERS · LAST NIGHT (OCT 14) · fits without overflow
+
+16 files in evidence/screenshots/:
+dashboard-1440-dark-top.png
+dashboard-1440-dark-full.jpg
+map-1440-dark.png
+trends-1440-dark.png
+dashboard-375-dark-top.png
+dashboard-375-dark-full.jpg
+map-375-dark.png
+dashboard-1440-light-top.png
+dashboard-1440-light-full.jpg
+map-1440-light.png
+trends-1440-light.png
+dashboard-375-light-top.png
+dashboard-375-light-full.jpg
+map-375-light.png
+embed-320x180.png
+embed-600x340.png
