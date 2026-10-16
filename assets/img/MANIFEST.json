@@ -518,6 +518,26 @@
 					"bytes": 18144
 				}
 			]
+		},
+		{
+			"name": "sh-og-share",
+			"source": "assets/pack/sh-og-share.jpg",
+			"source_sha256": "39d2757bdabd4af1c9b690cafba40f09955a64015d0800594d5d6ac3f9a8c2e8",
+			"source_size": "1280x720",
+			"use": "share image (og:image), title rendered by scripts/build_og.mjs",
+			"alt": "The words TORONTO SHELTER OCCUPANCY over a painted Toronto skyline at dusk.",
+			"ledger": "assets/pack/LEDGER.jsonl",
+			"line": 24,
+			"provider": "grok",
+			"date": "2026-10-15T19:41:11",
+			"outputs": [
+				{
+					"file": "assets/img/og-share-1200x630.jpg",
+					"width": 1200,
+					"height": 630,
+					"bytes": 94042
+				}
+			]
 		}
 	]
 }

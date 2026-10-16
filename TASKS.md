@@ -10,8 +10,8 @@ Start: 2026-10-16 00:07 UTC. Budget 8 h · re-plan line 7.5 h (≈ 07:37 UTC).
 | 2 | P2 dashboard page (map code included, see P3) | done | 00:25 | 00:44 | 19 min |
 | 3 | P3 map | done | 00:44 | 00:47 | 3 min |
 | 4 | P4 embed card | done | 00:47 | 00:53 | 6 min |
-| 5 | P5 context, link-back, images | in progress | 00:53 | | |
-| 6 | P6 deploy config + README | todo | | | |
+| 5 | P5 context, link-back, images | done | 00:53 | 01:03 | 10 min |
+| 6 | P6 deploy config + README | in progress | 01:03 | | |
 | 7 | Evidence: screenshots, data test, contrast check | todo | | | |
 | 8 | Result file, PR | todo | | | |
 
@@ -51,3 +51,12 @@ Start: 2026-10-16 00:07 UTC. Budget 8 h · re-plan line 7.5 h (≈ 07:37 UTC).
 ## P4 log
 
 - `/embed/`: self-contained dark card (people served, bed and room rates, night, source with date, link to the dashboard). Checked in headless Chromium at 320×180 and 600×340: content box equals the viewport (no overflow) at both sizes. Fixed a 4 px overflow from the inline image baseline.
+
+## P5 log
+
+- Context section with the City's limitation verbatim, OGL – Toronto credit and the Homeless in Toronto link (built in P2).
+- Images: 14 of 25 pack images shipped, each traced in `assets/img/MANIFEST.json` to its ledger line; doorway (text + a framed photo that appears to show people) and snowy bench (implies rough sleeping) not shipped.
+- `scripts/imagegen.py`: 40-call and US$10 caps in code, ledger line per call in a `finally`, keys from env only, guard clause (no people, no text) on every prompt, moderation block ends an image, unpriced OpenAI sizes refused. `tests/imagegen-caps.py` 7/7 without any API call.
+- No key → 3 requests in `assets/REQUESTS.md` (2560 px heroes, clean doorway). Generated 0/40, spend US$0.00/10.
+- Share image 1200×630 rendered from `sh-og-share` (downscaled, not upscaled) with no figures, so it never goes stale.
+- `CREDITS.md`: data, tiles, libraries with SHA-384, font, pack, generated images, tools.
