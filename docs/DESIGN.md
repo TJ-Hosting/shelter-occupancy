@@ -40,6 +40,7 @@ Every chart colour does one job and was run through the dataviz validator (`vali
 | Entity | Light | Dark | Where |
 |---|---|---|---|
 | People, headline programs | `#b7791f` | `#bd7f24` | people chart, sector people bars |
+| Temporary Programs | `#2a9a6c` | `#36a87d` | stacked band (between the two above), panel rule |
 | Temporary Refugee Response | `#2f7dbb` | `#4a8fd0` | stacked band, panel rule |
 | Beds | `#d0573f` | `#d9604a` | beds block, rate chart, map pins, meters |
 | Rooms | `#7b5ea7` | `#9479cf` | rooms block, rate chart, map pins, meters |
@@ -52,6 +53,10 @@ Validator results (2026-10-16), surfaces `#faf7f0` light and `#101113` dark:
 | beds / rooms | light | pass | pass | 17.3 (protan) | 20.9 | pass |
 | people / refugee | dark | pass | pass | 22.9 (protan) | 24.7 | pass |
 | beds / rooms | dark | pass | pass | 19.7 (protan) | 21.1 | pass |
+| people / temporary / refugee (stack, adjacent pairs) | light | pass | pass | 8.8 (protan, people ↔ temporary) | 17.0 (temporary ↔ refugee) | pass |
+| people / temporary / refugee (stack, adjacent pairs) | dark | pass | pass | 9.8 (deutan, people ↔ temporary) | 16.5 (temporary ↔ refugee) | pass |
+
+The Temporary Programs teal was added in shelter-02 (2026-10-18) and validated as the middle of the three-band stack; tritan separation is low (4.5 light, 3.7 dark), so the legend, the tooltip rows and the table carry identity too.
 
 All four entities together fail the *all-pairs* test (amber ↔ coral in light, violet ↔ blue in dark). Those pairs never share a chart, every chart has a legend, and every block names its type in text, so colour is never the only identity channel.
 

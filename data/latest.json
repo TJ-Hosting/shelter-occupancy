@@ -13,36 +13,37 @@
 	},
 	"near_full_threshold": 95.0,
 	"refugee_area": "Temporary Refugee Response",
+	"temporary_area": "Temporary Programs",
 	"headline": {
-		"programs": 107,
-		"people": 6227,
+		"programs": 87,
+		"people": 4311,
 		"beds": {
-			"programs": 80,
-			"occupied": 3429,
-			"capacity_actual": 3539,
-			"capacity_funding": 3619,
+			"programs": 79,
+			"occupied": 3379,
+			"capacity_actual": 3489,
+			"capacity_funding": 3569,
 			"unoccupied": 110,
 			"unavailable": 80,
-			"rate": 96.9,
-			"near_full": 65,
-			"full": 51
+			"rate": 96.8,
+			"near_full": 64,
+			"full": 50
 		},
 		"rooms": {
-			"programs": 27,
-			"occupied": 1719,
-			"capacity_actual": 1733,
-			"capacity_funding": 1847,
-			"unoccupied": 14,
-			"unavailable": 133,
-			"rate": 99.2,
-			"near_full": 24,
-			"full": 22
+			"programs": 8,
+			"occupied": 312,
+			"capacity_actual": 324,
+			"capacity_funding": 352,
+			"unoccupied": 12,
+			"unavailable": 28,
+			"rate": 96.3,
+			"near_full": 5,
+			"full": 5
 		},
-		"near_full": 89,
+		"near_full": 69,
 		"by_sector": {
 			"Families": {
-				"programs": 10,
-				"people": 1386,
+				"programs": 8,
+				"people": 932,
 				"beds": {
 					"programs": 0,
 					"occupied": 0,
@@ -55,48 +56,48 @@
 					"full": 0
 				},
 				"rooms": {
-					"programs": 10,
-					"occupied": 469,
-					"capacity_actual": 481,
-					"capacity_funding": 503,
+					"programs": 8,
+					"occupied": 312,
+					"capacity_actual": 324,
+					"capacity_funding": 352,
 					"unoccupied": 12,
-					"unavailable": 36,
-					"rate": 97.5,
-					"near_full": 7,
-					"full": 7
-				},
-				"near_full": 7
-			},
-			"Men": {
-				"programs": 27,
-				"people": 1462,
-				"beds": {
-					"programs": 22,
-					"occupied": 1199,
-					"capacity_actual": 1258,
-					"capacity_funding": 1279,
-					"unoccupied": 59,
-					"unavailable": 21,
-					"rate": 95.3,
-					"near_full": 16,
-					"full": 14
-				},
-				"rooms": {
-					"programs": 5,
-					"occupied": 228,
-					"capacity_actual": 228,
-					"capacity_funding": 271,
-					"unoccupied": 0,
-					"unavailable": 43,
-					"rate": 100.0,
+					"unavailable": 28,
+					"rate": 96.3,
 					"near_full": 5,
 					"full": 5
 				},
-				"near_full": 21
+				"near_full": 5
+			},
+			"Men": {
+				"programs": 21,
+				"people": 1149,
+				"beds": {
+					"programs": 21,
+					"occupied": 1149,
+					"capacity_actual": 1208,
+					"capacity_funding": 1229,
+					"unoccupied": 59,
+					"unavailable": 21,
+					"rate": 95.1,
+					"near_full": 15,
+					"full": 13
+				},
+				"rooms": {
+					"programs": 0,
+					"occupied": 0,
+					"capacity_actual": 0,
+					"capacity_funding": 0,
+					"unoccupied": 0,
+					"unavailable": 0,
+					"rate": null,
+					"near_full": 0,
+					"full": 0
+				},
+				"near_full": 15
 			},
 			"Mixed Adult": {
-				"programs": 28,
-				"people": 1938,
+				"programs": 19,
+				"people": 985,
 				"beds": {
 					"programs": 19,
 					"occupied": 985,
@@ -109,21 +110,21 @@
 					"full": 14
 				},
 				"rooms": {
-					"programs": 9,
-					"occupied": 856,
-					"capacity_actual": 858,
-					"capacity_funding": 895,
-					"unoccupied": 2,
-					"unavailable": 42,
-					"rate": 99.8,
-					"near_full": 9,
-					"full": 7
+					"programs": 0,
+					"occupied": 0,
+					"capacity_actual": 0,
+					"capacity_funding": 0,
+					"unoccupied": 0,
+					"unavailable": 0,
+					"rate": null,
+					"near_full": 0,
+					"full": 0
 				},
-				"near_full": 26
+				"near_full": 17
 			},
 			"Women": {
-				"programs": 21,
-				"people": 829,
+				"programs": 18,
+				"people": 633,
 				"beds": {
 					"programs": 18,
 					"occupied": 633,
@@ -136,17 +137,17 @@
 					"full": 13
 				},
 				"rooms": {
-					"programs": 3,
-					"occupied": 166,
-					"capacity_actual": 166,
-					"capacity_funding": 178,
+					"programs": 0,
+					"occupied": 0,
+					"capacity_actual": 0,
+					"capacity_funding": 0,
 					"unoccupied": 0,
-					"unavailable": 12,
-					"rate": 100.0,
-					"near_full": 3,
-					"full": 3
+					"unavailable": 0,
+					"rate": null,
+					"near_full": 0,
+					"full": 0
 				},
-				"near_full": 18
+				"near_full": 15
 			},
 			"Youth": {
 				"programs": 21,
@@ -174,6 +175,143 @@
 					"full": 0
 				},
 				"near_full": 17
+			}
+		}
+	},
+	"temporary": {
+		"programs": 20,
+		"people": 1916,
+		"beds": {
+			"programs": 1,
+			"occupied": 50,
+			"capacity_actual": 50,
+			"capacity_funding": 50,
+			"unoccupied": 0,
+			"unavailable": 0,
+			"rate": 100.0,
+			"near_full": 1,
+			"full": 1
+		},
+		"rooms": {
+			"programs": 19,
+			"occupied": 1407,
+			"capacity_actual": 1409,
+			"capacity_funding": 1495,
+			"unoccupied": 2,
+			"unavailable": 105,
+			"rate": 99.9,
+			"near_full": 19,
+			"full": 17
+		},
+		"near_full": 20,
+		"by_sector": {
+			"Families": {
+				"programs": 2,
+				"people": 454,
+				"beds": {
+					"programs": 0,
+					"occupied": 0,
+					"capacity_actual": 0,
+					"capacity_funding": 0,
+					"unoccupied": 0,
+					"unavailable": 0,
+					"rate": null,
+					"near_full": 0,
+					"full": 0
+				},
+				"rooms": {
+					"programs": 2,
+					"occupied": 157,
+					"capacity_actual": 157,
+					"capacity_funding": 151,
+					"unoccupied": 0,
+					"unavailable": 8,
+					"rate": 100.0,
+					"near_full": 2,
+					"full": 2
+				},
+				"near_full": 2
+			},
+			"Men": {
+				"programs": 6,
+				"people": 313,
+				"beds": {
+					"programs": 1,
+					"occupied": 50,
+					"capacity_actual": 50,
+					"capacity_funding": 50,
+					"unoccupied": 0,
+					"unavailable": 0,
+					"rate": 100.0,
+					"near_full": 1,
+					"full": 1
+				},
+				"rooms": {
+					"programs": 5,
+					"occupied": 228,
+					"capacity_actual": 228,
+					"capacity_funding": 271,
+					"unoccupied": 0,
+					"unavailable": 43,
+					"rate": 100.0,
+					"near_full": 5,
+					"full": 5
+				},
+				"near_full": 6
+			},
+			"Mixed Adult": {
+				"programs": 9,
+				"people": 953,
+				"beds": {
+					"programs": 0,
+					"occupied": 0,
+					"capacity_actual": 0,
+					"capacity_funding": 0,
+					"unoccupied": 0,
+					"unavailable": 0,
+					"rate": null,
+					"near_full": 0,
+					"full": 0
+				},
+				"rooms": {
+					"programs": 9,
+					"occupied": 856,
+					"capacity_actual": 858,
+					"capacity_funding": 895,
+					"unoccupied": 2,
+					"unavailable": 42,
+					"rate": 99.8,
+					"near_full": 9,
+					"full": 7
+				},
+				"near_full": 9
+			},
+			"Women": {
+				"programs": 3,
+				"people": 196,
+				"beds": {
+					"programs": 0,
+					"occupied": 0,
+					"capacity_actual": 0,
+					"capacity_funding": 0,
+					"unoccupied": 0,
+					"unavailable": 0,
+					"rate": null,
+					"near_full": 0,
+					"full": 0
+				},
+				"rooms": {
+					"programs": 3,
+					"occupied": 166,
+					"capacity_actual": 166,
+					"capacity_funding": 178,
+					"unoccupied": 0,
+					"unavailable": 12,
+					"rate": 100.0,
+					"near_full": 3,
+					"full": 3
+				},
+				"near_full": 3
 			}
 		}
 	},
@@ -614,7 +752,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 106,
 			"occupied": 32,
@@ -674,7 +812,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 348,
 			"occupied": 125,
@@ -1064,7 +1202,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 40,
 			"occupied": 40,
@@ -1304,7 +1442,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 47,
 			"occupied": 47,
@@ -1484,7 +1622,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 107,
 			"occupied": 86,
@@ -1634,7 +1772,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 41,
 			"occupied": 27,
@@ -1724,7 +1862,7 @@
 			"model": "Emergency",
 			"service_type": "24-Hour Respite Site",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "beds",
 			"people": 50,
 			"occupied": 50,
@@ -1814,7 +1952,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 28,
 			"occupied": 28,
@@ -1904,7 +2042,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 169,
 			"occupied": 145,
@@ -2174,7 +2312,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 57,
 			"occupied": 57,
@@ -2264,7 +2402,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 287,
 			"occupied": 268,
@@ -2651,7 +2789,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 67,
 			"occupied": 62,
@@ -2681,7 +2819,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 163,
 			"occupied": 135,
@@ -2708,7 +2846,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 24,
 			"occupied": 16,
@@ -2738,7 +2876,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 81,
 			"occupied": 81,
@@ -2768,7 +2906,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 28,
 			"occupied": 15,
@@ -2798,7 +2936,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 77,
 			"occupied": 77,
@@ -3095,7 +3233,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 47,
 			"occupied": 31,
@@ -3155,7 +3293,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 102,
 			"occupied": 102,
@@ -3365,7 +3503,7 @@
 			"model": "Emergency",
 			"service_type": "Motel/Hotel Shelter",
 			"area": "Temporary Programs",
-			"panel": "headline",
+			"panel": "temporary",
 			"capacity_type": "rooms",
 			"people": 47,
 			"occupied": 33,

@@ -72,7 +72,7 @@
 				<p class="lastnight reveal reveal-2" data-figure="night-label">Loading the City's latest count…</p>
 				<p class="hero-figure reveal reveal-2"><span data-figure="headline-people">—</span></p>
 				<p class="hero-label reveal reveal-3">people served in shelter and overnight programs</p>
-				<p class="hero-note reveal reveal-3">Service users staying overnight in City-funded programs, excluding the Temporary Refugee Response programs, which are <a href="#refugee">shown separately</a>.</p>
+				<p class="hero-note reveal reveal-3">Service users staying overnight in City-funded programs, excluding <a href="#temporary">Temporary Programs</a> and the <a href="#refugee">Temporary Refugee Response</a>, which are shown separately.</p>
 			</div>
 		</section>
 
@@ -126,8 +126,31 @@
 				</div>
 			</div>
 
-			<!-- ============================================================ refugee panel + turn-aways -->
+			<!-- ============================================================ separate panels + turn-aways -->
 			<div class="grid-2" style="margin-top: 1.25rem">
+				<article class="card panel-temporary" id="temporary" aria-labelledby="temporary-title">
+					<p class="kicker">Separate panel · <span data-figure="temporary-night">—</span></p>
+					<h3 id="temporary-title">Temporary Programs</h3>
+					<p class="panel-figure"><span data-figure="temporary-people">—</span><small>people served</small></p>
+					<div class="mini-blocks">
+						<div>
+							<h4><i style="background: var(--c-beds)" aria-hidden="true"></i>Beds</h4>
+							<p class="mini-rate" data-figure="temporary-beds-rate">—</p>
+							<div class="meter beds" aria-hidden="true"><span data-meter="temporary-beds"></span></div>
+							<p><span data-figure="temporary-beds-occupied">—</span> of <span data-figure="temporary-beds-capacity">—</span> occupied</p>
+						</div>
+						<div>
+							<h4><i style="background: var(--c-rooms)" aria-hidden="true"></i>Rooms</h4>
+							<p class="mini-rate" data-figure="temporary-rooms-rate">—</p>
+							<div class="meter rooms" aria-hidden="true"><span data-meter="temporary-rooms"></span></div>
+							<p><span data-figure="temporary-rooms-occupied">—</span> of <span data-figure="temporary-rooms-capacity">—</span> occupied</p>
+						</div>
+					</div>
+					<ul class="mini-sectors" id="temporary-sectors" aria-label="Temporary Programs, people served by sector"></ul>
+					<p class="panel-note">The City's field notes don't define the “Temporary Programs” program area; it first appears in the data in January 2024. It is shown on its own so that an undefined category doesn't drive the headline. <span data-figure="temporary-programs">—</span> programs reported last night.</p>
+					<p class="source" data-source="occupancy">—</p>
+				</article>
+
 				<article class="card panel-refugee" id="refugee" aria-labelledby="refugee-title">
 					<picture class="panel-bg" aria-hidden="true">
 						<source type="image/avif" srcset="assets/img/sh-tex-dusk-sky-640.avif">
@@ -154,7 +177,9 @@
 					<blockquote class="city">The City's definition: “Programs that are intended to create spaces in the overnight services system in order to support refugee and asylum claimant families and individuals.” <span data-figure="refugee-programs">—</span> programs reported last night. Year-round refugee programs (“Base Program - Refugee”) stay in the headline.</blockquote>
 					<p class="source" data-source="occupancy">—</p>
 				</article>
+			</div>
 
+			<div style="margin-top: 1.25rem">
 				<article class="card panel-turnaways" id="turnaways" aria-labelledby="ta-title">
 					<p class="kicker">Second source · <span data-figure="ta-date-short">—</span></p>
 					<h3 id="ta-title">Unmatched callers</h3>
@@ -175,7 +200,8 @@
 				<div class="section-head">
 					<p class="kicker"><span class="idx">02</span> · Since 2021</p>
 					<h2 id="trends-title">Every night since January 2021</h2>
-					<p>One point per night, straight from the City's daily records. The headline series excludes the Temporary Refugee Response programs; the people chart stacks them on top so the City-wide total stays visible.</p>
+					<p>One point per night, straight from the City's daily records. The headline series excludes Temporary Programs and the Temporary Refugee Response; the people chart stacks both on top so the City-wide total stays visible.</p>
+					<p><strong>A step in January 2024:</strong> that night the City moved 23 programs (22 from “COVID-19 Response”, one from “Winter Programs”) into a new “Temporary Programs” area. This page keeps that area out of the headline, so the headline series drops by 2,248 people between December 31, 2023 and January 1, 2024. The City-wide total doesn't.</p>
 				</div>
 				<div class="controls" role="group" aria-label="Time range for the two charts below">
 					<span class="label">Range</span>
@@ -188,9 +214,10 @@
 				<div class="grid-2">
 					<article class="card chart-card" aria-labelledby="people-title">
 						<h3 id="people-title">People served each night</h3>
-						<p class="sub">Headline programs and Temporary Refugee Response, stacked. Top edge = City-wide.</p>
+						<p class="sub">Headline programs, Temporary Programs and Temporary Refugee Response, stacked in that order. Top edge = City-wide.</p>
 						<ul class="legend" aria-hidden="true">
 							<li><span class="key-rect" style="background: var(--c-people)"></span>Headline programs</li>
+							<li><span class="key-rect" style="background: var(--c-temporary)"></span>Temporary Programs</li>
 							<li><span class="key-rect" style="background: var(--c-refugee)"></span>Temporary Refugee Response</li>
 						</ul>
 						<div class="chart" id="chart-people" role="img" aria-label="Stacked area chart of people served each night since 2021"></div>
@@ -232,7 +259,7 @@
 						</div>
 						<ul class="legend" id="yoy-legend" aria-hidden="true"></ul>
 						<div class="chart" id="chart-yoy" role="img" aria-label="Year-over-year overlay, one line per year on a January-to-December axis"></div>
-						<p class="sub">Headline programs (excluding Temporary Refugee Response). <span data-figure="yoy-axis-note"></span></p>
+						<p class="sub">Headline programs (excluding Temporary Programs and Temporary Refugee Response). Before 2024 the headline includes the COVID-19 Response programs that became Temporary Programs, so 2021–2023 sit higher. <span data-figure="yoy-axis-note"></span></p>
 						<details class="data-table" data-table="history"><summary>Show every night as a table</summary><div class="table-scroll"></div></details>
 						<p class="source" data-source="history">—</p>
 					</article>
@@ -327,7 +354,7 @@
 						<ul>
 							<li>The City of Toronto's own nightly count of people staying in shelter and overnight programs it funds, and how many of those programs' beds and rooms were occupied. The count is taken at 4:00 am and refers to the evening before.</li>
 							<li>Beds and rooms are separate measures and are never added together. Rates are occupied ÷ actual capacity (beds or rooms in service that night), the City's own formula, applied to the totals.</li>
-							<li>“Temporary Refugee Response” programs appear in their own panel. The headline covers every other program area.</li>
+							<li>“Temporary Programs” and “Temporary Refugee Response” each appear in their own panel. The headline covers every other program area, and one line adds the three back up to the City-wide total.</li>
 							<li>Unmatched callers come from a second City dataset, Central Intake's service queue, published monthly with its own dates.</li>
 						</ul>
 						<h3>What it doesn't</h3>

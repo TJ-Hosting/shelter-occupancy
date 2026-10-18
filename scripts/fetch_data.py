@@ -44,6 +44,8 @@ NOMINATIM = "https://nominatim.openstreetmap.org/search"
 USER_AGENT = "shelter-occupancy/1.0 (+https://github.com/TJ-Hosting/shelter-occupancy; data.tj-hosting.ca)"
 
 REFUGEE_AREA = "Temporary Refugee Response"
+TEMPORARY_AREA = "Temporary Programs"	# undefined in the City's notes, so it has its own panel (Aco, 2026-10-17)
+PANELS = ("headline", "temporary", "refugee")
 KNOWN_AREAS = {
 	"Base Shelter and Overnight Services System",
 	"Base Program - Refugee",
@@ -210,7 +212,11 @@ def parse_row(r, resource_id):
 
 
 def panel_of(area):
-	return "refugee" if area == REFUGEE_AREA else "headline"
+	if area == REFUGEE_AREA:
+		return "refugee"
+	if area == TEMPORARY_AREA:
+		return "temporary"
+	return "headline"
 
 
 # ---------------------------------------------------------------- aggregation
@@ -494,11 +500,11 @@ def build(args):
 	ta = fetch_turnaways(previous_history, warnings)
 
 	# ---- history: one value per night per panel, columnar to keep the file slim
-	per_day = {d: {"headline": new_totals(), "refugee": new_totals()} for d in dates}
+	per_day = {d: {panel: new_totals() for panel in PANELS} for d in dates}
 	for p in programs:
 		add(per_day[p["date"]][panel_of(p["area"])], p)
 	series = {}
-	for panel in ("headline", "refugee"):
+	for panel in PANELS:
 		s = {k: [] for k in ("people", "programs", "beds_occupied", "beds_capacity", "rooms_occupied", "rooms_capacity")}
 		for d in dates:
 			t = per_day[d][panel]
@@ -511,7 +517,8 @@ def build(args):
 		series[panel] = s
 	history = {
 		"about": "Nightly totals from the City of Toronto's Daily Shelter & Overnight Service Occupancy & Capacity data. "
-			"headline = every PROGRAM_AREA except Temporary Refugee Response; refugee = Temporary Refugee Response. "
+			"headline = every PROGRAM_AREA except Temporary Programs and Temporary Refugee Response; "
+			"temporary = Temporary Programs; refugee = Temporary Refugee Response. "
 			"Capacity is actual capacity. Beds and rooms are separate and never added. See docs/DATA.md.",
 		"source": PACKAGE_URL,
 		"first_date": dates[0], "last_date": latest,
@@ -536,8 +543,8 @@ def build(args):
 	log(f"Geocoding {len(night)} programs (cache {len(cache.get('entries', {}))} entries)…")
 	geocode(night, cache, now.date().isoformat(), warnings, enabled=not args.no_geocode)
 
-	groups = {"headline": new_totals(), "refugee": new_totals(), "citywide": new_totals()}
-	by_sector = {"headline": {}, "refugee": {}, "citywide": {}}
+	groups = {g: new_totals() for g in (*PANELS, "citywide")}
+	by_sector = {g: {} for g in groups}
 	by_area = {}
 	for p in night:
 		panel = panel_of(p["area"])
@@ -552,12 +559,12 @@ def build(args):
 		groups[g]["by_sector"] = dict(sorted(by_sector[g].items()))
 	for t in by_area.values():
 		finish(t)
-	# Arithmetic check: the two panels add up to the City-wide line, per measure.
+	# Arithmetic check: the three panels add up to the City-wide line, per measure.
 	for k in ("people", "programs"):
-		assert groups["headline"][k] + groups["refugee"][k] == groups["citywide"][k], k
+		assert sum(groups[g][k] for g in PANELS) == groups["citywide"][k], k
 	for kind in ("beds", "rooms"):
 		for k in ("occupied", "capacity_actual"):
-			assert groups["headline"][kind][k] + groups["refugee"][kind][k] == groups["citywide"][kind][k], (kind, k)
+			assert sum(groups[g][kind][k] for g in PANELS) == groups["citywide"][kind][k], (kind, k)
 
 	ta_latest = None
 	if ta["series"]:
@@ -590,7 +597,9 @@ def build(args):
 		},
 		"near_full_threshold": NEAR_FULL,
 		"refugee_area": REFUGEE_AREA,
+		"temporary_area": TEMPORARY_AREA,
 		"headline": groups["headline"],
+		"temporary": groups["temporary"],
 		"refugee": groups["refugee"],
 		"citywide": groups["citywide"],
 		"by_program_area": dict(sorted(by_area.items())),
@@ -625,7 +634,8 @@ def build(args):
 	write_json(os.path.join(DATA_DIR, "latest.json"), latest_doc)
 	write_json(os.path.join(DATA_DIR, "meta.json"), meta)
 	write_json(cache_path, cache)
-	log(f"Wrote data/ for night {latest}: headline {groups['headline']['people']} people, refugee {groups['refugee']['people']}, City-wide {groups['citywide']['people']}.")
+	log(f"Wrote data/ for night {latest}: headline {groups['headline']['people']} people, Temporary Programs {groups['temporary']['people']}, "
+		f"refugee {groups['refugee']['people']}, City-wide {groups['citywide']['people']}.")
 	if warnings:
 		log("Warnings:\n- " + "\n- ".join(warnings))
 		if os.environ.get("REFRESH_WARN_FILE"):

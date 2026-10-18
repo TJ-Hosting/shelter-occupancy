@@ -11,6 +11,7 @@ const base = process.argv[2] || "http://127.0.0.1:8765/";
 const API = "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/";
 const PACKAGE = "daily-shelter-overnight-service-occupancy-capacity";
 const REFUGEE = "Temporary Refugee Response";
+const TEMPORARY = "Temporary Programs";	// own panel since shelter-02 (Aco, 17 Oct 2026): the City doesn't define it
 
 const results = [];
 const check = (name, expected, shown) => results.push({ name, expected, shown, ok: expected === shown });
@@ -48,7 +49,12 @@ const shown = await page.evaluate(() => {
 	out.sources = [...document.querySelectorAll('[data-source="occupancy"]')].map((n) => n.textContent.trim());
 	return out;
 });
-const snapshotDate = await page.evaluate(async () => (await (await fetch("data/latest.json")).json()).occupancy_date);
+const snapshot = await page.evaluate(async () => {
+	const d = await (await fetch("data/latest.json")).json();
+	return { date: d.occupancy_date, headlineAreas: [...new Set(d.programs.filter((p) => p.panel === "headline").map((p) => p.area))] };
+});
+const snapshotDate = snapshot.date;
+const headlineAreas = snapshot.headlineAreas;
 
 const embed = await browser.newPage({ viewport: { width: 600, height: 340 }, locale: "en-CA", timezoneId: "America/Toronto" });
 await embed.goto(new URL("embed/", base).href, { waitUntil: "networkidle" });
@@ -100,9 +106,12 @@ function totals(filter) {
 	}
 	return t;
 }
-const headline = totals((r) => (r.PROGRAM_AREA || "").trim() !== REFUGEE);
-const refugee = totals((r) => (r.PROGRAM_AREA || "").trim() === REFUGEE);
+const area = (r) => (r.PROGRAM_AREA || "").trim();
+const headline = totals((r) => area(r) !== REFUGEE && area(r) !== TEMPORARY);
+const temporary = totals((r) => area(r) === TEMPORARY);
+const refugee = totals((r) => area(r) === REFUGEE);
 const citywide = totals(() => true);
+const num = (s) => { const d = String(s ?? "").replace(/[^\d]/g, ""); return d ? Number(d) : NaN; };	// a missing figure fails the sum
 
 // ---------------------------------------------------------------- 3. compare
 check("headline people served", fmtN(headline.people), shown["headline-people"]);
@@ -115,6 +124,14 @@ check("headline rooms occupied", fmtN(headline.rooms.occ), shown["headline-rooms
 check("headline rooms capacity", fmtN(headline.rooms.cap), shown["headline-rooms-capacity"]);
 check("headline rooms unoccupied", fmtN(headline.rooms.cap - headline.rooms.occ), shown["headline-rooms-unoccupied"]);
 check("headline programs", fmtN(headline.programs), shown["headline-programs"]);
+check("Temporary Programs people served", fmtN(temporary.people), shown["temporary-people"]);
+check("Temporary Programs bed rate", fmtRate(rate(temporary.beds.occ, temporary.beds.cap)), shown["temporary-beds-rate"]);
+check("Temporary Programs room rate", fmtRate(rate(temporary.rooms.occ, temporary.rooms.cap)), shown["temporary-rooms-rate"]);
+check("Temporary Programs beds occupied", fmtN(temporary.beds.occ), shown["temporary-beds-occupied"]);
+check("Temporary Programs beds capacity", fmtN(temporary.beds.cap), shown["temporary-beds-capacity"]);
+check("Temporary Programs rooms occupied", fmtN(temporary.rooms.occ), shown["temporary-rooms-occupied"]);
+check("Temporary Programs rooms capacity", fmtN(temporary.rooms.cap), shown["temporary-rooms-capacity"]);
+check("Temporary Programs programs", fmtN(temporary.programs), shown["temporary-programs"]);
 check("refugee people served", fmtN(refugee.people), shown["refugee-people"]);
 check("refugee bed rate", fmtRate(rate(refugee.beds.occ, refugee.beds.cap)), shown["refugee-beds-rate"]);
 check("refugee room rate", fmtRate(rate(refugee.rooms.occ, refugee.rooms.cap)), shown["refugee-rooms-rate"]);
@@ -126,6 +143,11 @@ check("refugee programs", fmtN(refugee.programs), shown["refugee-programs"]);
 check("City-wide people served", fmtN(citywide.people), shown["citywide-people"]);
 check("City-wide bed rate", fmtRate(rate(citywide.beds.occ, citywide.beds.cap)), shown["citywide-beds-rate"]);
 check("City-wide room rate", fmtRate(rate(citywide.rooms.occ, citywide.rooms.cap)), shown["citywide-rooms-rate"]);
+// The headline leaves out both temporary areas, and the three panels add up to the City-wide line.
+check("snapshot: no headline program is in either temporary area", "none", headlineAreas.filter((a) => a === REFUGEE || a === TEMPORARY).join(", ") || "none");
+check("raw: headline + Temporary Programs + refugee = City-wide people", citywide.people, headline.people + temporary.people + refugee.people);
+check("shown: headline + Temporary Programs + refugee = City-wide people", num(shown["citywide-people"]),
+	num(shown["headline-people"]) + num(shown["temporary-people"]) + num(shown["refugee-people"]));
 check("embed: people served", fmtN(headline.people), card.people);
 check("embed: bed rate", fmtRate(rate(headline.beds.occ, headline.beds.cap)), card.beds);
 check("embed: room rate", fmtRate(rate(headline.rooms.occ, headline.rooms.cap)), card.rooms);
@@ -150,7 +172,7 @@ const pass = results.filter((r) => r.ok).length;
 console.log(`Data test — ${new Date().toISOString()}`);
 console.log(`Page: ${base} · snapshot night ${snapshotDate} · night label shown: "${shown["night-label"]}"`);
 console.log(`Raw: CKAN ${PACKAGE}, resource ${resourceId}, ${rows.length} rows for ${snapshotDate} (datastore_search, filtered). Newest night in the current resource: ${newestRaw}.`);
-console.log(`Package last_refreshed ${pkg.last_refreshed}. Panels: headline = PROGRAM_AREA ≠ "${REFUGEE}" (${headline.programs} programs), refugee = "${REFUGEE}" (${refugee.programs}).`);
+console.log(`Package last_refreshed ${pkg.last_refreshed}. Panels: headline = PROGRAM_AREA not "${TEMPORARY}" or "${REFUGEE}" (${headline.programs} programs), Temporary Programs (${temporary.programs}), refugee = "${REFUGEE}" (${refugee.programs}).`);
 if (newestRaw && newestRaw !== snapshotDate) console.log(`NOTE: the City has published a newer night (${newestRaw}) since the snapshot; the test checks the night the page shows.`);
 console.log("");
 for (const r of results) console.log(`${r.ok ? "PASS" : "FAIL"}  ${r.name.padEnd(48)} raw → ${String(r.expected).padEnd(14)} shown → ${r.shown}`);

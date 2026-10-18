@@ -58,27 +58,28 @@ function renderHeadline() {
 	const c = latest.citywide;
 	const line = document.querySelector('[data-figure="citywide-line"]');
 	line.replaceChildren(
-		"City-wide, including Temporary Refugee Response: ",
+		"City-wide, including Temporary Programs and Temporary Refugee Response: ",
 		el("strong", { "data-figure": "citywide-people", text: n(c.people) }), " people served · beds ",
 		el("strong", { text: `${n(c.beds.occupied)} of ${n(c.beds.capacity_actual)}` }), " occupied (",
 		el("strong", { "data-figure": "citywide-beds-rate", text: pct(c.beds.rate) }), ") · rooms ",
 		el("strong", { text: `${n(c.rooms.occupied)} of ${n(c.rooms.capacity_actual)}` }), " occupied (",
 		el("strong", { "data-figure": "citywide-rooms-rate", text: pct(c.rooms.rate) }), ").");
 
-	const r = latest.refugee;
-	setFigure("refugee-night", dateMedium(night));
-	setFigure("refugee-people", n(r.people));
-	setFigure("refugee-programs", n(r.programs));
-	for (const kind of ["beds", "rooms"]) {
-		setFigure(`refugee-${kind}-rate`, pct(r[kind].rate));
-		setFigure(`refugee-${kind}-occupied`, n(r[kind].occupied));
-		setFigure(`refugee-${kind}-capacity`, n(r[kind].capacity_actual));
-		setMeter(`refugee-${kind}`, r[kind].rate);
+	// The two separate panels: same figures, same layout.
+	for (const panel of ["temporary", "refugee"]) {
+		const p = latest[panel];
+		setFigure(`${panel}-night`, dateMedium(night));
+		setFigure(`${panel}-people`, n(p.people));
+		setFigure(`${panel}-programs`, n(p.programs));
+		for (const kind of ["beds", "rooms"]) {
+			setFigure(`${panel}-${kind}-rate`, pct(p[kind].rate));
+			setFigure(`${panel}-${kind}-occupied`, n(p[kind].occupied));
+			setFigure(`${panel}-${kind}-capacity`, n(p[kind].capacity_actual));
+			setMeter(`${panel}-${kind}`, p[kind].rate);
+		}
+		document.getElementById(`${panel}-sectors`).replaceChildren(...Object.entries(p.by_sector).map(([name, t]) =>
+			el("li", {}, el("b", { text: n(t.people) }), `${name} · ${t.programs} program${t.programs === 1 ? "" : "s"}`)));
 	}
-
-	const rs = document.getElementById("refugee-sectors");
-	rs.replaceChildren(...Object.entries(r.by_sector).map(([name, t]) =>
-		el("li", {}, el("b", { text: n(t.people) }), `${name} · ${t.programs} program${t.programs === 1 ? "" : "s"}`)));
 
 	setFigure("sector-night", label.lastNight ? `Last night · ${dateMedium(night)}` : `Night of ${dateMedium(night)}`);
 	setFigure("programs-night", label.lastNight ? `Last night · ${dateMedium(night)}` : `Night of ${dateMedium(night)}`);
@@ -143,8 +144,9 @@ function renderSources() {
 function tableFor(kind) {
 	if (kind === "history") {
 		const s = history.series;
-		const head = ["Night", "People, headline", "People, refugee response", "People, City-wide", "Bed rate, headline", "Room rate, headline"];
-		const rows = history.dates.map((d, i) => [d, n(s.headline.people[i]), n(s.refugee.people[i]), n(s.headline.people[i] + s.refugee.people[i]),
+		const head = ["Night", "People, headline", "People, Temporary Programs", "People, refugee response", "People, City-wide", "Bed rate, headline", "Room rate, headline"];
+		const rows = history.dates.map((d, i) => [d, n(s.headline.people[i]), n(s.temporary.people[i]), n(s.refugee.people[i]),
+			n(s.headline.people[i] + s.temporary.people[i] + s.refugee.people[i]),
 			pct(rate(s.headline.beds_occupied[i], s.headline.beds_capacity[i])), pct(rate(s.headline.rooms_occupied[i], s.headline.rooms_capacity[i]))]).reverse();
 		return [head, rows];
 	}

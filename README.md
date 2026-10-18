@@ -2,7 +2,7 @@
 
 **Toronto shelter occupancy**: a static dashboard of the City of Toronto's daily shelter and overnight-service occupancy data, served at **https://data.tj-hosting.ca** (after the post-merge steps below). It is a data companion to [Homeless in Toronto](https://bane.one) and matches its look.
 
-It shows last night's people served, beds and rooms (each with its own rate, never added), programs at or near full, the City-wide total, a separate Temporary Refugee Response panel, Central Intake's unmatched callers, nightly trends since 2021, a year-over-year overlay, occupancy by sector, a map with a pin at every program address, and a sortable, filterable programs table. Every figure comes from the City's open data and carries its date.
+It shows last night's people served, beds and rooms (each with its own rate, never added), programs at or near full, the City-wide total, separate panels for Temporary Programs and the Temporary Refugee Response, Central Intake's unmatched callers, nightly trends since 2021, a year-over-year overlay, occupancy by sector, a map with a pin at every program address, and a sortable, filterable programs table. Every figure comes from the City's open data and carries its date.
 
 - Data sources, schema, every transformation, the program-area split and the "near full" definition: [`docs/DATA.md`](docs/DATA.md)
 - Look, palette validation, type, images: [`docs/DESIGN.md`](docs/DESIGN.md)
@@ -48,7 +48,7 @@ Images: `python3 scripts/build_images.py` converts the pack in `assets/pack/` to
 
 1. Only the City's numbers, each with its date. No projections, no outside "homeless population" figures, no person-level data.
 2. People served is the sum of `SERVICE_USER_COUNT`. Beds and rooms are separate blocks, each with occupied, actual capacity, unoccupied and its own rate; **beds and rooms are never added together**.
-3. The headline excludes the `Temporary Refugee Response` program area, which has its own panel; one small line shows the City-wide total including it, so every figure can be traced.
+3. The headline excludes the `Temporary Programs` and `Temporary Refugee Response` program areas, each of which has its own panel; one small line shows the City-wide total including both, so every figure can be traced (headline + both panels = City-wide).
 4. "Last night (date)" is used only when the City's `OCCUPANCY_DATE` (the evening counted at 4:00 am the next morning) was yesterday in Toronto; otherwise the page says "Latest count — night of (date)".
 5. The City's limitation is shown verbatim, and the Open Government Licence – Toronto is credited.
 6. Turn-aways come only from an open machine-readable City feed (Central Intake Service Queue Data), described in the City's words and dated separately.

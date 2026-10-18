@@ -149,10 +149,14 @@ function sliceRange(history, range) {
 export function drawPeople(history, range) {
 	const { start, end } = sliceRange(history, range);
 	const xs = history.dates.slice(start, end).map(isoToSeconds);
+	// Stacked bottom to top: headline, Temporary Programs, Temporary Refugee Response. Each line is a running total.
 	const h = history.series.headline.people.slice(start, end);
+	const t = history.series.temporary.people.slice(start, end);
 	const r = history.series.refugee.people.slice(start, end);
-	const total = h.map((v, i) => v + r[i]);
+	const ht = h.map((v, i) => v + t[i]);
+	const total = ht.map((v, i) => v + r[i]);
 	const cPeople = css("--c-people");
+	const cTemporary = css("--c-temporary");
 	const cRefugee = css("--c-refugee");
 	const max = Math.max(...total);
 	const opts = {
@@ -162,14 +166,19 @@ export function drawPeople(history, range) {
 		series: [
 			{},
 			{ label: "Headline programs", stroke: cPeople, width: 2, fill: alpha(cPeople, 0.24), points: { show: false } },
+			{ label: "Headline + Temporary Programs", stroke: cTemporary, width: 2, points: { show: false } },
 			{ label: "City-wide", stroke: cRefugee, width: 2, points: { show: false } },
 		],
-		bands: [{ series: [2, 1], fill: alpha(cRefugee, 0.24) }],
+		bands: [
+			{ series: [2, 1], fill: alpha(cTemporary, 0.24) },
+			{ series: [3, 2], fill: alpha(cRefugee, 0.24) },
+		],
 		plugins: [
 			tooltipPlugin((i) => ({
 				title: dateMedium(history.dates[start + i]),
 				rows: [
 					{ color: cPeople, value: n(h[i]), label: "headline programs" },
+					{ color: cTemporary, value: n(t[i]), label: "Temporary Programs" },
 					{ color: cRefugee, value: n(r[i]), label: "Temporary Refugee Response" },
 					{ color: css("--muted"), value: n(total[i]), label: "City-wide" },
 				],
@@ -177,7 +186,7 @@ export function drawPeople(history, range) {
 			keyboardPlugin(),
 		],
 	};
-	mount("chart-people", opts, [xs, h, total], chartHeight(280));
+	mount("chart-people", opts, [xs, h, ht, total], chartHeight(280));
 }
 
 // ---------------------------------------------------------------- bed and room rates

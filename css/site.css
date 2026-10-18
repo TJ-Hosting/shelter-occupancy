@@ -30,6 +30,7 @@
 
 	--c-people: #bd7f24;
 	--c-refugee: #4a8fd0;
+	--c-temporary: #36a87d;
 	--c-beds: #d9604a;
 	--c-rooms: #9479cf;
 	--t-beds: #3a2420;
@@ -73,6 +74,7 @@
 
 	--c-people: #b7791f;
 	--c-refugee: #2f7dbb;
+	--c-temporary: #2a9a6c;
 	--c-beds: #d0573f;
 	--c-rooms: #7b5ea7;
 	--t-beds: #f2d8cf;
@@ -107,6 +109,7 @@
 
 		--c-people: #b7791f;
 		--c-refugee: #2f7dbb;
+		--c-temporary: #2a9a6c;
 		--c-beds: #d0573f;
 		--c-rooms: #7b5ea7;
 		--t-beds: #f2d8cf;
@@ -390,15 +393,17 @@ h1, h2, h3 {
 .grid-2 { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
 @media (min-width: 60rem) { .grid-2 { grid-template-columns: 1fr 1fr; } }
 
-/* refugee panel */
-.panel-refugee { border-top: 3px solid var(--c-refugee); overflow: hidden; isolation: isolate; }
-.panel-refugee .panel-bg {
+/* separate panels: Temporary Programs and Temporary Refugee Response */
+.panel-refugee { border-top: 3px solid var(--c-refugee); }
+.panel-temporary { border-top: 3px solid var(--c-temporary); }
+.panel-refugee, .panel-temporary { overflow: hidden; isolation: isolate; }
+.panel-refugee .panel-bg, .panel-temporary .panel-bg {
 	position: absolute; inset: 0; z-index: -1; opacity: 0.14;
 	mask-image: linear-gradient(180deg, #000, transparent 75%);
 	-webkit-mask-image: linear-gradient(180deg, #000, transparent 75%);
 }
-.panel-refugee .panel-bg img { width: 100%; height: 100%; object-fit: cover; }
-:root[data-theme="light"] .panel-refugee .panel-bg { opacity: 0.07; }
+.panel-refugee .panel-bg img, .panel-temporary .panel-bg img { width: 100%; height: 100%; object-fit: cover; }
+:root[data-theme="light"] .panel-refugee .panel-bg, :root[data-theme="light"] .panel-temporary .panel-bg { opacity: 0.07; }
 .panel-figure { font: 600 clamp(3.2rem, 11vw, 4.6rem)/1 var(--display); color: var(--text); margin: 0.9rem 0 0.2rem; }
 .panel-figure small { font-size: 0.34em; font-weight: 500; color: var(--text-2); letter-spacing: 0.06em; text-transform: uppercase; margin-left: 0.4rem; }
 .mini-blocks { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
@@ -410,13 +415,14 @@ h1, h2, h3 {
 .mini-sectors li { border-top: 1px solid var(--hair); padding-top: 0.4rem; }
 .mini-sectors b { display: block; font: 600 1.3rem/1.2 var(--display); color: var(--text); }
 .mini-blocks .meter { height: 6px; margin: 0.5rem 0 0.5rem; }
-blockquote.city {
+blockquote.city, .panel-note {
 	margin: 1rem 0 0; padding: 0.7rem 0.9rem; font-size: 0.88rem;
 	border-left: 3px solid var(--hair); background: var(--surface-2); color: var(--text-2);
 }
 
 /* turn-aways */
 .panel-turnaways { border-top: 3px solid var(--key); }
+.panel-turnaways > p, .panel-turnaways > blockquote { max-width: 48rem; }	/* full-width card: keep the text measure readable */
 .ta-figure { font: 600 clamp(3.2rem, 11vw, 4.6rem)/1 var(--display); color: var(--text); margin: 0.9rem 0 0.2rem; }
 .ta-figure small { font-size: 0.34em; font-weight: 500; color: var(--text-2); letter-spacing: 0.06em; text-transform: uppercase; margin-left: 0.4rem; }
 .ta-split { margin: 0.3rem 0 0; font-size: 0.88rem; }

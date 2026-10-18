@@ -161,7 +161,7 @@ async function tokens(browser) {
 		out[theme] = await page.evaluate(() => {
 			const s = getComputedStyle(document.documentElement);
 			const g = (n) => s.getPropertyValue(n).trim();
-			return Object.fromEntries(["--bg", "--surface", "--surface-2", "--text", "--text-2", "--muted", "--key-text", "--axis", "--c-people", "--c-refugee", "--c-beds", "--c-rooms", "--key", "--y1", "--y6"].map((n) => [n, g(n)]));
+			return Object.fromEntries(["--bg", "--surface", "--surface-2", "--text", "--text-2", "--muted", "--key-text", "--axis", "--c-people", "--c-refugee", "--c-temporary", "--c-beds", "--c-rooms", "--key", "--y1", "--y6"].map((n) => [n, g(n)]));
 		});
 		await ctx.close();
 	}
@@ -205,7 +205,7 @@ for (const theme of ["dark", "light"]) {
 console.log("\n3. Chart marks against the chart surface (≥ 3:1, non-text)");
 for (const theme of ["dark", "light"]) {
 	const t = tk[theme];
-	const cells = ["--c-people", "--c-refugee", "--c-beds", "--c-rooms", "--key", "--y6"].map((n) => {
+	const cells = ["--c-people", "--c-refugee", "--c-temporary", "--c-beds", "--c-rooms", "--key", "--y6"].map((n) => {
 		const r = ratio(parse(t[n]), parse(t["--surface"]));
 		if (r < 3) failed++;
 		return `${n} ${t[n]} ${r.toFixed(2)}${r < 3 ? " FAIL" : ""}`;
