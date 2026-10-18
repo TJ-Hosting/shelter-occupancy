@@ -541,6 +541,8 @@ details.data-table summary:hover { color: var(--text); }
 .notice a { color: var(--key-text); font-weight: 600; }
 
 .map-wrap { position: relative; border: 1px solid var(--hair); }
+.skip-map { z-index: 1001; }	/* above Leaflet's panes and controls; each pin is a tab stop, so keyboard users can jump past them */
+.skip-map:focus { top: 0.5rem; left: 0.5rem; }
 #map { height: min(70vh, 34rem); min-height: 22rem; background: var(--surface-2); }
 .leaflet-tile-pane { filter: var(--map-filter); }
 .leaflet-container { font-family: var(--body); background: var(--surface-2); }

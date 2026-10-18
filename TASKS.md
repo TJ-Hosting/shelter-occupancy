@@ -76,3 +76,15 @@ Start: 2026-10-16 00:07 UTC. Times are the sandbox clock (`date -u`) and commit 
 ## Close
 
 - PR: https://github.com/TJ-Hosting/shelter-occupancy/pull/1 (draft). End 00:58 UTC; total ≈ 0.9 h of the 8 h budget.
+
+# TASKS — shelter-02 (laptop check, Temporary Programs panel, images)
+
+Executor: Claude Code (Opus 5.5, Extra High) on BANE-VICTUS-TOP, fresh clone `C:\localhost\shelter-check`, on top of `6c5012c`. Brief: `C:\localhost\projects\shelter-occupancy\dispatches\BRIEF-v1-shelter-02-laptop-check-2026-10-17.md`. Start 2026-10-18 00:16 UTC (system clock). Budget 2h06m · re-plan line 1h39m (≈ 01:55 UTC).
+
+| # | Step | Status | Start (UTC) | End (UTC) |
+|---|---|---|---|---|
+| 0 | Clone, npm ci, Playwright Chromium 1194, venv with Pillow, image-gen check, baseline | done | 00:16 | 00:21 |
+| 1 | P1 laptop check (evidence/laptop-check/CHECK.md) | done | 00:16 | 00:50 |
+| 2 | P2 Temporary Programs panel | pending | | |
+| 3 | P3 images | pending | | |
+| 4 | P4 gates, PR, records | pending | | |

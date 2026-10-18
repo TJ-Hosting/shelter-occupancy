@@ -20,12 +20,13 @@ async function ckan(action, params) {
 	for (let i = 0; i < 3; i++) {
 		try {
 			const res = await fetch(url, { headers: { "User-Agent": "shelter-occupancy data-test (+https://github.com/TJ-Hosting/shelter-occupancy)" } });
+			if (!res.ok) throw new Error(`HTTP ${res.status} from CKAN ${action}`);	// the City's gateway answers 502/504 in HTML when busy
 			const body = await res.json();
 			if (!body.success) throw new Error(JSON.stringify(body.error));
 			return body.result;
 		} catch (e) {
 			if (i === 2) throw e;
-			await new Promise((r) => setTimeout(r, 2000 * (i + 1)));
+			await new Promise((r) => setTimeout(r, 5000 * (i + 1)));
 		}
 	}
 }
@@ -67,8 +68,10 @@ let rows = [];
 let resourceId = null;
 let newestRaw = null;
 for (const res of pkg.resources.filter((r) => r.datastore_active === true || r.datastore_active === "true")) {
-	const r = await ckan("datastore_search", { resource_id: res.id, filters: JSON.stringify({ OCCUPANCY_DATE: snapshotDate }), limit: 5000 });
-	if (r.records.length && !resourceId) {
+	// Stop filtering once the night is found: a filter on the older yearly resources can take
+	// 90 s and end in a gateway timeout when the City's API is busy (seen 2026-10-18).
+	const r = resourceId ? { records: [] } : await ckan("datastore_search", { resource_id: res.id, filters: JSON.stringify({ OCCUPANCY_DATE: snapshotDate }), limit: 5000 });
+	if (r.records.length) {
 		rows = r.records;
 		resourceId = res.id;
 		if (r.total !== r.records.length) throw new Error(`paging needed: ${r.total} rows`);

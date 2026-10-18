@@ -1,0 +1,85 @@
+Browser check — 2026-10-18T00:39:37.652Z — msedge 155.0.4283.45, headed — http://127.0.0.1:8767/
+PASS  375px light: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  375px light: theme applied
+      data-theme=light
+PASS  375px light: figures filled
+      people 6,227; label "Last night (Friday, October 16, 2026)"; hero sh-hero-portrait-480.avif; unfilled: none
+PASS  375px light: console clean
+      no errors, warnings or failed requests
+PASS  768px light: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  768px light: theme applied
+      data-theme=light
+PASS  768px light: figures filled
+      people 6,227; label "Last night (Friday, October 16, 2026)"; hero sh-hero-islands-sunset-960.avif; unfilled: none
+PASS  768px light: console clean
+      no errors, warnings or failed requests
+PASS  1440px light: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  1440px light: theme applied
+      data-theme=light
+PASS  1440px light: figures filled
+      people 6,227; label "Last night (Friday, October 16, 2026)"; hero sh-hero-islands-sunset-1280.avif; unfilled: none
+PASS  1440px light: console clean
+      no errors, warnings or failed requests
+PASS  375px dark: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  375px dark: theme applied
+      data-theme=dark
+PASS  375px dark: figures filled
+      people 6,227; label "Last night (Friday, October 16, 2026)"; hero sh-hero-portrait-480.avif; unfilled: none
+PASS  375px dark: console clean
+      no errors, warnings or failed requests
+PASS  768px dark: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  768px dark: theme applied
+      data-theme=dark
+PASS  768px dark: figures filled
+      people 6,227; label "Last night (Friday, October 16, 2026)"; hero sh-hero-islands-dusk-960.avif; unfilled: none
+PASS  768px dark: console clean
+      no errors, warnings or failed requests
+PASS  1440px dark: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  1440px dark: theme applied
+      data-theme=dark
+PASS  1440px dark: figures filled
+      people 6,227; label "Last night (Friday, October 16, 2026)"; hero sh-hero-islands-dusk-1280.avif; unfilled: none
+PASS  1440px dark: console clean
+      no errors, warnings or failed requests
+PASS  reduced motion: hero drift, reveals and meter fills finish at once
+      {"hero":"1e-06s","reveal":"1e-06s","meter":"1e-06s","heroTransform":"matrix(1, 0, 0, 1, 0, 0)"}
+PASS  reduced motion: console clean
+      clean
+FAIL  keyboard: Tab reaches the table's sort buttons
+      Tab path from the capacity filter: div#map → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path → path
+PASS  keyboard: focus ring visible on the sort button
+      solid 1.6px rgb(224, 164, 79)
+FAIL  keyboard: every column header is a reachable button
+      path, path, path, path, path, path
+PASS  keyboard: Enter sorts by People and toggles direction
+      aria-sort descending (first row 348) → ascending (first row 2)
+PASS  keyboard: console clean
+      clean
+PASS  map light: pins drawn and a popup opens
+      95 pins; popup: 185 YORKLAND BLVD, NORTH YORK Fred Victor Uptown Hotel Program Mixed Adult · room-based · Temporary Programs 268 of 268 rooms occupied (100.
+PASS  map light: console clean
+      clean
+PASS  map dark: pins drawn and a popup opens
+      95 pins; popup: 185 YORKLAND BLVD, NORTH YORK Fred Victor Uptown Hotel Program Mixed Adult · room-based · Temporary Programs 268 of 268 rooms occupied (100.
+PASS  map dark: console clean
+      clean
+PASS  embed 320×180: fits, filled
+      Toronto shelters · Last night (Oct 16) · 6,227 people
+FAIL  embed 320×180: console clean
+      console error: Failed to load resource: the server responded with a status of 404 (File not found)
+PASS  embed 600×340: fits, filled
+      Toronto shelters · Last night (Oct 16) · 6,227 people
+PASS  embed 600×340: console clean
+      clean
+PASS  404.html renders with its background and helpline
+      h1 "THIS PAGE ISN'T HERE"; background url("http://127.0.0.1:8767/assets/img/sh-tex-dusk-sky-1280.webp")
+PASS  404.html: console clean
+      clean
+
+38/41 checks passed.
