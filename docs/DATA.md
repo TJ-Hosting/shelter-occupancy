@@ -89,18 +89,20 @@ Every `PROGRAM_AREA` value found in 2021–2026, with row counts across all six 
 | Base Program - Refugee | 10,180 | 2023–2026 | "year-round programs that serve refugee and asylum claimant families and individuals" | **Headline** (it is part of the base, year-round system) |
 | Temporary Programs | 21,639 | 2024–2026 | *not defined in the field notes* | **Temporary Programs panel** (own panel, never in the headline; since shelter-02) |
 | Winter Programs | 9,535 | 2021–2026 | field notes define "Winter Response": "exclusively dedicated to the provision of additional spaces under winter services plans" | **Headline** |
-| COVID-19 Response | 38,294 | 2021–2023 | "create spaces … to support improved physical distancing during the COVID-19 pandemic" | **Headline** (history only) |
+| COVID-19 Response | 38,294 | 2021–2023 | "create spaces … to support improved physical distancing during the COVID-19 pandemic" | **Temporary Programs series** (history only; relabelled Temporary Programs on 2024-01-01) |
 | *(blank)* | 2 | 2021 (Dec 30–31, one program) | — | **Headline** |
 | Temporary Refugee Response | 18,633 | 2021–2026 | "Programs that are intended to create spaces in the overnight services system in order to support refugee and asylum claimant families and individuals." | **Refugee-response panel** (own panel, never in the headline) |
 
-- **Headline** = every row whose `PROGRAM_AREA` is neither `Temporary Programs` nor `Temporary Refugee Response`.
-- **Temporary Programs panel** = rows whose `PROGRAM_AREA` is `Temporary Programs`.
+- **Headline** = every row whose `PROGRAM_AREA` is none of `Temporary Programs`, `COVID-19 Response` and `Temporary Refugee Response`.
+- **Temporary Programs panel** = rows whose `PROGRAM_AREA` is `Temporary Programs` or, before 2024, `COVID-19 Response`.
 - **Refugee-response panel** = rows whose `PROGRAM_AREA` is `Temporary Refugee Response`.
 - **City-wide line** = all rows; shown once, small, so every headline figure can be traced (headline + Temporary Programs panel + refugee panel = City-wide, for people; beds and rooms separately).
 
 **Why Temporary Programs has its own panel** (Aco's ruling, 17 Oct 2026, shelter-02): the City's field notes don't define it, so it shouldn't drive the headline. On 2026-10-16 it held 1,916 people in 20 programs.
 
-**It is a relabel, checked 2026-10-18** against the City's datastore (`datastore_search` filtered by night): the 23 programs reported as "Temporary Programs" on 2024-01-01 (2,296 people) are the same `PROGRAM_ID`s that were reported on 2023-12-31 as "COVID-19 Response" (22 programs, 2,248 people) and "Winter Programs" (1 program, 50 people). "COVID-19 Response" has no rows after 2023. So the headline series drops by 2,248 people between 2023-12-31 and 2024-01-01 because of the relabel, not because of a change in the shelter system. The City-wide total doesn't drop. The page says so above the trend charts and under the year-over-year chart. Whether the 2021–2023 "COVID-19 Response" rows should also leave the headline, for a continuous series, is an open question for Barney.
+**It is a relabel, checked 2026-10-18** against the City's datastore (`datastore_search` filtered by night): the 23 programs reported as "Temporary Programs" on 2024-01-01 (2,296 people) are the same `PROGRAM_ID`s that were reported on 2023-12-31 as "COVID-19 Response" (22 programs, 2,248 people) and "Winter Programs" (1 program, 50 people). "COVID-19 Response" has no rows after 2023.
+
+**So COVID-19 Response counts with Temporary Programs** (Aco's answer to shelter-02 Q1, 18 Oct 2026). With only Temporary Programs out of the headline, the headline series dropped by 2,248 people at 2024-01-01 because of the relabel, not because of a change in the shelter system. Now the 2021–2023 COVID-19 Response rows go to the Temporary Programs series, and the headline is 5,425 on both 2023-12-31 and 2024-01-01. The one winter program that moved that night (50 people) leaves the headline on 2024-01-01; the data test checks the 2023-12-31 split against the raw 2023 file. The page explains the relabel above the trend charts and in the panel.
 
 ## 4. Second source — turn-aways
 
@@ -130,7 +132,7 @@ The pipeline is standard-library Python. In order:
 3. **Parsing.** Text fields are trimmed and inner whitespace collapsed. `OCCUPANCY_DATE` is normalised to `YYYY-MM-DD` from the three formats in 1.1 (`YY-MM-DD` is read as 20YY: the 2021 file's 365 values run `21-01-01` → `21-12-31`). Numbers must parse as integers (rates as decimals); any other value fails the run. `CAPACITY_TYPE` must be one of the two known values.
 4. **Bed or room.** Each row is a bed program or a room program, from `CAPACITY_TYPE`. Only that type's fields are read. **Beds and rooms are never added together** anywhere in the pipeline or the page.
 5. **De-duplication.** Rows are keyed by (`OCCUPANCY_DATE`, `PROGRAM_ID`); if two resources ever overlap, the newer resource's row wins. (No duplicates exist today.)
-6. **Panels.** `PROGRAM_AREA` = `Temporary Refugee Response` → refugee panel; `Temporary Programs` → Temporary Programs panel; anything else → headline (§3). An unknown new area value goes to the headline and raises a warning, which fails the workflow and opens the `data-refresh` issue so a person checks the split.
+6. **Panels.** `PROGRAM_AREA` = `Temporary Refugee Response` → refugee panel; `Temporary Programs` or `COVID-19 Response` → Temporary Programs panel; anything else → headline (§3). An unknown new area value goes to the headline and raises a warning, which fails the workflow and opens the `data-refresh` issue so a person checks the split.
 7. **Sums.** Per night and per panel: `people` = Σ `SERVICE_USER_COUNT`; for beds and for rooms separately: Σ occupied, Σ actual capacity, Σ funded capacity, Σ unoccupied, Σ unavailable, number of programs.
 8. **Rates.** A panel's bed rate = Σ `OCCUPIED_BEDS` ÷ Σ `CAPACITY_ACTUAL_BED` × 100; room rate likewise. This is the City's own per-program formula (1.2) applied to the panel's totals. Rounded half-up to one decimal, in integer arithmetic. Per-program rates are the City's published `OCCUPANCY_RATE_*` values, unchanged.
 9. **Check.** For last night the script asserts headline + Temporary Programs + refugee = City-wide for people, programs, and (separately) beds and rooms occupied and capacity.

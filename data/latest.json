@@ -14,6 +14,10 @@
 	"near_full_threshold": 95.0,
 	"refugee_area": "Temporary Refugee Response",
 	"temporary_area": "Temporary Programs",
+	"temporary_areas": [
+		"Temporary Programs",
+		"COVID-19 Response"
+	],
 	"headline": {
 		"programs": 87,
 		"people": 4311,

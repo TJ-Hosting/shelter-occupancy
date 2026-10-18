@@ -144,7 +144,7 @@ function renderSources() {
 function tableFor(kind) {
 	if (kind === "history") {
 		const s = history.series;
-		const head = ["Night", "People, headline", "People, Temporary Programs", "People, refugee response", "People, City-wide", "Bed rate, headline", "Room rate, headline"];
+		const head = ["Night", "People, headline", "People, Temporary Programs (COVID-19 Response before 2024)", "People, refugee response", "People, City-wide", "Bed rate, headline", "Room rate, headline"];
 		const rows = history.dates.map((d, i) => [d, n(s.headline.people[i]), n(s.temporary.people[i]), n(s.refugee.people[i]),
 			n(s.headline.people[i] + s.temporary.people[i] + s.refugee.people[i]),
 			pct(rate(s.headline.beds_occupied[i], s.headline.beds_capacity[i])), pct(rate(s.headline.rooms_occupied[i], s.headline.rooms_capacity[i]))]).reverse();

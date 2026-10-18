@@ -1,7 +1,7 @@
-Data test — 2026-10-18T01:22:18.824Z
+Data test — 2026-10-18T01:42:49.257Z
 Page: http://127.0.0.1:8765/ · snapshot night 2026-10-16 · night label shown: "Last night (Friday, October 16, 2026)"
 Raw: CKAN daily-shelter-overnight-service-occupancy-capacity, resource 42714176-4f05-44e6-b157-2b57f29b856a, 122 rows for 2026-10-16 (datastore_search, filtered). Newest night in the current resource: 2026-10-16.
-Package last_refreshed 2026-10-17 13:36:57.461455. Panels: headline = PROGRAM_AREA not "Temporary Programs" or "Temporary Refugee Response" (87 programs), Temporary Programs (20), refugee = "Temporary Refugee Response" (15).
+Package last_refreshed 2026-10-17 13:36:57.461455. Panels: headline = PROGRAM_AREA not "Temporary Programs", "COVID-19 Response" or "Temporary Refugee Response" (87 programs), Temporary Programs incl. COVID-19 Response (20), refugee = "Temporary Refugee Response" (15).
 
 PASS  headline people served                           raw → 4,311          shown → 4,311
 PASS  headline bed rate                                raw → 96.8%          shown → 96.8%
@@ -33,6 +33,9 @@ PASS  City-wide people served                          raw → 6,959          sh
 PASS  City-wide bed rate                               raw → 96.2%          shown → 96.2%
 PASS  City-wide room rate                              raw → 99.3%          shown → 99.3%
 PASS  snapshot: no headline program is in either temporary area raw → none           shown → none
+PASS  history 2023-12-31: headline people (no refugee, Temporary Programs or COVID-19 Response) raw → 5425           shown → 5425
+PASS  history 2023-12-31: Temporary Programs series = COVID-19 Response + Temporary Programs raw → 2248           shown → 2248
+PASS  history 2023-12-31: refugee series               raw → 2016           shown → 2016
 PASS  raw: headline + Temporary Programs + refugee = City-wide people raw → 6959           shown → 6959
 PASS  shown: headline + Temporary Programs + refugee = City-wide people raw → 6959           shown → 6959
 PASS  embed: people served                             raw → 4,311          shown → 4,311
@@ -44,4 +47,4 @@ PASS  embed source line says 'as of' that night        raw → Source: City of T
 PASS  unmatched callers (latest operational date)      raw → 109            shown → 109
 PASS  unmatched callers date                           raw → Wednesday, September 30, 2026 shown → Wednesday, September 30, 2026
 
-40/40 checks passed.
+43/43 checks passed.

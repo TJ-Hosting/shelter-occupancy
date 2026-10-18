@@ -48,7 +48,7 @@ Images: `python3 scripts/build_images.py` converts the pack in `assets/pack/` to
 
 1. Only the City's numbers, each with its date. No projections, no outside "homeless population" figures, no person-level data.
 2. People served is the sum of `SERVICE_USER_COUNT`. Beds and rooms are separate blocks, each with occupied, actual capacity, unoccupied and its own rate; **beds and rooms are never added together**.
-3. The headline excludes the `Temporary Programs` and `Temporary Refugee Response` program areas, each of which has its own panel; one small line shows the City-wide total including both, so every figure can be traced (headline + both panels = City-wide).
+3. The headline excludes the `Temporary Programs` and `Temporary Refugee Response` program areas, each of which has its own panel; one small line shows the City-wide total including both, so every figure can be traced (headline + both panels = City-wide). `COVID-19 Response` (2021–2023), which the City relabelled as Temporary Programs on 2024-01-01, is counted with Temporary Programs, so the headline series has no break at the relabel.
 4. "Last night (date)" is used only when the City's `OCCUPANCY_DATE` (the evening counted at 4:00 am the next morning) was yesterday in Toronto; otherwise the page says "Latest count — night of (date)".
 5. The City's limitation is shown verbatim, and the Open Government Licence – Toronto is credited.
 6. Turn-aways come only from an open machine-readable City feed (Central Intake Service Queue Data), described in the City's words and dated separately.

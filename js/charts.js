@@ -178,7 +178,7 @@ export function drawPeople(history, range) {
 				title: dateMedium(history.dates[start + i]),
 				rows: [
 					{ color: cPeople, value: n(h[i]), label: "headline programs" },
-					{ color: cTemporary, value: n(t[i]), label: "Temporary Programs" },
+					{ color: cTemporary, value: n(t[i]), label: history.dates[start + i] < "2024-01-01" ? "COVID-19 Response (became Temporary Programs)" : "Temporary Programs" },
 					{ color: cRefugee, value: n(r[i]), label: "Temporary Refugee Response" },
 					{ color: css("--muted"), value: n(total[i]), label: "City-wide" },
 				],

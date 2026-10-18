@@ -12,6 +12,9 @@ const API = "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/";
 const PACKAGE = "daily-shelter-overnight-service-occupancy-capacity";
 const REFUGEE = "Temporary Refugee Response";
 const TEMPORARY = "Temporary Programs";	// own panel since shelter-02 (Aco, 17 Oct 2026): the City doesn't define it
+const COVID = "COVID-19 Response";	// 2021–2023; relabelled Temporary Programs on 2024-01-01, so counted with it (Aco, 18 Oct 2026)
+const TEMPORARY_AREAS = [TEMPORARY, COVID];
+const HISTORY_NIGHT = "2023-12-31";	// the last night before the relabel: checked against the raw 2023 file
 
 const results = [];
 const check = (name, expected, shown) => results.push({ name, expected, shown, ok: expected === shown });
@@ -49,10 +52,16 @@ const shown = await page.evaluate(() => {
 	out.sources = [...document.querySelectorAll('[data-source="occupancy"]')].map((n) => n.textContent.trim());
 	return out;
 });
-const snapshot = await page.evaluate(async () => {
+const snapshot = await page.evaluate(async (night) => {
 	const d = await (await fetch("data/latest.json")).json();
-	return { date: d.occupancy_date, headlineAreas: [...new Set(d.programs.filter((p) => p.panel === "headline").map((p) => p.area))] };
-});
+	const h = await (await fetch("data/history.json")).json();
+	const i = h.dates.indexOf(night);
+	const at = (panel) => (h.series[panel] && i >= 0 ? h.series[panel].people[i] : null);
+	return {
+		date: d.occupancy_date, headlineAreas: [...new Set(d.programs.filter((p) => p.panel === "headline").map((p) => p.area))],
+		history: { headline: at("headline"), temporary: at("temporary"), refugee: at("refugee") },
+	};
+}, HISTORY_NIGHT);
 const snapshotDate = snapshot.date;
 const headlineAreas = snapshot.headlineAreas;
 
@@ -107,8 +116,8 @@ function totals(filter) {
 	return t;
 }
 const area = (r) => (r.PROGRAM_AREA || "").trim();
-const headline = totals((r) => area(r) !== REFUGEE && area(r) !== TEMPORARY);
-const temporary = totals((r) => area(r) === TEMPORARY);
+const headline = totals((r) => area(r) !== REFUGEE && !TEMPORARY_AREAS.includes(area(r)));
+const temporary = totals((r) => TEMPORARY_AREAS.includes(area(r)));
 const refugee = totals((r) => area(r) === REFUGEE);
 const citywide = totals(() => true);
 const num = (s) => { const d = String(s ?? "").replace(/[^\d]/g, ""); return d ? Number(d) : NaN; };	// a missing figure fails the sum
@@ -144,7 +153,22 @@ check("City-wide people served", fmtN(citywide.people), shown["citywide-people"]
 check("City-wide bed rate", fmtRate(rate(citywide.beds.occ, citywide.beds.cap)), shown["citywide-beds-rate"]);
 check("City-wide room rate", fmtRate(rate(citywide.rooms.occ, citywide.rooms.cap)), shown["citywide-rooms-rate"]);
 // The headline leaves out both temporary areas, and the three panels add up to the City-wide line.
-check("snapshot: no headline program is in either temporary area", "none", headlineAreas.filter((a) => a === REFUGEE || a === TEMPORARY).join(", ") || "none");
+check("snapshot: no headline program is in either temporary area", "none", headlineAreas.filter((a) => a === REFUGEE || TEMPORARY_AREAS.includes(a)).join(", ") || "none");
+
+// History: on the last night before the relabel, COVID-19 Response counts with Temporary Programs, not the headline.
+const y2023 = pkg.resources.find((r) => r.name === `${PACKAGE}-2023`);
+if (!y2023) throw new Error(`resource ${PACKAGE}-2023 not found`);
+let histRows = [];
+for (const value of [`${HISTORY_NIGHT}T00:00:00`, HISTORY_NIGHT]) {	// the 2023 file stores the date with a time
+	histRows = (await ckan("datastore_search", { resource_id: y2023.id, filters: JSON.stringify({ OCCUPANCY_DATE: value }), fields: "PROGRAM_AREA,SERVICE_USER_COUNT", limit: 5000 })).records;
+	if (histRows.length) break;
+}
+const histSum = (f) => histRows.filter(f).reduce((s, r) => s + Number(r.SERVICE_USER_COUNT), 0);
+check(`history ${HISTORY_NIGHT}: headline people (no refugee, Temporary Programs or COVID-19 Response)`,
+	histSum((r) => area(r) !== REFUGEE && !TEMPORARY_AREAS.includes(area(r))), snapshot.history.headline);
+check(`history ${HISTORY_NIGHT}: Temporary Programs series = COVID-19 Response + Temporary Programs`,
+	histSum((r) => TEMPORARY_AREAS.includes(area(r))), snapshot.history.temporary);
+check(`history ${HISTORY_NIGHT}: refugee series`, histSum((r) => area(r) === REFUGEE), snapshot.history.refugee);
 check("raw: headline + Temporary Programs + refugee = City-wide people", citywide.people, headline.people + temporary.people + refugee.people);
 check("shown: headline + Temporary Programs + refugee = City-wide people", num(shown["citywide-people"]),
 	num(shown["headline-people"]) + num(shown["temporary-people"]) + num(shown["refugee-people"]));
@@ -172,7 +196,7 @@ const pass = results.filter((r) => r.ok).length;
 console.log(`Data test — ${new Date().toISOString()}`);
 console.log(`Page: ${base} · snapshot night ${snapshotDate} · night label shown: "${shown["night-label"]}"`);
 console.log(`Raw: CKAN ${PACKAGE}, resource ${resourceId}, ${rows.length} rows for ${snapshotDate} (datastore_search, filtered). Newest night in the current resource: ${newestRaw}.`);
-console.log(`Package last_refreshed ${pkg.last_refreshed}. Panels: headline = PROGRAM_AREA not "${TEMPORARY}" or "${REFUGEE}" (${headline.programs} programs), Temporary Programs (${temporary.programs}), refugee = "${REFUGEE}" (${refugee.programs}).`);
+console.log(`Package last_refreshed ${pkg.last_refreshed}. Panels: headline = PROGRAM_AREA not "${TEMPORARY}", "${COVID}" or "${REFUGEE}" (${headline.programs} programs), Temporary Programs incl. ${COVID} (${temporary.programs}), refugee = "${REFUGEE}" (${refugee.programs}).`);
 if (newestRaw && newestRaw !== snapshotDate) console.log(`NOTE: the City has published a newer night (${newestRaw}) since the snapshot; the test checks the night the page shows.`);
 console.log("");
 for (const r of results) console.log(`${r.ok ? "PASS" : "FAIL"}  ${r.name.padEnd(48)} raw → ${String(r.expected).padEnd(14)} shown → ${r.shown}`);

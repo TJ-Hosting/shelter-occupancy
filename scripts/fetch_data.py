@@ -45,6 +45,10 @@ USER_AGENT = "shelter-occupancy/1.0 (+https://github.com/TJ-Hosting/shelter-occu
 
 REFUGEE_AREA = "Temporary Refugee Response"
 TEMPORARY_AREA = "Temporary Programs"	# undefined in the City's notes, so it has its own panel (Aco, 2026-10-17)
+# The City relabelled its COVID-19 Response programs as Temporary Programs on 2024-01-01 (docs/DATA.md §3),
+# so 2021–2023 COVID-19 Response rows count with Temporary Programs and the headline series stays continuous (Aco, 2026-10-18).
+COVID_AREA = "COVID-19 Response"
+TEMPORARY_AREAS = (TEMPORARY_AREA, COVID_AREA)
 PANELS = ("headline", "temporary", "refugee")
 KNOWN_AREAS = {
 	"Base Shelter and Overnight Services System",
@@ -214,7 +218,7 @@ def parse_row(r, resource_id):
 def panel_of(area):
 	if area == REFUGEE_AREA:
 		return "refugee"
-	if area == TEMPORARY_AREA:
+	if area in TEMPORARY_AREAS:
 		return "temporary"
 	return "headline"
 
@@ -517,8 +521,9 @@ def build(args):
 		series[panel] = s
 	history = {
 		"about": "Nightly totals from the City of Toronto's Daily Shelter & Overnight Service Occupancy & Capacity data. "
-			"headline = every PROGRAM_AREA except Temporary Programs and Temporary Refugee Response; "
-			"temporary = Temporary Programs; refugee = Temporary Refugee Response. "
+			"headline = every PROGRAM_AREA except Temporary Programs, COVID-19 Response and Temporary Refugee Response; "
+			"temporary = Temporary Programs and, before 2024, COVID-19 Response (relabelled Temporary Programs on 2024-01-01); "
+			"refugee = Temporary Refugee Response. "
 			"Capacity is actual capacity. Beds and rooms are separate and never added. See docs/DATA.md.",
 		"source": PACKAGE_URL,
 		"first_date": dates[0], "last_date": latest,
@@ -598,6 +603,7 @@ def build(args):
 		"near_full_threshold": NEAR_FULL,
 		"refugee_area": REFUGEE_AREA,
 		"temporary_area": TEMPORARY_AREA,
+		"temporary_areas": list(TEMPORARY_AREAS),
 		"headline": groups["headline"],
 		"temporary": groups["temporary"],
 		"refugee": groups["refugee"],

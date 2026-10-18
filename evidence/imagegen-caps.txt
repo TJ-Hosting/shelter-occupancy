@@ -10,7 +10,7 @@ PASS  failed and blocked calls count toward the caps
       40 calls counted, US$8.64
 blocked-one: refused, a moderation block already ended this image
 PASS  moderation-blocked image not retried
-No API key set: wrote 1 request(s) to ..\..\Users\Bane\AppData\Local\Temp\tmpt6c7qnm6\REQUESTS.md (1 in total).
+No API key set: wrote 1 request(s) to ..\..\Users\Bane\AppData\Local\Temp\tmpeydk_09g\REQUESTS.md (1 in total).
 PASS  no key: request written, no call made
 
 7/7 checks passed.
