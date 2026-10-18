@@ -1,4 +1,4 @@
-Test run: 2026-10-16 00:54:45 UTC
-Commit: ecfb7ea (1 uncommitted paths)
-Node v22.22.0 · Python 3.13.16 · Playwright 1.56.1
-Snapshot: night 2026-10-14, built 2026-10-16T00:54:04Z
+Test run: 2026-10-18 01:22:10 UTC
+Commit: 9ffb3f8 (22 uncommitted paths)
+Node v24.21.0 · Python 3.13.13 · Playwright 1.56.1
+Snapshot: night 2026-10-16, built 2026-10-18T00:52:40Z

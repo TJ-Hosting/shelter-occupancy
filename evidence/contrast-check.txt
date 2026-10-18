@@ -1,11 +1,11 @@
-Contrast check — 2026-10-16T00:55:15.272Z — http://127.0.0.1:8765/
+Contrast check — 2026-10-18T01:28:23.340Z — http://127.0.0.1:8768/
 WCAG AA: 4.5:1 normal text, 3:1 large text. Text over images is measured against the rendered pixels behind its glyph band (middle 60% of each line box; 98th-percentile worst case), with motion reduced.
 
 1. Every visible text element, rendered
-PASS  dashboard · dark · 1440px — 1386 elements (113 over images), 0 below AA; worst 4.92:1 ("programs", over image)
-PASS  dashboard · dark · 375px — 1378 elements (113 over images), 0 below AA; worst 4.83:1 ("programs", over image)
-PASS  dashboard · light · 1440px — 1386 elements (113 over images), 0 below AA; worst 4.87:1 (", of which", over image)
-PASS  dashboard · light · 375px — 1378 elements (113 over images), 0 below AA; worst 4.99:1 ("programs", over image)
+PASS  dashboard · dark · 1440px — 1423 elements (146 over images), 0 below AA; worst 4.92:1 ("programs", over image)
+PASS  dashboard · dark · 375px — 1415 elements (146 over images), 0 below AA; worst 4.84:1 ("programs", over image)
+PASS  dashboard · light · 1440px — 1423 elements (146 over images), 0 below AA; worst 4.79:1 ("80", over image)
+PASS  dashboard · light · 375px — 1415 elements (146 over images), 0 below AA; worst 4.98:1 ("programs", over image)
 PASS  embed 320×180 · dark · 320px — 12 elements (12 over images), 0 below AA; worst 6.22:1 ("Full dashboard", over image)
 PASS  embed 600×340 · dark · 600px — 12 elements (12 over images), 0 below AA; worst 6.22:1 ("Full dashboard", over image)
 
@@ -22,9 +22,9 @@ light --key-text #85540c  vs  --bg 5.60 · --surface 6.00 · --surface-2 5.02
 light --axis     #625f58  vs  --bg 5.55 · --surface 5.95 · --surface-2 4.98
 
 3. Chart marks against the chart surface (≥ 3:1, non-text)
-dark  on #101113: --c-people #bd7f24 5.60 · --c-refugee #4a8fd0 5.52 · --c-beds #d9604a 5.15 · --c-rooms #9479cf 5.30 · --key #e0a44f 8.63 · --y6 #f6cd6a 12.47
+dark  on #101113: --c-people #bd7f24 5.60 · --c-refugee #4a8fd0 5.52 · --c-temporary #36a87d 6.35 · --c-beds #d9604a 5.15 · --c-rooms #9479cf 5.30 · --key #e0a44f 8.63 · --y6 #f6cd6a 12.47
       oldest-year line --y1 #6d5532 2.69:1 (ordinal ramp floor 2:1 by design; the year is also in the legend, tooltip and table)
-light on #faf7f0: --c-people #b7791f 3.40 · --c-refugee #2f7dbb 4.11 · --c-beds #d0573f 3.84 · --c-rooms #7b5ea7 4.91 · --key #b7791f 3.40 · --y6 #5a3707 9.89
+light on #faf7f0: --c-people #b7791f 3.40 · --c-refugee #2f7dbb 4.11 · --c-temporary #2a9a6c 3.31 · --c-beds #d0573f 3.84 · --c-rooms #7b5ea7 4.91 · --key #b7791f 3.40 · --y6 #5a3707 9.89
       oldest-year line --y1 #cfa66a 2.11:1 (ordinal ramp floor 2:1 by design; the year is also in the legend, tooltip and table)
 
 Colour-blind safety of chart colours: validated separately with the dataviz palette validator (docs/DESIGN.md §3).

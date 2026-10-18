@@ -106,7 +106,7 @@ Atmosphere only, never data, never people. From the pre-generated pack (`assets/
 **Resolution: never upscaled, in the files or on the page** (Aco, 17 Oct 2026). `scripts/build_images.py` never writes a width larger than the source, and `tests/image-widths.py` checks every file. On the page no image is drawn wider than its pixels at 375, 768, 1440 or 1920 CSS px (`tests/browser-check.mjs`). To get there:
 - the hero's `sizes` accounts for its height (`max(100vw, min(88vh, 46rem) × 1.78)`), and above 1664 px the hero stops at its source width with soft dark edges;
 - the footer art keeps its 3:2 shape at no more than 1,248 px wide;
-- the two panel washes use their 1,280 px files.
+- the two panel washes use their 1,280 px files, in a box no taller than the source's 720 px.
 
 High-density screens still get fewer device pixels than they could use: the laptop's models stop at about 1,672 px, and the 2560 px request was not met.
 

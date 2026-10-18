@@ -84,7 +84,7 @@ Executor: Claude Code (Opus 5.5, Extra High) on BANE-VICTUS-TOP, fresh clone `C:
 | # | Step | Status | Start (UTC) | End (UTC) |
 |---|---|---|---|---|
 | 0 | Clone, npm ci, Playwright Chromium 1194, venv with Pillow, image-gen check, baseline | done | 00:16 | 00:21 |
-| 1 | P1 laptop check (evidence/laptop-check/CHECK.md) | done | 00:16 | 00:50 |
-| 2 | P2 Temporary Programs panel (evidence/temporary-programs/) | done | 00:49 | 01:08 |
-| 3 | P3 images | pending | | |
-| 4 | P4 gates, PR, records | pending | | |
+| 1 | P1 laptop check (evidence/laptop-check/CHECK.md) | done | 00:16 | 00:49 |
+| 2 | P2 Temporary Programs panel (evidence/temporary-programs/) | done | 00:49 | 01:06 |
+| 3 | P3 images (evidence/images/) | done | 01:06 | 01:22 |
+| 4 | P4 gates, PR, records (CHECK.md §4) | done | 01:22 | see RUNLOG |

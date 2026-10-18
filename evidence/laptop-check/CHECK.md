@@ -50,3 +50,8 @@ Not a defect: the first skip-link screenshot was taken mid-scroll (the page scro
 ## Not checked here
 
 Firefox and Safari (not installed), real phones, high-contrast and forced-colours modes, the scheduled workflow and the `data-refresh` issue on GitHub, and Pages, DNS and HTTPS on data.tj-hosting.ca.
+
+## 4. Final run (P4, 18 Oct 01:22–01:30 UTC, on the finished branch)
+
+- **`npm test`, once:** data test **40/40** (now including the Temporary Programs checks), map **7/7**, contrast **all pass** (dashboard: 146 text elements over images, 0 below AA, worst 4.79:1), image caps **7/7**, image widths **111/111**, screenshots **16**. Exit 0. Outputs: `evidence/*.txt`, `evidence/screenshots/`.
+- **Headed Chrome 155 and Edge 155:** first pass **48/50** in each (`final-browser-*-run1-panel-wash.txt`). At 375 px the two panel washes were drawn slightly wider than their pixels (×1.13 and ×1.045): the panels are taller than 720 px there. Fixed by capping the wash box at the source's 720 px height (`css/site.css`). After the fix, the contrast check was re-run (**all pass**) and the browser check re-run: **Chrome 50/50, Edge 50/50** (`final-browser-chrome.txt`, `final-browser-msedge.txt`; shots in `shots/`, overwritten by this run).

@@ -403,7 +403,7 @@ h1, h2, h3 {
 .panel-temporary { border-top: 3px solid var(--c-temporary); }
 .panel-refugee, .panel-temporary { overflow: hidden; isolation: isolate; }
 .panel-refugee .panel-bg, .panel-temporary .panel-bg {
-	position: absolute; inset: 0; z-index: -1; opacity: 0.14;
+	position: absolute; inset: 0 0 auto; height: min(100%, 720px); z-index: -1; opacity: 0.14;	/* ≤ the 1280×720 source, so never upscaled */
 	mask-image: linear-gradient(180deg, #000, transparent 75%);
 	-webkit-mask-image: linear-gradient(180deg, #000, transparent 75%);
 }
