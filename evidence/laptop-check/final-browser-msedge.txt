@@ -1,0 +1,103 @@
+Browser check — 2026-10-18T01:47:24.086Z — msedge 155.0.4283.45, headed — http://127.0.0.1:8767/
+PASS  375px light: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  375px light: theme applied
+      data-theme=light
+PASS  375px light: figures filled
+      people 4,311; label "Last night (Friday, October 16, 2026)"; hero sh-hero-portrait-480.avif; unfilled: none
+PASS  375px light: console clean
+      no errors, warnings or failed requests
+PASS  768px light: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  768px light: theme applied
+      data-theme=light
+PASS  768px light: figures filled
+      people 4,311; label "Last night (Friday, October 16, 2026)"; hero sh-hero-islands-sunset-hd-1664.avif; unfilled: none
+PASS  768px light: console clean
+      no errors, warnings or failed requests
+PASS  1440px light: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  1440px light: theme applied
+      data-theme=light
+PASS  1440px light: figures filled
+      people 4,311; label "Last night (Friday, October 16, 2026)"; hero sh-hero-islands-sunset-hd-1664.avif; unfilled: none
+PASS  1440px light: console clean
+      no errors, warnings or failed requests
+PASS  375px dark: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  375px dark: theme applied
+      data-theme=dark
+PASS  375px dark: figures filled
+      people 4,311; label "Last night (Friday, October 16, 2026)"; hero sh-hero-portrait-480.avif; unfilled: none
+PASS  375px dark: console clean
+      no errors, warnings or failed requests
+PASS  768px dark: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  768px dark: theme applied
+      data-theme=dark
+PASS  768px dark: figures filled
+      people 4,311; label "Last night (Friday, October 16, 2026)"; hero sh-hero-islands-dusk-hd-1672.avif; unfilled: none
+PASS  768px dark: console clean
+      no errors, warnings or failed requests
+PASS  1440px dark: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  1440px dark: theme applied
+      data-theme=dark
+PASS  1440px dark: figures filled
+      people 4,311; label "Last night (Friday, October 16, 2026)"; hero sh-hero-islands-dusk-hd-1672.avif; unfilled: none
+PASS  1440px dark: console clean
+      no errors, warnings or failed requests
+PASS  reduced motion: hero drift, reveals and meter fills finish at once
+      {"hero":"1e-06s","reveal":"1e-06s","meter":"1e-06s","heroTransform":"matrix(1, 0, 0, 1, 0, 0)"}
+PASS  reduced motion: console clean
+      clean
+PASS  keyboard: the first stop after the filters skips the map
+      "Skip the map: every program is in the table below" (skip skip-map)
+PASS  keyboard: after the skip link, Tab reaches the table's sort buttons
+      Tab path after Enter on the skip link: th:program
+PASS  keyboard: focus ring visible on the sort button
+      solid 1.6px rgb(224, 164, 79)
+PASS  keyboard: every column header is a reachable button
+      sector, area, capacity_type, people, occupied, rate
+PASS  keyboard: Enter sorts by People and toggles direction
+      aria-sort descending (first row 348) → ascending (first row 2)
+PASS  keyboard: console clean
+      clean
+PASS  map light: pins drawn and a popup opens
+      95 pins; popup: 185 YORKLAND BLVD, NORTH YORK Fred Victor Uptown Hotel Program Mixed Adult · room-based · Temporary Programs 268 of 268 rooms occupied (100.
+PASS  map light: console clean
+      clean
+PASS  map dark: pins drawn and a popup opens
+      95 pins; popup: 185 YORKLAND BLVD, NORTH YORK Fred Victor Uptown Hotel Program Mixed Adult · room-based · Temporary Programs 268 of 268 rooms occupied (100.
+PASS  map dark: console clean
+      clean
+PASS  375px light: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  768px light: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  1440px light: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  1920px light: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  375px dark: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  768px dark: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  1440px dark: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  1920px dark: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  embed 320×180: fits, filled
+      Toronto shelters · Last night (Oct 16) · 4,311 people
+PASS  embed 320×180: console clean
+      clean
+PASS  embed 600×340: fits, filled
+      Toronto shelters · Last night (Oct 16) · 4,311 people
+PASS  embed 600×340: console clean
+      clean
+PASS  404.html renders with its background and helpline
+      h1 "THIS PAGE ISN'T HERE"; background url("http://127.0.0.1:8767/assets/img/sh-tex-dusk-sky-1280.webp")
+PASS  404.html: console clean
+      clean
+
+50/50 checks passed.

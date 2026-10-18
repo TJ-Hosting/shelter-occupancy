@@ -1,0 +1,18 @@
+Map check — 2026-10-18T00:20:30.307Z — http://127.0.0.1:8765/
+Snapshot night: 2026-10-14; 122 programs, 116 geocoded, 6 unplaced.
+PASS  one pin per geocoded address
+      95 pins drawn; 95 distinct coordinates for 116 geocoded programs
+PASS  mapped and unplaced counts shown
+      116 of 122 programs shown are mapped, at 95 addresses. 6 have no published address and are listed below the map.
+PASS  every unplaced program listed
+      6 listed: Homes First Society - Pacewood; TSSS Etobicoke Hotel Program; Nellie's Women's Shelter; Centre for Refugee Children - Anchor House; Friends of Ruby - Emergency Housing; Friends of Ruby - Transitional Housing
+PASS  not-a-bed-finder note visible
+      This map is not a bed-finder. For a shelter space, contact Central Intake: 416-338-4766 or 1-877-338-3398, or call 311. It is a City-operated, 24/7 telephone se
+PASS  pin popup shows name, sector, type, occupancy
+      1229 ELLESMERE RD, TORONTO Birkdale Residence - Bedded Program Families · room-based · Base Shelter and Overnight Services System 61 of 61 rooms occupied (100.0%) · 206 people
+PASS  sector filter updates map and table
+      18 pins (expected 18), 25 rows (expected 25)
+PASS  capacity-type filter updates map
+      24 pins for room programs
+
+7/7 checks passed.

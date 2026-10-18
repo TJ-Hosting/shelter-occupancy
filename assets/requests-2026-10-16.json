@@ -1,0 +1,23 @@
+[
+	{
+		"name": "sh-hero-islands-dusk-2560",
+		"size": "2560x1440",
+		"provider": "gemini",
+		"why": "The pack hero is 1280 px wide; the browser stretches it on wide and high-density screens (docs/DESIGN.md §6). Same scene at 2560×1440 for the dark-mode hero.",
+		"prompt": "The Toronto skyline with the CN Tower seen across the water from the Toronto Islands just after sunset: the sky fading from rose to deep violet, the first city lights coming on in the towers and reflecting on the lake, quiet and reflective, open sky in the upper half. Visual style: warm painterly digital illustration with soft volumetric light and gentle film grain, a calm and dignified documentary mood, a palette of golden amber, coral and rose sunset tones fading into dusky violet and deep navy. Toronto, Canada. Render at 2560×1440 with crisp detail in the towers and reflections."
+	},
+	{
+		"name": "sh-hero-islands-sunset-2560",
+		"size": "2560x1440",
+		"provider": "gemini",
+		"why": "Same reason, for the light-mode hero.",
+		"prompt": "The Toronto skyline with the CN Tower seen across the water from the Toronto Islands at golden-hour sunset, the calm lake reflecting coral and amber light, a few sailboats far away, a wide panoramic composition with open sky in the upper half for a headline. Visual style: warm painterly digital illustration with soft volumetric light and gentle film grain, a calm and dignified documentary mood, a palette of golden amber, coral and rose sunset tones fading into dusky violet and deep navy. Toronto, Canada. Render at 2560×1440 with crisp detail in the towers and reflections."
+	},
+	{
+		"name": "sh-sc-doorway-v2",
+		"size": "1536x1024",
+		"provider": "openai",
+		"why": "The pack doorway is not shipped: a house number '142', lettering on the doormat and a framed photo in the hallway that appears to show people (docs/DESIGN.md §6). A clean version would suit the 'What this shows' section.",
+		"prompt": "An open front doorway at night spilling warm golden light onto snowy front steps, a plain unmarked doormat, a glimpse of a warm empty hallway inside with bare walls and no pictures or frames, no house number, welcoming. Visual style: warm painterly digital illustration with soft volumetric light and gentle film grain, a calm and dignified documentary mood, a palette of golden amber, coral and rose sunset tones fading into dusky violet and deep navy. Toronto, Canada."
+	}
+]
