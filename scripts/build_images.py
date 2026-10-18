@@ -22,8 +22,9 @@ LEDGERS = [os.path.join(ROOT, "assets", "pack", "LEDGER.jsonl"), os.path.join(RO
 
 # name in pack → (widths, use on the site, alt text or "" for decorative)
 SHIP = {
-	"sh-hero-islands-dusk": ([640, 960, 1280], "hero background, dark mode", ""),
-	"sh-hero-islands-sunset": ([640, 960, 1280], "hero background, light mode", ""),
+	# Heroes from the 17 Oct laptop pack (Codex, 1672 and 1664 px); the largest width is the source width.
+	"sh-hero-islands-dusk-hd": ([640, 960, 1280, 1672], "hero background, dark mode", ""),
+	"sh-hero-islands-sunset-hd": ([640, 960, 1280, 1664], "hero background, light mode", ""),
 	"sh-hero-portrait": ([480, 720], "hero background on narrow screens", ""),
 	"sh-hero-winter-night": ([640, 1280], "band above the year-over-year chart", ""),
 	"sh-sc-cot": ([480, 960], "beds block illustration", ""),
@@ -32,6 +33,9 @@ SHIP = {
 		"Illustration: a brick apartment building at night in falling snow, its windows lit in warm colours."),
 	"sh-sc-streetcar": ([640, 1248], "footer band", ""),
 	"sh-tex-dusk-sky": ([640, 1280], "refugee-response panel and 404 background", ""),
+	"sh-tex-city-bokeh": ([640, 1280], "Temporary Programs panel background", ""),
+	"sh-sc-doorway-v2": ([640, 1088], "context section illustration",
+		"Illustration: an open front door at night, warm light from an empty hallway spilling onto snowy steps."),
 	"sh-embed-band": ([640, 1280], "embed card background", ""),
 	"sh-spot-tea": ([320, 640], "context section spot",
 		"Illustration: a steaming mug of tea on a windowsill, the Toronto skyline blurred outside."),

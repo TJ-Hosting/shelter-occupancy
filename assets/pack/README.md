@@ -40,3 +40,13 @@ Made by agent=claude (Cowork, cloud session linked to BANE-VICTUS-TOP) for TJ, b
 | `sh-embed-band.jpg` | embed card background | none seen |
 
 The build may generate up to 40 more images (TJ, 15 Oct), within brief v2 §2; redos of the flaws above count toward that.
+
+## Added on the laptop, 17 Oct 2026 (shelter-02)
+
+Three images from `C:\localhost\image-inbox\shelter-occupancy\laptop-2026-10-17\` (made by agent=claude in Cowork for Aco, with Codex), added here as same-size JPEG masters (quality 92) with a ledger line each:
+
+| File | Size | Use |
+|---|---|---|
+| `sh-hero-islands-dusk-hd.jpg` | 1672×941 | hero, dark mode (replaces `sh-hero-islands-dusk`) |
+| `sh-hero-islands-sunset-hd.jpg` | 1664×936 | hero, light mode (replaces `sh-hero-islands-sunset`); more saturated and photographic than this pack's plates |
+| `sh-sc-doorway-v2.jpg` | 1536×1024 | "What this shows"; no house number, lettering, frames or people |

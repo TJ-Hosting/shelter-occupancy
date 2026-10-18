@@ -57,7 +57,7 @@ function decodePNG(buf) {
 }
 
 // ---------------------------------------------------------------- per page / theme / width
-const ZONES = ".hero, .band, .block, .panel-refugee, .footer, a.card";
+const ZONES = ".hero, .band, .block, .panel-temporary, .panel-refugee, .footer, a.card";
 
 async function audit(browser, url, theme, width, height, label) {
 	const ctx = await browser.newContext({ viewport: { width, height }, colorScheme: theme, locale: "en-CA", timezoneId: "America/Toronto", reducedMotion: "reduce", deviceScaleFactor: 1 });

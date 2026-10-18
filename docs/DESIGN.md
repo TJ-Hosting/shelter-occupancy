@@ -88,8 +88,10 @@ Atmosphere only, never data, never people. From the pre-generated pack (`assets/
 
 | Image | Where | Treatment |
 |---|---|---|
-| `sh-hero-islands-dusk` | hero, dark mode | dark scrim gradients + grain; slow 40 s settle (off with reduced motion) |
-| `sh-hero-islands-sunset` | hero, light mode | a scrim dark on the text column and open on the right, so the sunset glows; the hero stays an "evening" zone in both modes |
+| `sh-hero-islands-dusk-hd` (1672 px, Codex, 17 Oct) | hero, dark mode | dark scrim gradients + grain; slow 40 s settle (off with reduced motion) |
+| `sh-hero-islands-sunset-hd` (1664 px, Codex, 17 Oct) | hero, light mode | a scrim dark on the text column and open on the right, so the sunset glows; the hero stays an "evening" zone in both modes |
+| `sh-tex-city-bokeh` | Temporary Programs panel | the same wash as the refugee panel |
+| `sh-sc-doorway-v2` (Codex, 17 Oct) | "What this shows", under the spots | with alt text; covered by the section's AI-generated caption |
 | `sh-hero-portrait` | hero below 600 px | a deeper scrim from a third of the way down, because the portrait plate puts bright sky behind the text |
 | `sh-sc-cot`, `sh-sc-hotel-corridor` | beds and rooms blocks | 20% (dark) / 10% (light), masked into the card's right side |
 | `sh-hero-winter-night` | band above the year-over-year chart | dark gradient under the heading |
@@ -99,9 +101,14 @@ Atmosphere only, never data, never people. From the pre-generated pack (`assets/
 | `sh-embed-band` | embed card | dark scrim |
 | `sh-og-share` | share image 1200×630 | rendered with the title by `scripts/build_og.mjs` |
 
-**Not shipped:** `sh-sc-doorway` (a house number "142", lettering on the doormat, and a framed photo in the hallway that appears to show people) and `sh-sc-bench-snow` (an empty bench in snow beside a turn-away figure would suggest that unmatched callers sleep outside, which the data does not say). Requests to regenerate are in `assets/REQUESTS.md`.
+**Not shipped:** `sh-sc-doorway` (a house number "142", lettering on the doormat, and a framed photo in the hallway that appears to show people; replaced by `sh-sc-doorway-v2`) and `sh-sc-bench-snow` (an empty bench in snow beside a turn-away figure would suggest that unmatched callers sleep outside, which the data does not say). The pack's 1280 px `sh-hero-islands-dusk` and `-sunset` were replaced by the HD versions (shelter-02): side by side in the page at 1440 and 1920 px (`evidence/images/compare/`), the HD skylines are clearly sharper. The scrims keep their mood calm, though the HD sunset is more saturated and photographic than the pack's painterly plates.
 
-**Resolution, stated rather than silent:** the pack's heroes are 1280 px wide. On screens wider than that, and on high-density screens, the browser stretches them. The dark scrim and grain hide most of the softness; a 2560 px regeneration is requested in `assets/REQUESTS.md`.
+**Resolution: never upscaled, in the files or on the page** (Aco, 17 Oct 2026). `scripts/build_images.py` never writes a width larger than the source, and `tests/image-widths.py` checks every file. On the page no image is drawn wider than its pixels at 375, 768, 1440 or 1920 CSS px (`tests/browser-check.mjs`). To get there:
+- the hero's `sizes` accounts for its height (`max(100vw, min(88vh, 46rem) × 1.78)`), and above 1664 px the hero stops at its source width with soft dark edges;
+- the footer art keeps its 3:2 shape at no more than 1,248 px wide;
+- the two panel washes use their 1,280 px files.
+
+High-density screens still get fewer device pixels than they could use: the laptop's models stop at about 1,672 px, and the 2560 px request was not met.
 
 ## 7. Accessibility and motion
 

@@ -1,0 +1,6 @@
+375-light: {"headline-people":"4,311","temporary-people":"1,916","refugee-people":"732","citywide-people":"6,959"} · horizontal overflow 0px · no console errors
+1440-light: {"headline-people":"4,311","temporary-people":"1,916","refugee-people":"732","citywide-people":"6,959"} · horizontal overflow 0px · no console errors
+375-dark: {"headline-people":"4,311","temporary-people":"1,916","refugee-people":"732","citywide-people":"6,959"} · horizontal overflow 0px · no console errors
+1440-dark: {"headline-people":"4,311","temporary-people":"1,916","refugee-people":"732","citywide-people":"6,959"} · horizontal overflow 0px · no console errors
+embed 320x180: 4,311 people · fits
+embed 600x340: 4,311 people · fits

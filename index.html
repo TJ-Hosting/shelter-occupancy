@@ -61,10 +61,10 @@
 			<picture class="hero-art">
 				<source media="(max-width: 37.5rem)" type="image/avif" srcset="assets/img/sh-hero-portrait-480.avif 480w, assets/img/sh-hero-portrait-720.avif 720w" sizes="100vw">
 				<source media="(max-width: 37.5rem)" type="image/webp" srcset="assets/img/sh-hero-portrait-480.webp 480w, assets/img/sh-hero-portrait-720.webp 720w" sizes="100vw">
-				<source data-theme-source="light" media="(prefers-color-scheme: light)" type="image/avif" srcset="assets/img/sh-hero-islands-sunset-640.avif 640w, assets/img/sh-hero-islands-sunset-960.avif 960w, assets/img/sh-hero-islands-sunset-1280.avif 1280w" sizes="100vw">
-				<source data-theme-source="light" media="(prefers-color-scheme: light)" type="image/webp" srcset="assets/img/sh-hero-islands-sunset-640.webp 640w, assets/img/sh-hero-islands-sunset-960.webp 960w, assets/img/sh-hero-islands-sunset-1280.webp 1280w" sizes="100vw">
-				<source type="image/avif" srcset="assets/img/sh-hero-islands-dusk-640.avif 640w, assets/img/sh-hero-islands-dusk-960.avif 960w, assets/img/sh-hero-islands-dusk-1280.avif 1280w" sizes="100vw">
-				<img src="assets/img/sh-hero-islands-dusk-1280.webp" srcset="assets/img/sh-hero-islands-dusk-640.webp 640w, assets/img/sh-hero-islands-dusk-960.webp 960w, assets/img/sh-hero-islands-dusk-1280.webp 1280w" sizes="100vw" alt="" width="1280" height="720" fetchpriority="high">
+				<source data-theme-source="light" media="(prefers-color-scheme: light)" type="image/avif" srcset="assets/img/sh-hero-islands-sunset-hd-640.avif 640w, assets/img/sh-hero-islands-sunset-hd-960.avif 960w, assets/img/sh-hero-islands-sunset-hd-1280.avif 1280w, assets/img/sh-hero-islands-sunset-hd-1664.avif 1664w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))">
+				<source data-theme-source="light" media="(prefers-color-scheme: light)" type="image/webp" srcset="assets/img/sh-hero-islands-sunset-hd-640.webp 640w, assets/img/sh-hero-islands-sunset-hd-960.webp 960w, assets/img/sh-hero-islands-sunset-hd-1280.webp 1280w, assets/img/sh-hero-islands-sunset-hd-1664.webp 1664w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))">
+				<source type="image/avif" srcset="assets/img/sh-hero-islands-dusk-hd-640.avif 640w, assets/img/sh-hero-islands-dusk-hd-960.avif 960w, assets/img/sh-hero-islands-dusk-hd-1280.avif 1280w, assets/img/sh-hero-islands-dusk-hd-1672.avif 1672w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))">
+				<img src="assets/img/sh-hero-islands-dusk-hd-1280.webp" srcset="assets/img/sh-hero-islands-dusk-hd-640.webp 640w, assets/img/sh-hero-islands-dusk-hd-960.webp 960w, assets/img/sh-hero-islands-dusk-hd-1280.webp 1280w, assets/img/sh-hero-islands-dusk-hd-1672.webp 1672w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))" alt="" width="1672" height="941" fetchpriority="high">
 			</picture>
 			<div class="wrap hero-inner">
 				<p class="kicker reveal"><b>City of Toronto open data</b> · refreshed daily · every figure dated</p>
@@ -129,6 +129,10 @@
 			<!-- ============================================================ separate panels + turn-aways -->
 			<div class="grid-2" style="margin-top: 1.25rem">
 				<article class="card panel-temporary" id="temporary" aria-labelledby="temporary-title">
+					<picture class="panel-bg" aria-hidden="true">
+						<source type="image/avif" srcset="assets/img/sh-tex-city-bokeh-1280.avif">
+						<img src="assets/img/sh-tex-city-bokeh-1280.webp" alt="" loading="lazy" width="1280" height="720">
+					</picture>
 					<p class="kicker">Separate panel · <span data-figure="temporary-night">—</span></p>
 					<h3 id="temporary-title">Temporary Programs</h3>
 					<p class="panel-figure"><span data-figure="temporary-people">—</span><small>people served</small></p>
@@ -153,8 +157,8 @@
 
 				<article class="card panel-refugee" id="refugee" aria-labelledby="refugee-title">
 					<picture class="panel-bg" aria-hidden="true">
-						<source type="image/avif" srcset="assets/img/sh-tex-dusk-sky-640.avif">
-						<img src="assets/img/sh-tex-dusk-sky-640.webp" alt="" loading="lazy" width="640" height="360">
+						<source type="image/avif" srcset="assets/img/sh-tex-dusk-sky-1280.avif">
+						<img src="assets/img/sh-tex-dusk-sky-1280.webp" alt="" loading="lazy" width="1280" height="720">
 					</picture>
 					<p class="kicker">Separate panel · <span data-figure="refugee-night">—</span></p>
 					<h3 id="refugee-title">Temporary Refugee Response</h3>
@@ -392,6 +396,12 @@
 							<picture><source type="image/avif" srcset="assets/img/sh-spot-key-320.avif"><img src="assets/img/sh-spot-key-320.webp" alt="Illustration: a door key on a ring beside a lamp on a nightstand." loading="lazy" width="320" height="320"></picture>
 							<picture><source type="image/avif" srcset="assets/img/sh-spot-coat-320.avif"><img src="assets/img/sh-spot-coat-320.webp" alt="Illustration: a winter coat and scarf hanging on a wall hook." loading="lazy" width="320" height="320"></picture>
 						</div>
+						<figure class="doorway">
+							<picture>
+								<source type="image/avif" srcset="assets/img/sh-sc-doorway-v2-640.avif 640w, assets/img/sh-sc-doorway-v2-1088.avif 1088w" sizes="(min-width: 60rem) 34rem, 100vw">
+								<img src="assets/img/sh-sc-doorway-v2-640.webp" srcset="assets/img/sh-sc-doorway-v2-640.webp 640w, assets/img/sh-sc-doorway-v2-1088.webp 1088w" sizes="(min-width: 60rem) 34rem, 100vw" alt="Illustration: an open front door at night, warm light from an empty hallway spilling onto snowy steps." loading="lazy" width="640" height="427">
+							</picture>
+						</figure>
 					</div>
 				</div>
 			</div>
@@ -400,8 +410,8 @@
 
 	<footer class="footer">
 		<picture class="footer-art" aria-hidden="true">
-			<source type="image/avif" srcset="assets/img/sh-sc-streetcar-640.avif 640w, assets/img/sh-sc-streetcar-1248.avif 1248w" sizes="100vw">
-			<img src="assets/img/sh-sc-streetcar-1248.webp" srcset="assets/img/sh-sc-streetcar-640.webp 640w, assets/img/sh-sc-streetcar-1248.webp 1248w" sizes="100vw" alt="" loading="lazy" width="1248" height="832">
+			<source type="image/avif" srcset="assets/img/sh-sc-streetcar-640.avif 640w, assets/img/sh-sc-streetcar-1248.avif 1248w" sizes="min(100vw, 1248px)">
+			<img src="assets/img/sh-sc-streetcar-1248.webp" srcset="assets/img/sh-sc-streetcar-640.webp 640w, assets/img/sh-sc-streetcar-1248.webp 1248w" sizes="min(100vw, 1248px)" alt="" loading="lazy" width="1248" height="832">
 		</picture>
 		<div class="wrap">
 			<div class="footer-grid">

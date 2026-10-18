@@ -146,6 +146,25 @@ for (const theme of ["light", "dark"]) {
 	await ctx.close();
 }
 
+// ---------------------------------------------------------------- no image drawn wider than its pixels (Aco, 17 Oct 2026)
+for (const theme of ["light", "dark"]) {
+	for (const [w, h] of [[375, 812], [768, 1024], [1440, 900], [1920, 1080]]) {
+		const { ctx, page } = await open(base, { viewport: { width: w, height: h }, colorScheme: theme, reducedMotion: "reduce" });
+		await settle(page);
+		const over = (await page.evaluate(async () => Promise.all([...document.images].map(async (i) => {
+			const r = i.getBoundingClientRect();
+			if (!r.width || !i.currentSrc || i.closest("#map")) return null;
+			const raw = new Image();	// the file's own pixels (naturalWidth on a srcset image is density-corrected)
+			raw.src = i.currentSrc;
+			await raw.decode().catch(() => {});
+			const s = getComputedStyle(i).objectFit === "cover" ? Math.max(r.width / raw.naturalWidth, r.height / raw.naturalHeight) : r.width / raw.naturalWidth;
+			return { src: i.currentSrc.split("/").pop(), s: Math.round(s * 1000) / 1000 };
+		})))).filter((x) => x && x.s > 1.005);
+		check(`${w}px ${theme}: no image drawn wider than its source (CSS px)`, over.length === 0, over.map((o) => `${o.src} ×${o.s}`).join(", ") || "none upscaled");
+		await ctx.close();
+	}
+}
+
 // ---------------------------------------------------------------- embed card and 404
 for (const [w, h] of [[320, 180], [600, 340]]) {
 	const { ctx, page, problems } = await open(new URL("embed/", base).href, { viewport: { width: w, height: h }, deviceScaleFactor: 2 });

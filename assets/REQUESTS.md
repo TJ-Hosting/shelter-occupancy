@@ -1,5 +1,7 @@
 # Image requests for a laptop follow-up
 
+**Status (shelter-02, 2026-10-18):** all three answered on 17 Oct by the laptop's image-gen skill with Codex. They ship as `sh-hero-islands-dusk-hd` (1672×941), `sh-hero-islands-sunset-hd` (1664×936) and `sh-sc-doorway-v2` (1536×1024); the ledger lines are at the end of `assets/pack/LEDGER.jsonl`. The 2560 px width was **not** met: the laptop's models stop at about 1,672 px, and nothing was upscaled.
+
 No `OPENAI_API_KEY` or `GEMINI_API_KEY` was set in the build sandbox, so `scripts/imagegen.py` wrote these requests instead of calling an API (brief v2 §2). Each prompt already carries the no-people, no-text clause. Generate them with the laptop's image-gen skill, add a line per image to `assets/pack/LEDGER.jsonl` (or run `scripts/imagegen.py` with a key, which ledgers to `assets/LEDGER.jsonl`), then re-run `scripts/build_images.py`.
 
 Cap: at most 40 images or US$10.00, whichever comes first.

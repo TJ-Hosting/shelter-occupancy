@@ -31,5 +31,6 @@ run "data test (raw CKAN vs page)" evidence/data-test.txt node tests/data-test.m
 run "map check" evidence/map-check.txt node tests/map-check.mjs "$BASE"
 run "contrast check" evidence/contrast-check.txt node tests/contrast-check.mjs "$BASE"
 run "image caps" evidence/imagegen-caps.txt python3 tests/imagegen-caps.py
+run "image widths" evidence/image-widths.txt python3 tests/image-widths.py
 run "screenshots" evidence/screenshots.txt node tests/screenshots.mjs "$BASE" evidence/screenshots
 exit $status
