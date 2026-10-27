@@ -1,0 +1,47 @@
+Data test — 2026-10-18T00:51:41.646Z
+Page: http://127.0.0.1:8766/ · snapshot night 2026-10-16 · night label shown: "Last night (Friday, October 16, 2026)"
+Raw: CKAN daily-shelter-overnight-service-occupancy-capacity, resource 42714176-4f05-44e6-b157-2b57f29b856a, 122 rows for 2026-10-16 (datastore_search, filtered). Newest night in the current resource: 2026-10-16.
+Package last_refreshed 2026-10-17 13:36:57.461455. Panels: headline = PROGRAM_AREA not "Temporary Programs" or "Temporary Refugee Response" (87 programs), Temporary Programs (20), refugee = "Temporary Refugee Response" (15).
+
+FAIL  headline people served                           raw → 4,311          shown → 6,227
+FAIL  headline bed rate                                raw → 96.8%          shown → 96.9%
+FAIL  headline room rate                               raw → 96.3%          shown → 99.2%
+FAIL  headline beds occupied                           raw → 3,379          shown → 3,429
+FAIL  headline beds capacity                           raw → 3,489          shown → 3,539
+PASS  headline beds unoccupied                         raw → 110            shown → 110
+FAIL  headline rooms occupied                          raw → 312            shown → 1,719
+FAIL  headline rooms capacity                          raw → 324            shown → 1,733
+FAIL  headline rooms unoccupied                        raw → 12             shown → 14
+FAIL  headline programs                                raw → 87             shown → 107
+FAIL  Temporary Programs people served                 raw → 1,916          shown → undefined
+FAIL  Temporary Programs bed rate                      raw → 100.0%         shown → undefined
+FAIL  Temporary Programs room rate                     raw → 99.9%          shown → undefined
+FAIL  Temporary Programs beds occupied                 raw → 50             shown → undefined
+FAIL  Temporary Programs beds capacity                 raw → 50             shown → undefined
+FAIL  Temporary Programs rooms occupied                raw → 1,407          shown → undefined
+FAIL  Temporary Programs rooms capacity                raw → 1,409          shown → undefined
+FAIL  Temporary Programs programs                      raw → 20             shown → undefined
+PASS  refugee people served                            raw → 732            shown → 732
+PASS  refugee bed rate                                 raw → 84.4%          shown → 84.4%
+PASS  refugee room rate                                raw → 100.0%         shown → 100.0%
+PASS  refugee beds occupied                            raw → 178            shown → 178
+PASS  refugee beds capacity                            raw → 211            shown → 211
+PASS  refugee rooms occupied                           raw → 210            shown → 210
+PASS  refugee rooms capacity                           raw → 210            shown → 210
+PASS  refugee programs                                 raw → 15             shown → 15
+PASS  City-wide people served                          raw → 6,959          shown → 6,959
+PASS  City-wide bed rate                               raw → 96.2%          shown → 96.2%
+PASS  City-wide room rate                              raw → 99.3%          shown → 99.3%
+FAIL  snapshot: no headline program is in either temporary area raw → none           shown → Temporary Programs
+PASS  raw: headline + Temporary Programs + refugee = City-wide people raw → 6959           shown → 6959
+FAIL  shown: headline + Temporary Programs + refugee = City-wide people raw → 6959           shown → NaN
+FAIL  embed: people served                             raw → 4,311          shown → 6,227
+FAIL  embed: bed rate                                  raw → 96.8%          shown → 96.9%
+FAIL  embed: room rate                                 raw → 96.3%          shown → 99.2%
+PASS  night label names the snapshot's night           raw → true           shown → true
+PASS  every occupancy source line says 'as of' that night raw → true           shown → true
+PASS  embed source line says 'as of' that night        raw → Source: City of Toronto Open Data, as of Oct 16, 2026 shown → Source: City of Toronto Open Data, as of Oct 16, 2026
+PASS  unmatched callers (latest operational date)      raw → 109            shown → 109
+PASS  unmatched callers date                           raw → Wednesday, September 30, 2026 shown → Wednesday, September 30, 2026
+
+18/40 checks passed.

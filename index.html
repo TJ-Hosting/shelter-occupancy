@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<title>Toronto shelter occupancy — last night, from the City's open data</title>
+	<meta name="description" content="How many people stayed in Toronto's shelter and overnight programs last night, and how full the beds and rooms were. Every figure comes from the City of Toronto's open data, with its date.">
+	<link rel="canonical" href="https://data.tj-hosting.ca/">
+	<meta name="color-scheme" content="dark light">
+	<meta name="theme-color" content="#08090a">
+	<meta property="og:site_name" content="Toronto shelter occupancy">
+	<meta property="og:title" content="Toronto shelter occupancy — last night, from the City's open data">
+	<meta property="og:description" content="People served, bed and room occupancy, trends since 2021 and a map of programs. A data companion to Homeless in Toronto.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://data.tj-hosting.ca/">
+	<meta property="og:image" content="https://data.tj-hosting.ca/assets/img/og-share-1200x630.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="The words TORONTO SHELTER OCCUPANCY over a painted Toronto skyline at dusk.">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
+	<link rel="preload" href="vendor/oswald-5.3.0/oswald-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="vendor/uplot-1.6.32/uPlot.min.css">
+	<link rel="stylesheet" href="vendor/leaflet-1.9.4/leaflet.css">
+	<link rel="stylesheet" href="css/site.css">
+	<script>
+		// Apply a saved theme before first paint. Storage may be blocked; the system setting then wins.
+		try {
+			var t = localStorage.getItem("theme");
+			if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+		} catch (e) {}
+	</script>
+	<script src="vendor/uplot-1.6.32/uPlot.iife.min.js" defer></script>
+	<script src="vendor/leaflet-1.9.4/leaflet.js" defer></script>
+	<script src="js/app.js" type="module"></script>
+</head>
+<body>
+	<a class="skip" href="#main">Skip to the figures</a>
+
+	<header class="masthead">
+		<div class="wrap">
+			<a class="wordmark" href="#top">Toronto <span>shelter</span> occupancy</a>
+			<nav class="nav" aria-label="Sections">
+				<a href="#last-night">Last night</a>
+				<a href="#trends">Trends</a>
+				<a href="#programs">Map &amp; programs</a>
+				<a href="#about">About the data</a>
+			</nav>
+			<button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch to light mode">
+				<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg>
+				<span id="theme-label">Light</span>
+			</button>
+		</div>
+	</header>
+
+	<div id="error" class="error-banner" hidden></div>
+
+	<main id="main">
+		<!-- ============================================================ HERO: last night -->
+		<section class="hero" id="top" aria-labelledby="hero-title">
+			<picture class="hero-art">
+				<source media="(max-width: 37.5rem)" type="image/avif" srcset="assets/img/sh-hero-portrait-480.avif 480w, assets/img/sh-hero-portrait-720.avif 720w" sizes="100vw">
+				<source media="(max-width: 37.5rem)" type="image/webp" srcset="assets/img/sh-hero-portrait-480.webp 480w, assets/img/sh-hero-portrait-720.webp 720w" sizes="100vw">
+				<source data-theme-source="light" media="(prefers-color-scheme: light)" type="image/avif" srcset="assets/img/sh-hero-islands-sunset-hd-640.avif 640w, assets/img/sh-hero-islands-sunset-hd-960.avif 960w, assets/img/sh-hero-islands-sunset-hd-1280.avif 1280w, assets/img/sh-hero-islands-sunset-hd-1664.avif 1664w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))">
+				<source data-theme-source="light" media="(prefers-color-scheme: light)" type="image/webp" srcset="assets/img/sh-hero-islands-sunset-hd-640.webp 640w, assets/img/sh-hero-islands-sunset-hd-960.webp 960w, assets/img/sh-hero-islands-sunset-hd-1280.webp 1280w, assets/img/sh-hero-islands-sunset-hd-1664.webp 1664w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))">
+				<source type="image/avif" srcset="assets/img/sh-hero-islands-dusk-hd-640.avif 640w, assets/img/sh-hero-islands-dusk-hd-960.avif 960w, assets/img/sh-hero-islands-dusk-hd-1280.avif 1280w, assets/img/sh-hero-islands-dusk-hd-1672.avif 1672w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))">
+				<img src="assets/img/sh-hero-islands-dusk-hd-1280.webp" srcset="assets/img/sh-hero-islands-dusk-hd-640.webp 640w, assets/img/sh-hero-islands-dusk-hd-960.webp 960w, assets/img/sh-hero-islands-dusk-hd-1280.webp 1280w, assets/img/sh-hero-islands-dusk-hd-1672.webp 1672w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))" alt="" width="1672" height="941" fetchpriority="high">
+			</picture>
+			<div class="wrap hero-inner">
+				<p class="kicker reveal"><b>City of Toronto open data</b> · refreshed daily · every figure dated</p>
+				<h1 id="hero-title" class="reveal">Toronto shelter occupancy</h1>
+				<p class="lastnight reveal reveal-2" data-figure="night-label">Loading the City's latest count…</p>
+				<p class="hero-figure reveal reveal-2"><span data-figure="headline-people">—</span></p>
+				<p class="hero-label reveal reveal-3">people served in shelter and overnight programs</p>
+				<p class="hero-note reveal reveal-3">Service users staying overnight in City-funded programs, excluding <a href="#temporary">Temporary Programs</a> and the <a href="#refugee">Temporary Refugee Response</a>, which are shown separately.</p>
+			</div>
+		</section>
+
+		<div class="wrap" id="last-night">
+			<div class="blocks" role="group" aria-label="Beds and rooms last night, headline programs">
+				<article class="block" aria-labelledby="beds-title">
+					<picture class="block-art" aria-hidden="true">
+						<source type="image/avif" srcset="assets/img/sh-sc-cot-480.avif 480w, assets/img/sh-sc-cot-960.avif 960w" sizes="(min-width: 46rem) 22vw, 46vw">
+						<img src="assets/img/sh-sc-cot-480.webp" srcset="assets/img/sh-sc-cot-480.webp 480w, assets/img/sh-sc-cot-960.webp 960w" sizes="(min-width: 46rem) 22vw, 46vw" alt="" loading="lazy" width="480" height="320">
+					</picture>
+					<div class="block-head">
+						<h2 id="beds-title"><i style="background: var(--c-beds)" aria-hidden="true"></i>Beds</h2>
+						<span class="kicker" style="margin:0"><span data-figure="headline-beds-programs">—</span> programs</span>
+					</div>
+					<p class="block-rate"><span data-figure="headline-beds-rate">—</span><small>occupied</small></p>
+					<div class="meter beds" aria-hidden="true"><span data-meter="headline-beds"></span></div>
+					<dl class="facts">
+						<div><dt>Occupied</dt><dd data-figure="headline-beds-occupied">—</dd></div>
+						<div><dt>Capacity</dt><dd data-figure="headline-beds-capacity">—</dd></div>
+						<div><dt>Unoccupied</dt><dd data-figure="headline-beds-unoccupied">—</dd></div>
+					</dl>
+					<p class="block-foot">Capacity is the City's <em>actual</em> capacity: beds in service that night. Funded: <span data-figure="headline-beds-funded">—</span>, of which <span data-figure="headline-beds-unavailable">—</span> out of service.</p>
+				</article>
+				<article class="block" aria-labelledby="rooms-title">
+					<picture class="block-art" aria-hidden="true">
+						<source type="image/avif" srcset="assets/img/sh-sc-hotel-corridor-480.avif 480w, assets/img/sh-sc-hotel-corridor-960.avif 960w" sizes="(min-width: 46rem) 22vw, 46vw">
+						<img src="assets/img/sh-sc-hotel-corridor-480.webp" srcset="assets/img/sh-sc-hotel-corridor-480.webp 480w, assets/img/sh-sc-hotel-corridor-960.webp 960w" sizes="(min-width: 46rem) 22vw, 46vw" alt="" loading="lazy" width="480" height="320">
+					</picture>
+					<div class="block-head">
+						<h2 id="rooms-title"><i style="background: var(--c-rooms)" aria-hidden="true"></i>Rooms</h2>
+						<span class="kicker" style="margin:0"><span data-figure="headline-rooms-programs">—</span> programs</span>
+					</div>
+					<p class="block-rate"><span data-figure="headline-rooms-rate">—</span><small>occupied</small></p>
+					<div class="meter rooms" aria-hidden="true"><span data-meter="headline-rooms"></span></div>
+					<dl class="facts">
+						<div><dt>Occupied</dt><dd data-figure="headline-rooms-occupied">—</dd></div>
+						<div><dt>Capacity</dt><dd data-figure="headline-rooms-capacity">—</dd></div>
+						<div><dt>Unoccupied</dt><dd data-figure="headline-rooms-unoccupied">—</dd></div>
+					</dl>
+					<p class="block-foot">Rooms are counted for family and hotel programs where households don't share a room. Funded: <span data-figure="headline-rooms-funded">—</span>, of which <span data-figure="headline-rooms-unavailable">—</span> out of service.</p>
+				</article>
+			</div>
+			<div class="summary">
+				<div>
+					<p class="big"><span data-figure="headline-near-full">—</span> <span>of <span data-figure="headline-programs">—</span> programs</span></p>
+					<p>were <strong>at or near full</strong> (95% or more of their beds or rooms occupied); <span data-figure="headline-full">—</span> were at 100%. <a href="#near-full">How this is defined</a>.</p>
+				</div>
+				<div>
+					<p class="citywide" data-figure="citywide-line">—</p>
+					<p class="source" data-source="occupancy">—</p>
+				</div>
+			</div>
+
+			<!-- ============================================================ separate panels + turn-aways -->
+			<div class="grid-2" style="margin-top: 1.25rem">
+				<article class="card panel-temporary" id="temporary" aria-labelledby="temporary-title">
+					<picture class="panel-bg" aria-hidden="true">
+						<source type="image/avif" srcset="assets/img/sh-tex-city-bokeh-1280.avif">
+						<img src="assets/img/sh-tex-city-bokeh-1280.webp" alt="" loading="lazy" width="1280" height="720">
+					</picture>
+					<p class="kicker">Separate panel · <span data-figure="temporary-night">—</span></p>
+					<h3 id="temporary-title">Temporary Programs</h3>
+					<p class="panel-figure"><span data-figure="temporary-people">—</span><small>people served</small></p>
+					<div class="mini-blocks">
+						<div>
+							<h4><i style="background: var(--c-beds)" aria-hidden="true"></i>Beds</h4>
+							<p class="mini-rate" data-figure="temporary-beds-rate">—</p>
+							<div class="meter beds" aria-hidden="true"><span data-meter="temporary-beds"></span></div>
+							<p><span data-figure="temporary-beds-occupied">—</span> of <span data-figure="temporary-beds-capacity">—</span> occupied</p>
+						</div>
+						<div>
+							<h4><i style="background: var(--c-rooms)" aria-hidden="true"></i>Rooms</h4>
+							<p class="mini-rate" data-figure="temporary-rooms-rate">—</p>
+							<div class="meter rooms" aria-hidden="true"><span data-meter="temporary-rooms"></span></div>
+							<p><span data-figure="temporary-rooms-occupied">—</span> of <span data-figure="temporary-rooms-capacity">—</span> occupied</p>
+						</div>
+					</div>
+					<ul class="mini-sectors" id="temporary-sectors" aria-label="Temporary Programs, people served by sector"></ul>
+					<p class="panel-note">The City's field notes don't define the “Temporary Programs” program area. It first appears on January 1, 2024, when the City moved its 22 “COVID-19 Response” programs into it, so the trend charts count COVID-19 Response (2021–2023) with it. It is shown on its own so that an undefined category doesn't drive the headline. <span data-figure="temporary-programs">—</span> programs reported last night.</p>
+					<p class="source" data-source="occupancy">—</p>
+				</article>
+
+				<article class="card panel-refugee" id="refugee" aria-labelledby="refugee-title">
+					<picture class="panel-bg" aria-hidden="true">
+						<source type="image/avif" srcset="assets/img/sh-tex-dusk-sky-1280.avif">
+						<img src="assets/img/sh-tex-dusk-sky-1280.webp" alt="" loading="lazy" width="1280" height="720">
+					</picture>
+					<p class="kicker">Separate panel · <span data-figure="refugee-night">—</span></p>
+					<h3 id="refugee-title">Temporary Refugee Response</h3>
+					<p class="panel-figure"><span data-figure="refugee-people">—</span><small>people served</small></p>
+					<div class="mini-blocks">
+						<div>
+							<h4><i style="background: var(--c-beds)" aria-hidden="true"></i>Beds</h4>
+							<p class="mini-rate" data-figure="refugee-beds-rate">—</p>
+							<div class="meter beds" aria-hidden="true"><span data-meter="refugee-beds"></span></div>
+							<p><span data-figure="refugee-beds-occupied">—</span> of <span data-figure="refugee-beds-capacity">—</span> occupied</p>
+						</div>
+						<div>
+							<h4><i style="background: var(--c-rooms)" aria-hidden="true"></i>Rooms</h4>
+							<p class="mini-rate" data-figure="refugee-rooms-rate">—</p>
+							<div class="meter rooms" aria-hidden="true"><span data-meter="refugee-rooms"></span></div>
+							<p><span data-figure="refugee-rooms-occupied">—</span> of <span data-figure="refugee-rooms-capacity">—</span> occupied</p>
+						</div>
+					</div>
+					<ul class="mini-sectors" id="refugee-sectors" aria-label="Temporary Refugee Response, people served by sector"></ul>
+					<blockquote class="city">The City's definition: “Programs that are intended to create spaces in the overnight services system in order to support refugee and asylum claimant families and individuals.” <span data-figure="refugee-programs">—</span> programs reported last night. Year-round refugee programs (“Base Program - Refugee”) stay in the headline.</blockquote>
+					<p class="source" data-source="occupancy">—</p>
+				</article>
+			</div>
+
+			<div style="margin-top: 1.25rem">
+				<article class="card panel-turnaways" id="turnaways" aria-labelledby="ta-title">
+					<p class="kicker">Second source · <span data-figure="ta-date-short">—</span></p>
+					<h3 id="ta-title">Unmatched callers</h3>
+					<p class="ta-figure"><span data-figure="ta-unmatched">—</span><small>people</small></p>
+					<p style="margin:0">“Total individuals who were not able to be offered a space over the past 24 hours, at time of closeout at 4am” — Central Intake, operational date <strong data-figure="ta-date">—</strong>.</p>
+					<p class="ta-split"><span data-figure="ta-single">—</span> had called once that day; <span data-figure="ta-repeat">—</span> had called two or more times.</p>
+					<div class="chart short spark" id="chart-turnaways" role="img" aria-label="Unmatched callers each day over the last 12 months of published data"></div>
+					<blockquote class="city">Singles and couples only: “People seeking space in family sector programs are supported through a different process that ensures they have indoor accommodations while waiting for access to shelter.” The City publishes this monthly, so it lags the occupancy count.</blockquote>
+					<details class="data-table" data-table="turnaways"><summary>Show the daily values as a table</summary><div class="table-scroll"></div></details>
+					<p class="source" data-source="turnaways">—</p>
+				</article>
+			</div>
+		</div>
+
+		<!-- ============================================================ TRENDS -->
+		<section class="section" id="trends" aria-labelledby="trends-title">
+			<div class="wrap">
+				<div class="section-head">
+					<p class="kicker"><span class="idx">02</span> · Since 2021</p>
+					<h2 id="trends-title">Every night since January 2021</h2>
+					<p>One point per night, straight from the City's daily records. The headline series excludes Temporary Programs and the Temporary Refugee Response; the people chart stacks both on top so the City-wide total stays visible.</p>
+					<p><strong>COVID-19 Response became Temporary Programs:</strong> on January 1, 2024 the City moved its 22 “COVID-19 Response” programs, and one winter program, into a new “Temporary Programs” area. So that the headline series has no break at the relabel, this page counts COVID-19 Response (2021–2023) with Temporary Programs, outside the headline. The one winter program moved out of the headline that night.</p>
+				</div>
+				<div class="controls" role="group" aria-label="Time range for the two charts below">
+					<span class="label">Range</span>
+					<div class="seg" data-range>
+						<button type="button" data-value="all" aria-pressed="true">Since 2021</button>
+						<button type="button" data-value="3y" aria-pressed="false">3 years</button>
+						<button type="button" data-value="1y" aria-pressed="false">12 months</button>
+					</div>
+				</div>
+				<div class="grid-2">
+					<article class="card chart-card" aria-labelledby="people-title">
+						<h3 id="people-title">People served each night</h3>
+						<p class="sub">Headline programs, Temporary Programs and Temporary Refugee Response, stacked in that order. Top edge = City-wide.</p>
+						<ul class="legend" aria-hidden="true">
+							<li><span class="key-rect" style="background: var(--c-people)"></span>Headline programs</li>
+							<li><span class="key-rect" style="background: var(--c-temporary)"></span>Temporary Programs (COVID-19 Response before 2024)</li>
+							<li><span class="key-rect" style="background: var(--c-refugee)"></span>Temporary Refugee Response</li>
+						</ul>
+						<div class="chart" id="chart-people" role="img" aria-label="Stacked area chart of people served each night since 2021"></div>
+						<p class="source" data-source="history">—</p>
+					</article>
+					<article class="card chart-card" aria-labelledby="rates-title">
+						<h3 id="rates-title">Occupancy rate, beds and rooms</h3>
+						<p class="sub">Headline programs. Occupied ÷ actual capacity, each type on its own. <span data-figure="rates-axis-note"></span></p>
+						<ul class="legend" aria-hidden="true">
+							<li><span class="key-line" style="background: var(--c-beds)"></span>Beds</li>
+							<li><span class="key-line" style="background: var(--c-rooms)"></span>Rooms</li>
+						</ul>
+						<div class="chart" id="chart-rates" role="img" aria-label="Line chart of bed and room occupancy rates since 2021"></div>
+						<p class="source" data-source="history">—</p>
+					</article>
+				</div>
+
+				<div style="margin-top: 1.25rem">
+					<div class="band">
+						<picture>
+							<source type="image/avif" srcset="assets/img/sh-hero-winter-night-640.avif 640w, assets/img/sh-hero-winter-night-1280.avif 1280w" sizes="(min-width: 74rem) 74rem, 100vw">
+							<img src="assets/img/sh-hero-winter-night-1280.webp" srcset="assets/img/sh-hero-winter-night-640.webp 640w, assets/img/sh-hero-winter-night-1280.webp 1280w" sizes="(min-width: 74rem) 74rem, 100vw" alt="" loading="lazy" width="1280" height="720">
+						</picture>
+						<div class="band-text">
+							<p class="kicker" style="color:#d9d3c6"><span class="idx" style="color:#e0a44f">03</span> · Year over year</p>
+							<h3>The same calendar, every year</h3>
+							<p>Each year drawn on a January-to-December axis, so the winter pattern lines up. The current year is the brightest line and stops at the latest night.</p>
+						</div>
+					</div>
+					<article class="card chart-card" aria-labelledby="yoy-title">
+						<h3 id="yoy-title" class="visually-hidden">Year-over-year overlay</h3>
+						<div class="controls" role="group" aria-label="Measure for the year-over-year chart" style="margin:0">
+							<span class="label">Measure</span>
+							<div class="seg" data-yoy>
+								<button type="button" data-value="people" aria-pressed="true">People served</button>
+								<button type="button" data-value="beds" aria-pressed="false">Bed rate</button>
+								<button type="button" data-value="rooms" aria-pressed="false">Room rate</button>
+							</div>
+						</div>
+						<ul class="legend" id="yoy-legend" aria-hidden="true"></ul>
+						<div class="chart" id="chart-yoy" role="img" aria-label="Year-over-year overlay, one line per year on a January-to-December axis"></div>
+						<p class="sub">Headline programs (excluding Temporary Programs, its predecessor COVID-19 Response, and Temporary Refugee Response). <span data-figure="yoy-axis-note"></span></p>
+						<details class="data-table" data-table="history"><summary>Show every night as a table</summary><div class="table-scroll"></div></details>
+						<p class="source" data-source="history">—</p>
+					</article>
+				</div>
+
+				<article class="card" style="margin-top: 1.25rem" aria-labelledby="sector-title">
+					<p class="kicker"><span class="idx">04</span> · <span data-figure="sector-night">—</span></p>
+					<h3 id="sector-title">Occupancy by sector</h3>
+					<p class="sub">Headline programs only. Beds and rooms are measured separately; a dash means the sector had no programs of that type reporting.</p>
+					<div class="sectors" id="sectors">
+						<div class="sector sector-head" aria-hidden="true"><span>Sector</span><span>People served</span><span>Bed occupancy</span><span>Room occupancy</span></div>
+					</div>
+					<p class="source" data-source="occupancy">—</p>
+				</article>
+			</div>
+		</section>
+
+		<!-- ============================================================ MAP + PROGRAMS -->
+		<section class="section" id="programs" aria-labelledby="programs-title">
+			<div class="wrap">
+				<div class="section-head">
+					<p class="kicker"><span class="idx">05</span> · <span data-figure="programs-night">—</span></p>
+					<h2 id="programs-title">Where the programs are</h2>
+					<p>Every program that reported last night, pinned at the address the City publishes. Filter once: the map and the table follow.</p>
+				</div>
+
+				<div class="notice" role="note">
+					<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 5.5v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="14.3" r="1.1" fill="currentColor"/></svg>
+					<p style="margin:0"><strong>This map is not a bed-finder.</strong> For a shelter space, contact Central Intake: <a href="tel:+14163384766">416-338-4766</a> or <a href="tel:+18773383398">1-877-338-3398</a>, or call <a href="tel:311">311</a>. It is a City-operated, 24/7 telephone service. <span class="source" style="display:inline;margin:0">Source: <a href="https://www.toronto.ca/community-people/housing-shelter/homeless-help/central-intake/">toronto.ca, Central Intake</a>.</span></p>
+				</div>
+
+				<form class="filters" id="filters" role="search" aria-label="Filter programs" onsubmit="return false">
+					<label class="search">Search
+						<input type="search" name="q" placeholder="Program, organization or address" autocomplete="off">
+					</label>
+					<label>Sector
+						<select name="sector"><option value="">All sectors</option></select>
+					</label>
+					<label>Program area
+						<select name="area"><option value="">All program areas</option></select>
+					</label>
+					<label>Capacity type
+						<select name="type"><option value="">Beds and rooms</option><option value="beds">Beds</option><option value="rooms">Rooms</option></select>
+					</label>
+					<p class="count" aria-live="polite" id="filter-count">—</p>
+				</form>
+
+				<div class="map-wrap">
+					<a class="skip skip-map" href="#programs-table">Skip the map: every program is in the table below</a>
+					<div id="map"role="region" aria-label="Map of shelter and overnight programs that reported last night"></div>
+					<div class="map-legend" aria-hidden="true">
+						<span><i style="background: var(--c-beds)"></i>Bed-based program</span>
+						<span><i style="background: var(--c-rooms)"></i>Room-based program</span>
+						<span><i style="background: var(--key)"></i>Several programs at one address</span>
+					</div>
+				</div>
+				<p class="source" id="map-count">—</p>
+				<div class="unplaced" id="unplaced"></div>
+
+				<div class="table-wrap">
+					<table class="programs" id="programs-table">
+						<caption class="visually-hidden">Programs that reported last night, with their occupancy</caption>
+						<thead>
+							<tr>
+								<th scope="col" aria-sort="ascending"><button type="button" data-sort="program">Program</button></th>
+								<th scope="col" aria-sort="none"><button type="button" data-sort="sector">Sector</button></th>
+								<th scope="col" aria-sort="none"><button type="button" data-sort="area">Program area</button></th>
+								<th scope="col" aria-sort="none"><button type="button" data-sort="capacity_type">Type</button></th>
+								<th scope="col" class="r" aria-sort="none"><button type="button" data-sort="people">People</button></th>
+								<th scope="col" class="r" aria-sort="none"><button type="button" data-sort="occupied">Occupied / capacity</button></th>
+								<th scope="col" class="r" aria-sort="none"><button type="button" data-sort="rate">Rate</button></th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+				<p class="table-note">All programs are in the table; it scrolls within its frame. Sort by any column.</p>
+				<p class="source" data-source="occupancy">—</p>
+			</div>
+		</section>
+
+		<!-- ============================================================ CONTEXT -->
+		<section class="section" id="about" aria-labelledby="about-title">
+			<div class="wrap">
+				<div class="section-head">
+					<p class="kicker"><span class="idx">06</span> · About the data</p>
+					<h2 id="about-title">What this shows, and what it doesn't</h2>
+				</div>
+				<div class="context">
+					<div>
+						<h3>What it shows</h3>
+						<ul>
+							<li>The City of Toronto's own nightly count of people staying in shelter and overnight programs it funds, and how many of those programs' beds and rooms were occupied. The count is taken at 4:00 am and refers to the evening before.</li>
+							<li>Beds and rooms are separate measures and are never added together. Rates are occupied ÷ actual capacity (beds or rooms in service that night), the City's own formula, applied to the totals.</li>
+							<li>“Temporary Programs” (with its predecessor “COVID-19 Response” before 2024) and “Temporary Refugee Response” each appear in their own panel. The headline covers every other program area, and one line adds the three back up to the City-wide total.</li>
+							<li>Unmatched callers come from a second City dataset, Central Intake's service queue, published monthly with its own dates.</li>
+						</ul>
+						<h3>What it doesn't</h3>
+						<ul>
+							<li>It is not a count of homelessness in Toronto. People sleeping outside, staying with others or in programs the City does not track here are not in it, and this page adds no outside estimates.</li>
+							<li>It cannot tell you whether a bed is free right now. The City notes that unoccupied beds and rooms “may be held for a service user or may be vacant”, and programs with nobody staying that night are left out of the day's data.</li>
+							<li>It holds nothing about individuals. The data is program-level.</li>
+						</ul>
+						<h3 id="near-full">“At or near full”</h3>
+						<p>This page's own definition, not the City's: a program whose City-reported occupancy rate is 95% or more, meaning at most 1 in 20 of its in-service beds or rooms unoccupied. <a href="https://github.com/TJ-Hosting/shelter-occupancy/blob/main/docs/DATA.md">Every rule and transformation is documented</a>.</p>
+						<h3>The City's limitation, verbatim</h3>
+						<blockquote class="limitation">
+							<p data-figure="limitation">This is unaudited data compiled directly from an administrative database. Data reflect only the state of each program's records in the database and may not always accurately reflect the actual current situation in each program.</p>
+							<cite>Toronto Shelter &amp; Support Services, dataset notes</cite>
+						</blockquote>
+						<p>Contains information licensed under the <a href="https://open.toronto.ca/open-data-licence/">Open Government Licence – Toronto</a>.</p>
+						<a class="hit" href="https://bane.one/">
+							<div>
+								<strong>Homeless in Toronto</strong>
+								<span>The board game this dashboard accompanies: the dice are fair, the board is not. Every number in it is cited too.</span>
+							</div>
+							<span class="arrow" aria-hidden="true">→</span>
+						</a>
+					</div>
+					<div>
+						<figure>
+							<picture>
+								<source type="image/avif" srcset="assets/img/sh-sc-windows-640.avif 640w, assets/img/sh-sc-windows-1248.avif 1248w" sizes="(min-width: 60rem) 34rem, 100vw">
+								<img src="assets/img/sh-sc-windows-640.webp" srcset="assets/img/sh-sc-windows-640.webp 640w, assets/img/sh-sc-windows-1248.webp 1248w" sizes="(min-width: 60rem) 34rem, 100vw" alt="Illustration: a brick apartment building at night in falling snow, its windows lit in warm colours." loading="lazy" width="640" height="427">
+							</picture>
+							<figcaption>Illustrations are AI-generated atmosphere, not photographs and not data.</figcaption>
+						</figure>
+						<div class="spots">
+							<picture><source type="image/avif" srcset="assets/img/sh-spot-tea-320.avif"><img src="assets/img/sh-spot-tea-320.webp" alt="Illustration: a steaming mug of tea on a windowsill, the Toronto skyline blurred outside." loading="lazy" width="320" height="320"></picture>
+							<picture><source type="image/avif" srcset="assets/img/sh-spot-key-320.avif"><img src="assets/img/sh-spot-key-320.webp" alt="Illustration: a door key on a ring beside a lamp on a nightstand." loading="lazy" width="320" height="320"></picture>
+							<picture><source type="image/avif" srcset="assets/img/sh-spot-coat-320.avif"><img src="assets/img/sh-spot-coat-320.webp" alt="Illustration: a winter coat and scarf hanging on a wall hook." loading="lazy" width="320" height="320"></picture>
+						</div>
+						<figure class="doorway">
+							<picture>
+								<source type="image/avif" srcset="assets/img/sh-sc-doorway-v2-640.avif 640w, assets/img/sh-sc-doorway-v2-1088.avif 1088w" sizes="(min-width: 60rem) 34rem, 100vw">
+								<img src="assets/img/sh-sc-doorway-v2-640.webp" srcset="assets/img/sh-sc-doorway-v2-640.webp 640w, assets/img/sh-sc-doorway-v2-1088.webp 1088w" sizes="(min-width: 60rem) 34rem, 100vw" alt="Illustration: an open front door at night, warm light from an empty hallway spilling onto snowy steps." loading="lazy" width="640" height="427">
+							</picture>
+						</figure>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<picture class="footer-art" aria-hidden="true">
+			<source type="image/avif" srcset="assets/img/sh-sc-streetcar-640.avif 640w, assets/img/sh-sc-streetcar-1248.avif 1248w" sizes="min(100vw, 1248px)">
+			<img src="assets/img/sh-sc-streetcar-1248.webp" srcset="assets/img/sh-sc-streetcar-640.webp 640w, assets/img/sh-sc-streetcar-1248.webp 1248w" sizes="min(100vw, 1248px)" alt="" loading="lazy" width="1248" height="832">
+		</picture>
+		<div class="wrap">
+			<div class="footer-grid">
+				<div>
+					<h2>Sources</h2>
+					<ul>
+						<li><a href="https://open.toronto.ca/dataset/daily-shelter-overnight-service-occupancy-capacity/">Daily Shelter &amp; Overnight Service Occupancy &amp; Capacity</a>, Toronto Shelter &amp; Support Services. <span data-source="occupancy-short">—</span></li>
+						<li><a href="https://open.toronto.ca/dataset/central-intake-calls/">Central Intake calls — Service Queue Data</a>. <span data-source="turnaways-short">—</span></li>
+						<li>Map pins: <a href="https://open.toronto.ca/dataset/address-points-municipal-toronto-one-address-repository/">City of Toronto Address Points</a>, with <a href="https://nominatim.openstreetmap.org/">OpenStreetMap Nominatim</a> for addresses outside the city.</li>
+					</ul>
+					<p style="margin-top:1rem">Snapshot built <span data-source="generated">—</span>. <a href="https://github.com/TJ-Hosting/shelter-occupancy">Code, data and method</a> · <a href="https://github.com/TJ-Hosting/shelter-occupancy/blob/main/CREDITS.md">Credits</a> · <a href="embed/">Embed card</a></p>
+				</div>
+				<div>
+					<h2>A data companion</h2>
+					<p>To <a href="https://bane.one/">Homeless in Toronto</a>, an awareness game about the city's housing arithmetic.</p>
+				</div>
+				<div class="helpline">
+					<strong>Need a shelter space now?</strong>
+					Call Central Intake at <a href="tel:+14163384766">416-338-4766</a> or <a href="tel:+18773383398">1-877-338-3398</a>, or <a href="tel:311">311</a>. Open 24/7.
+				</div>
+			</div>
+			<p class="legal">Contains information licensed under the <a href="https://open.toronto.ca/open-data-licence/">Open Government Licence – Toronto</a>. Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Not affiliated with the City of Toronto.</p>
+		</div>
+	</footer>
+	<noscript><p class="wrap" style="padding:1rem 0">This page needs JavaScript to draw the City's figures. The same numbers are in <a href="data/latest.json">data/latest.json</a> and <a href="data/history.json">data/history.json</a>.</p></noscript>
+</body>
+</html>

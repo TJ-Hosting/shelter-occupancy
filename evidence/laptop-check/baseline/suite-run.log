@@ -1,0 +1,18 @@
+python3: /c/localhost/shelter-check-venv/Scripts/python3 Python 3.13.13
+start: 2026-10-18T00:20:06Z
+== data test (raw CKAN vs page)
+   FAIL → evidence/data-test.txt
+   Node.js v24.21.0
+== map check
+   pass → evidence/map-check.txt
+   7/7 checks passed.
+== contrast check
+   pass → evidence/contrast-check.txt
+   ALL CHECKS PASS
+== image caps
+   pass → evidence/imagegen-caps.txt
+   7/7 checks passed.
+== screenshots
+   pass → evidence/screenshots.txt
+   embed-600x340.png
+end: 2026-10-18T00:21:31Z exit=1

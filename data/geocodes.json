@@ -1,0 +1,670 @@
+{
+	"about": "Coordinates for program addresses: City of Toronto Address Points first, OpenStreetMap Nominatim as fallback. Key = normalised address|postal code. Cached so the daily job only geocodes new addresses.",
+	"entries": {
+		"1229 Ellesmere Rd|M1P 4V8": {
+			"lat": 43.768301,
+			"lon": -79.267424,
+			"source": "address-points",
+			"match": "1229 Ellesmere Rd",
+			"checked": "2026-10-16"
+		},
+		"640 Dixon Rd|M9W 1J1": {
+			"lat": 43.692116,
+			"lon": -79.5765,
+			"source": "address-points",
+			"match": "640 Dixon Rd",
+			"checked": "2026-10-16"
+		},
+		"55 Hallcrown Pl|M2J 4R1": {
+			"lat": 43.769214,
+			"lon": -79.322645,
+			"source": "address-points",
+			"match": "55 Hallcrown Pl",
+			"checked": "2026-10-16"
+		},
+		"43 Christie St|M6G 3B1": {
+			"lat": 43.665163,
+			"lon": -79.418852,
+			"source": "address-points",
+			"match": "43 Christie St",
+			"checked": "2026-10-16"
+		},
+		"4222 Kingston Rd|M1E 2M6": {
+			"lat": 43.760669,
+			"lon": -79.196738,
+			"source": "address-points",
+			"match": "4222 Kingston Rd",
+			"checked": "2026-10-16"
+		},
+		"4674 Kingston Rd|M1E 2P9": {
+			"lat": 43.77674,
+			"lon": -79.174011,
+			"source": "address-points",
+			"match": "4674 Kingston Rd",
+			"checked": "2026-10-16"
+		},
+		"981 Dundas St W|M6J 1W4": {
+			"lat": 43.650227,
+			"lon": -79.4153,
+			"source": "address-points",
+			"match": "981 Dundas St W",
+			"checked": "2026-10-16"
+		},
+		"30 Eunice Rd|M2K 2V5": {
+			"lat": 43.771701,
+			"lon": -79.3709,
+			"source": "address-points",
+			"match": "30 Eunice Rd",
+			"checked": "2026-10-16"
+		},
+		"189B Booth Ave|M4M 2M5": {
+			"lat": 43.659998,
+			"lon": -79.343237,
+			"source": "address-points",
+			"match": "189B Booth Ave",
+			"checked": "2026-10-16"
+		},
+		"291 Sherbourne St|M5A 2R9": {
+			"lat": 43.660605,
+			"lon": -79.371475,
+			"source": "address-points",
+			"match": "291 Sherbourne St",
+			"checked": "2026-10-16"
+		},
+		"2387 Dundas Street West|M6P 1X2": {
+			"lat": 43.657605,
+			"lon": -79.453055,
+			"source": "address-points",
+			"match": "2387 Dundas St W",
+			"checked": "2026-10-16"
+		},
+		"165 Grange Ave|M5T 2V5": {
+			"lat": 43.650903,
+			"lon": -79.401395,
+			"source": "address-points",
+			"match": "165 Grange Ave",
+			"checked": "2026-10-16"
+		},
+		"101 Ontario St|M5A 2V2": {
+			"lat": 43.654514,
+			"lon": -79.36667,
+			"source": "address-points",
+			"match": "101 Ontario St",
+			"checked": "2026-10-16"
+		},
+		"76 Church St|M5C 2G1": {
+			"lat": 43.706046,
+			"lon": -79.519173,
+			"source": "address-points",
+			"match": "76 Church St (disambiguated by postal code)",
+			"checked": "2026-10-16"
+		},
+		"14 Roncesvalles Ave|M6R 2K3": {
+			"lat": 43.639099,
+			"lon": -79.446527,
+			"source": "address-points",
+			"match": "14 Roncesvalles Ave",
+			"checked": "2026-10-16"
+		},
+		"973 Lansdowne Ave|M6H 3Z5": {
+			"lat": 43.666175,
+			"lon": -79.445909,
+			"source": "address-points",
+			"match": "973 Lansdowne Ave",
+			"checked": "2026-10-16"
+		},
+		"850 Bloor St W|M6G 1M2": {
+			"lat": 43.662493,
+			"lon": -79.424201,
+			"source": "address-points",
+			"match": "850 Bloor St W",
+			"checked": "2026-10-16"
+		},
+		"616 Vaughan Rd|M6C 2R5": {
+			"lat": 43.691841,
+			"lon": -79.439864,
+			"source": "address-points",
+			"match": "616 Vaughan Rd",
+			"checked": "2026-10-16"
+		},
+		"38 Bathurst St|M5V 3W3": {
+			"lat": 43.641108,
+			"lon": -79.40267,
+			"source": "address-points",
+			"match": "38 Bathurst St",
+			"checked": "2026-10-16"
+		},
+		"412 Queen St E|M5A 1T3": {
+			"lat": 43.656247,
+			"lon": -79.362542,
+			"source": "address-points",
+			"match": "412 Queen St E",
+			"checked": "2026-10-16"
+		},
+		"335 Jarvis St|M5B 2C2": {
+			"lat": 43.660335,
+			"lon": -79.375488,
+			"source": "address-points",
+			"match": "335 Jarvis St",
+			"checked": "2026-10-16"
+		},
+		"35 Sydenham St|M5A 4H5": {
+			"lat": 43.656626,
+			"lon": -79.36238,
+			"source": "address-points",
+			"match": "35 Sydenham St",
+			"checked": "2026-10-16"
+		},
+		"731 Runnymede Rd|M6N 3V7": {
+			"lat": 43.66836,
+			"lon": -79.482929,
+			"source": "address-points",
+			"match": "731 Runnymede Rd",
+			"checked": "2026-10-16"
+		},
+		"14 Vaughan Rd|M6G 2N1": {
+			"lat": 43.681447,
+			"lon": -79.418251,
+			"source": "address-points",
+			"match": "14 Vaughan Rd",
+			"checked": "2026-10-16"
+		},
+		"705 Progress Ave|M1H 2X1": {
+			"lat": 43.77671,
+			"lon": -79.24602,
+			"source": "address-points",
+			"match": "705 Progress Ave",
+			"checked": "2026-10-16"
+		},
+		"50 Estate Dr|M1H 2Z1": {
+			"lat": 43.783257,
+			"lon": -79.235967,
+			"source": "address-points",
+			"match": "50 Estate Dr",
+			"checked": "2026-10-16"
+		},
+		"26 Vaughan Rd|M6G 2C4": {
+			"lat": 43.681826,
+			"lon": -79.418869,
+			"source": "address-points",
+			"match": "26 Vaughan Rd",
+			"checked": "2026-10-16"
+		},
+		"107 Jarvis St|M5C 2H4": {
+			"lat": 43.652314,
+			"lon": -79.372474,
+			"source": "address-points",
+			"match": "107 Jarvis St",
+			"checked": "2026-10-16"
+		},
+		"2671 Islington Ave|M9V 2X6": {
+			"lat": 43.739281,
+			"lon": -79.565755,
+			"source": "address-points",
+			"match": "2671 Islington Ave",
+			"checked": "2026-10-16"
+		},
+		"135 Sherbourne St|M5A 2R5": {
+			"lat": 43.655235,
+			"lon": -79.369126,
+			"source": "address-points",
+			"match": "135 Sherbourne St",
+			"checked": "2026-10-16"
+		},
+		"66 Norfinch Dr|M3N 1X1": {
+			"lat": 43.757282,
+			"lon": -79.529876,
+			"source": "address-points",
+			"match": "66 Norfinch Dr",
+			"checked": "2026-10-16"
+		},
+		"29A Leslie St|M4M 3C3": {
+			"lat": 43.662099,
+			"lon": -79.329387,
+			"source": "address-points",
+			"match": "29A Leslie St",
+			"checked": "2026-10-16"
+		},
+		"346 Spadina Ave|M5T 1J5": {
+			"lat": 43.654136,
+			"lon": -79.399078,
+			"source": "address-points",
+			"match": "346 Spadina Ave",
+			"checked": "2026-10-16"
+		},
+		"502 Spadina Ave|M5S 2H1": {
+			"lat": 43.658724,
+			"lon": -79.400746,
+			"source": "address-points",
+			"match": "502 Spadina Ave",
+			"checked": "2026-10-16"
+		},
+		"339 George St|M5A 2N2": {
+			"lat": 43.659947,
+			"lon": -79.374262,
+			"source": "address-points",
+			"match": "339 George St",
+			"checked": "2026-10-16"
+		},
+		"556 Sherbourne St|M4X 1L4": {
+			"lat": 43.670013,
+			"lon": -79.376127,
+			"source": "address-points",
+			"match": "556 Sherbourne St",
+			"checked": "2026-10-16"
+		},
+		"213 Carlton Street|M5A 2K9": {
+			"lat": 43.663754,
+			"lon": -79.369537,
+			"source": "address-points",
+			"match": "213 Carlton St",
+			"checked": "2026-10-16"
+		},
+		"445 Rexdale Blvd|M9W 6P8": {
+			"lat": 43.716083,
+			"lon": -79.594146,
+			"source": "address-points",
+			"match": "445 Rexdale Blvd",
+			"checked": "2026-10-16"
+		},
+		"100 Lippincott St|M5S 2P1": {
+			"lat": 43.657657,
+			"lon": -79.407163,
+			"source": "address-points",
+			"match": "100 Lippincott St",
+			"checked": "2026-10-16"
+		},
+		"354 George St|M5A 2N3": {
+			"lat": 43.659447,
+			"lon": -79.374556,
+			"source": "address-points",
+			"match": "354 George St",
+			"checked": "2026-10-16"
+		},
+		"2714 Danforth Ave|M4C 1L7": {
+			"lat": 43.689289,
+			"lon": -79.298355,
+			"source": "address-points",
+			"match": "2714 Danforth Ave",
+			"checked": "2026-10-16"
+		},
+		"351 Lake Shore Blvd E|M5A 1C1": {
+			"lat": 43.647966,
+			"lon": -79.359685,
+			"source": "address-points",
+			"match": "351 Lake Shore Blvd E",
+			"checked": "2026-10-16"
+		},
+		"70 Denison Ave|M5T 2M8": {
+			"lat": 43.650219,
+			"lon": -79.401747,
+			"source": "address-points",
+			"match": "70 Denison Ave",
+			"checked": "2026-10-16"
+		},
+		"490 Sherbourne St|M4X 1K9": {
+			"lat": 43.667592,
+			"lon": -79.375399,
+			"source": "address-points",
+			"match": "490 Sherbourne St",
+			"checked": "2026-10-16"
+		},
+		"3600 Steeles Ave W|L4L 8P5": {
+			"lat": 43.772597,
+			"lon": -79.539374,
+			"source": "nominatim",
+			"match": "Staybridge Suites Toronto - Vaughan South, 3600, Steeles Avenue West, Vaughan, York Region, Ontario, L4L 8P5, Canada",
+			"checked": "2026-10-16"
+		},
+		"1A Strachan Ave|M6K 3C3": {
+			"lat": 43.635518,
+			"lon": -79.408683,
+			"source": "address-points",
+			"match": "1A Strachan Ave",
+			"checked": "2026-10-16"
+		},
+		"1161 Caledonia Rd|M6A 2W9": {
+			"lat": 43.715631,
+			"lon": -79.46691,
+			"source": "address-points",
+			"match": "1161 Caledonia Rd",
+			"checked": "2026-10-16"
+		},
+		"185 Yorkland Blvd|M2J 4R2": {
+			"lat": 43.770704,
+			"lon": -79.336381,
+			"source": "address-points",
+			"match": "185 Yorkland Blvd",
+			"checked": "2026-10-16"
+		},
+		"4117 Lawrence Ave E|M1E 2S2": {
+			"lat": 43.766268,
+			"lon": -79.193515,
+			"source": "address-points",
+			"match": "4117 Lawrence Ave E",
+			"checked": "2026-10-16"
+		},
+		"22 Metropolitan Rd|M1R 2T5": {
+			"lat": 43.769393,
+			"lon": -79.300604,
+			"source": "address-points",
+			"match": "22 Metropolitan Rd",
+			"checked": "2026-10-16"
+		},
+		"101 Placer Ct|M2H 3H9": {
+			"lat": 43.802026,
+			"lon": -79.341406,
+			"source": "address-points",
+			"match": "101 Placer Crt",
+			"checked": "2026-10-16"
+		},
+		"3576 St Clair Ave E|M1K 1M2": {
+			"lat": 43.717521,
+			"lon": -79.258005,
+			"source": "address-points",
+			"match": "3576 St Clair Ave E",
+			"checked": "2026-10-16"
+		},
+		"179 Gerrard St East|M5A 2E5": {
+			"lat": 43.660813,
+			"lon": -79.373142,
+			"source": "address-points",
+			"match": "179 Gerrard St E",
+			"checked": "2026-10-16"
+		},
+		"21 Park Rd|M4W 2N1": {
+			"lat": 43.672106,
+			"lon": -79.384399,
+			"source": "address-points",
+			"match": "21 Park Rd",
+			"checked": "2026-10-16"
+		},
+		"3306 Kingston Rd|M1M 1P8": {
+			"lat": 43.73424,
+			"lon": -79.223493,
+			"source": "address-points",
+			"match": "3306 Kingston Rd",
+			"checked": "2026-10-16"
+		},
+		"629 Adelaide St W|M6J 1A8": {
+			"lat": 43.644636,
+			"lon": -79.405042,
+			"source": "address-points",
+			"match": "629 Adelaide St W",
+			"checked": "2026-10-16"
+		},
+		"69 Fraser Ave|M6K 1E9": {
+			"lat": 43.637868,
+			"lon": -79.42366,
+			"source": "address-points",
+			"match": "69 Fraser Ave",
+			"checked": "2026-10-16"
+		},
+		"129 Peter St|M5V 2H3": {
+			"lat": 43.648739,
+			"lon": -79.393235,
+			"source": "address-points",
+			"match": "129 Peter St",
+			"checked": "2026-10-16"
+		},
+		"77 Ryerson Ave|M5T 2V4": {
+			"lat": 43.650083,
+			"lon": -79.402607,
+			"source": "address-points",
+			"match": "77 Ryerson Ave",
+			"checked": "2026-10-16"
+		},
+		"1677 Wilson Ave|M3L 1A5": {
+			"lat": 43.719125,
+			"lon": -79.514643,
+			"source": "address-points",
+			"match": "1677 Wilson Ave",
+			"checked": "2026-10-16"
+		},
+		"4584 Kingston Rd|M1E 2P4": {
+			"lat": 43.774625,
+			"lon": -79.183904,
+			"source": "address-points",
+			"match": "4584 Kingston Rd",
+			"checked": "2026-10-16"
+		},
+		"302 Indian Rd|M6R 2X6": {
+			"lat": 43.653426,
+			"lon": -79.45653,
+			"source": "address-points",
+			"match": "302 Indian Rd",
+			"checked": "2026-10-16"
+		},
+		"386 Dundas St E|M5A 2A5": {
+			"lat": 43.659094,
+			"lon": -79.368215,
+			"source": "address-points",
+			"match": "386 Dundas St E",
+			"checked": "2026-10-16"
+		},
+		"67 Adelaide St E|M5C 1K6": {
+			"lat": 43.650896,
+			"lon": -79.375183,
+			"source": "address-points",
+			"match": "67 Adelaide St E",
+			"checked": "2026-10-16"
+		},
+		"512 Jarvis St|M4Y 2H6": {
+			"lat": 43.667608,
+			"lon": -79.379269,
+			"source": "address-points",
+			"match": "512 Jarvis St",
+			"checked": "2026-10-16"
+		},
+		"1059 College Street|M6H 1B1": {
+			"lat": 43.652668,
+			"lon": -79.430804,
+			"source": "address-points",
+			"match": "1059 College St",
+			"checked": "2026-10-16"
+		},
+		"702 Kennedy Rd|M1K 2B5": {
+			"lat": 43.728052,
+			"lon": -79.26771,
+			"source": "address-points",
+			"match": "702 Kennedy Rd",
+			"checked": "2026-10-16"
+		},
+		"2808 Dundas St W|M6P 1Y5": {
+			"lat": 43.665656,
+			"lon": -79.463201,
+			"source": "address-points",
+			"match": "2808 Dundas St W",
+			"checked": "2026-10-16"
+		},
+		"20 Milner Business Ct|M1B 3M6": {
+			"lat": 43.787901,
+			"lon": -79.23565,
+			"source": "address-points",
+			"match": "20 Milner Business Crt",
+			"checked": "2026-10-16"
+		},
+		"962 Bloor St W|M6H 1L6": {
+			"lat": 43.661597,
+			"lon": -79.428922,
+			"source": "address-points",
+			"match": "962 Bloor St W",
+			"checked": "2026-10-16"
+		},
+		"126 Pape Ave|M4M 2V8": {
+			"lat": 43.662819,
+			"lon": -79.338585,
+			"source": "address-points",
+			"match": "126 Pape Ave",
+			"checked": "2026-10-16"
+		},
+		"60 Newcastle St|M8Y 1A3": {
+			"lat": 43.618206,
+			"lon": -79.497304,
+			"source": "address-points",
+			"match": "60 Newcastle St",
+			"checked": "2026-10-16"
+		},
+		"70 Gerrard St E|M5B 1G6": {
+			"lat": 43.660137,
+			"lon": -79.378405,
+			"source": "address-points",
+			"match": "70 Gerrard St E",
+			"checked": "2026-10-16"
+		},
+		"3410 Bayview Ave|M2M 3S3": {
+			"lat": 43.7981,
+			"lon": -79.395438,
+			"source": "address-points",
+			"match": "3410 Bayview Ave",
+			"checked": "2026-10-16"
+		},
+		"87 Pembroke St|M5A 2N9": {
+			"lat": 43.659234,
+			"lon": -79.372426,
+			"source": "address-points",
+			"match": "87 Pembroke St",
+			"checked": "2026-10-16"
+		},
+		"26 Gerrard St E|M5B 1G3": {
+			"lat": 43.659577,
+			"lon": -79.381065,
+			"source": "address-points",
+			"match": "26 Gerrard St E",
+			"checked": "2026-10-16"
+		},
+		"674 Dundas St W|M5H 1H9": {
+			"lat": 43.65197,
+			"lon": -79.403688,
+			"source": "address-points",
+			"match": "674 Dundas St W",
+			"checked": "2026-10-16"
+		},
+		"80 Woodlawn Ave E|M4T 1C1": {
+			"lat": 43.684782,
+			"lon": -79.389711,
+			"source": "address-points",
+			"match": "80 Woodlawn Ave E",
+			"checked": "2026-10-16"
+		},
+		"348 Davenport Road|M5R 1K6": {
+			"lat": 43.675397,
+			"lon": -79.401372,
+			"source": "address-points",
+			"match": "348 Davenport Rd",
+			"checked": "2026-10-16"
+		},
+		"18 Fourteenth Street|M8V 3H9": {
+			"lat": 43.599882,
+			"lon": -79.513619,
+			"source": "address-points",
+			"match": "18 Fourteenth St",
+			"checked": "2026-10-16"
+		},
+		"158 Madison Ave|M5R 2S5": {
+			"lat": 43.673972,
+			"lon": -79.405816,
+			"source": "address-points",
+			"match": "158 Madison Ave",
+			"checked": "2026-10-16"
+		},
+		"20 Gerrard St E|M5B 2P3": {
+			"lat": 43.659495,
+			"lon": -79.381432,
+			"source": "address-points",
+			"match": "20 Gerrard St E",
+			"checked": "2026-10-16"
+		},
+		"21 McGill St|M5B 1H3": {
+			"lat": 43.659873,
+			"lon": -79.381374,
+			"source": "address-points",
+			"match": "21 McGill St",
+			"checked": "2026-10-16"
+		},
+		"60 Brant St|M5V 3G9": {
+			"lat": 43.647071,
+			"lon": -79.39881,
+			"source": "address-points",
+			"match": "60 Brant St",
+			"checked": "2026-10-16"
+		},
+		"360 Lesmill Rd|M3B 2T5": {
+			"lat": 43.763337,
+			"lon": -79.36095,
+			"source": "address-points",
+			"match": "360 Lesmill Rd",
+			"checked": "2026-10-16"
+		},
+		"25 Canterbury Pl|M3N 0E3": {
+			"lat": 43.772787,
+			"lon": -79.414739,
+			"source": "address-points",
+			"match": "25 Canterbury Pl",
+			"checked": "2026-10-16"
+		},
+		"422 Gilbert Ave|M6E 4X3": {
+			"lat": 43.689388,
+			"lon": -79.462343,
+			"source": "address-points",
+			"match": "422 Gilbert Ave",
+			"checked": "2026-10-16"
+		},
+		"1076 Pape Ave|M4K 3W5": {
+			"lat": 43.69092,
+			"lon": -79.349649,
+			"source": "address-points",
+			"match": "1076 Pape Ave",
+			"checked": "2026-10-16"
+		},
+		"558 Bathurst St|M5S 2P9": {
+			"lat": 43.658465,
+			"lon": -79.408811,
+			"source": "address-points",
+			"match": "558 Bathurst St",
+			"checked": "2026-10-16"
+		},
+		"111 Spadina Rd|M5R 2T1": {
+			"lat": 43.67118,
+			"lon": -79.405374,
+			"source": "address-points",
+			"match": "111 Spadina Rd",
+			"checked": "2026-10-16"
+		},
+		"95 Wellesley St E|M4Y 2X9": {
+			"lat": 43.665856,
+			"lon": -79.379212,
+			"source": "address-points",
+			"match": "95 Wellesley St E",
+			"checked": "2026-10-16"
+		},
+		"7 Vanauley St|M5T 2V9": {
+			"lat": 43.648825,
+			"lon": -79.398308,
+			"source": "address-points",
+			"match": "7 Vanauley St",
+			"checked": "2026-10-16"
+		},
+		"21 Walmer Rd|M5R 2W7": {
+			"lat": 43.667893,
+			"lon": -79.40562,
+			"source": "address-points",
+			"match": "21 Walmer Rd",
+			"checked": "2026-10-16"
+		},
+		"6 Warrendale Ct|M9V 1P9": {
+			"lat": 43.736364,
+			"lon": -79.580272,
+			"source": "address-points",
+			"match": "6 Warrendale Crt",
+			"checked": "2026-10-16"
+		},
+		"747 Warden Ave|M1L 4A1": {
+			"lat": 43.71784,
+			"lon": -79.282827,
+			"source": "address-points",
+			"match": "747 Warden Ave",
+			"checked": "2026-10-16"
+		}
+	}
+}

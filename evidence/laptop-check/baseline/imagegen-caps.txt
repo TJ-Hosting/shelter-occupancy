@@ -1,0 +1,16 @@
+PASS  41st call refused
+      call cap reached: 40 of 40 calls used. Stop and ask TJ before any more.
+PASS  spend past US$10 refused
+      spend cap: US$9.900 used, the next call would add US$0.216, over US$10.00. Stop and ask TJ.
+PASS  call within both caps allowed
+      1 call(s), US$9.70 spent, next US$0.216
+PASS  unpriced OpenAI size refused
+      no recorded OpenAI price for size 2560x1440; use ['1024x1024', '1024x1536', '1536x1024'] or the gemini provider
+PASS  failed and blocked calls count toward the caps
+      40 calls counted, US$8.64
+blocked-one: refused, a moderation block already ended this image
+PASS  moderation-blocked image not retried
+No API key set: wrote 1 request(s) to ..\..\Users\Bane\AppData\Local\Temp\tmpjroxvrfw\REQUESTS.md (1 in total).
+PASS  no key: request written, no call made
+
+7/7 checks passed.

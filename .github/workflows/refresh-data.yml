@@ -1,0 +1,110 @@
+# Daily refresh of the shelter occupancy snapshot.
+#
+# The City refreshes its dataset once a day, at about 13:37 UTC. This job runs ~40 minutes
+# later and again in the evening as a catch-up, commits data/ only when the numbers changed,
+# and fails loudly otherwise: a failed fetch, a missing column or a stale source fails the
+# job and opens (or comments on) one issue labelled `data-refresh`. Nothing is committed on
+# failure, so the site keeps serving the last good snapshot with its date.
+name: Refresh shelter data
+
+on:
+  schedule:
+    - cron: "17 14 * * *"
+    - cron: "17 18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      REFRESH_ERROR_FILE: ${{ github.workspace }}/../refresh-error.md
+      REFRESH_WARN_FILE: ${{ github.workspace }}/../refresh-warn.md
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch the City's data and build the snapshot
+        run: python3 scripts/fetch_data.py
+
+      - name: Commit the snapshot if the numbers changed
+        id: commit
+        run: |
+          if git diff --quiet -- data/latest.json data/history.json; then
+            echo "No new data since the last snapshot; nothing to commit."
+            git checkout -- data/
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          night="$(jq -r .occupancy_date data/latest.json)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git commit -m "data: refresh snapshot for the night of ${night}"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Ask GitHub Pages to rebuild
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds" --silent || echo "Pages build request not accepted (Pages may build from the push on its own)."
+
+      - name: Fail if the run raised warnings
+        run: |
+          if [ -s "$REFRESH_WARN_FILE" ]; then
+            echo "::error::The refresh finished with warnings:"
+            cat "$REFRESH_WARN_FILE"
+            exit 1
+          fi
+
+      - name: Open or update the data-refresh issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          body="$(mktemp)"
+          {
+            echo "The scheduled data refresh failed on $(date -u '+%Y-%m-%d %H:%M UTC')."
+            echo
+            if [ -s "$REFRESH_ERROR_FILE" ]; then cat "$REFRESH_ERROR_FILE"; fi
+            if [ -s "$REFRESH_WARN_FILE" ]; then echo "Warnings:"; cat "$REFRESH_WARN_FILE"; fi
+            if [ ! -s "$REFRESH_ERROR_FILE" ] && [ ! -s "$REFRESH_WARN_FILE" ]; then echo "No message was captured; see the run log."; fi
+            echo
+            echo "Run: ${RUN_URL}"
+            echo
+            echo "The site keeps the last good snapshot and its date until a run succeeds."
+          } > "$body"
+          gh label create data-refresh --color B60205 --description "Daily data refresh failed" 2>/dev/null || true
+          number="$(gh issue list --label data-refresh --state open --json number --jq '.[0].number')"
+          if [ -n "$number" ]; then
+            gh issue comment "$number" --body-file "$body"
+          else
+            gh issue create --title "Daily data refresh failed" --label data-refresh --body-file "$body"
+          fi
+
+      - name: Close the data-refresh issue after a good run
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          number="$(gh issue list --label data-refresh --state open --json number --jq '.[0].number' 2>/dev/null || true)"
+          if [ -n "$number" ]; then
+            gh issue close "$number" --comment "The refresh ran cleanly again: ${RUN_URL}"
+          fi
