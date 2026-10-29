@@ -1,9 +1,9 @@
 {
-	"generated_at": "2026-10-28T19:38:04Z",
-	"occupancy_date": "2026-10-27",
+	"generated_at": "2026-10-29T19:42:00Z",
+	"occupancy_date": "2026-10-28",
 	"package": "daily-shelter-overnight-service-occupancy-capacity",
 	"package_url": "https://open.toronto.ca/dataset/daily-shelter-overnight-service-occupancy-capacity/",
-	"package_last_refreshed": "2026-10-28 13:37:30.703408",
+	"package_last_refreshed": "2026-10-29 13:37:18.558904",
 	"package_refresh_rate": "Daily",
 	"package_is_retired": false,
 	"resources": [
@@ -55,16 +55,16 @@
 		{
 			"resource_id": "42714176-4f05-44e6-b157-2b57f29b856a",
 			"name": "Daily shelter overnight occupancy",
-			"rows": 40320,
+			"rows": 40443,
 			"first_date": "2026-01-01",
-			"last_date": "2026-10-27",
+			"last_date": "2026-10-28",
 			"schema_hash": "3a5d06d97de0944497c7004ae3c7983e10ae73dc52489dae9c6c974eb281b967",
 			"fields": 32
 		}
 	],
 	"schema_hash": "2154ca62db25e7625381b0650bb7a1f4467afde4c645ae85afe3fe6741980ea8",
-	"rows": 289424,
-	"nights": 2126,
+	"rows": 289547,
+	"nights": 2127,
 	"turnaways": {
 		"package": "central-intake-calls",
 		"resource_id": "61191143-8143-4425-bf89-2c1523961227",
