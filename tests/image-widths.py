@@ -41,7 +41,9 @@ for im in manifest["images"]:
 	wide = [o["file"] for o in im["outputs"] if o["width"] > sw]
 	check(f"{im['name']}: outputs ≤ source width {sw}px", not wide, ", ".join(wide) or f"{len(im['outputs'])} outputs")
 	check(f"{im['name']}: ledger line", im["name"] in ledgered, f"{im.get('ledger')} line {im.get('line')}")
-	listed.update(os.path.basename(o["file"]) for o in im["outputs"])
+	# MANIFEST paths may carry Windows separators (written on Windows in shelter-02); basename on Linux
+	# doesn't split on "\\", so normalise first.
+	listed.update(os.path.basename(o["file"].replace("\\", "/")) for o in im["outputs"])
 
 pattern = re.compile(r"^(?P<name>.+)-(?P<w>\d+)\.(avif|webp)$")
 unlisted = []

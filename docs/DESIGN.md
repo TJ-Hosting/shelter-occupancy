@@ -84,7 +84,7 @@ One image, from the game: its noir title backdrop, a painted Toronto skyline at 
 
 The figure tiles are 84 % surface over a 6 px blur, so the skyline's lights glow through without touching text contrast (checked against the rendered pixels).
 
-**Resolution: never upscaled, in the files or on the page** (Aco, 17 Oct 2026). `scripts/build_images.py` never writes a width larger than the source, and `tests/image-widths.py` checks every file. Above 1664 CSS px the hero stops at its source width with soft dark edges. The earlier pack images (sunset and dusk heroes, scenes, spots, textures) are no longer referenced; their files stay in `assets/img/` until Barney rules on deleting them (shelter-02 Q2).
+**Resolution: never upscaled, in the files or on the page** (Aco, 17 Oct 2026). `scripts/build_images.py` never writes a width larger than the source, and `tests/image-widths.py` checks every file. The wide art box is never taller than 16:9 at the page's width (`min(100%, 56.25vw)`), so `cover` never scales the file up when the headline wraps into a tall block, and its foot fades into the page; above 1664 CSS px the hero stops at its source width with soft dark edges. `tests/browser-check.mjs` checks 375–1920 px. The earlier pack images (sunset and dusk heroes, scenes, spots, textures) are no longer referenced; their files stay in `assets/img/` until Barney rules on deleting them (shelter-02 Q2).
 
 ## 7. Accessibility and motion
 

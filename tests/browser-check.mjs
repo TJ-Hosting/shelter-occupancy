@@ -1,7 +1,9 @@
-// Real-browser check (shelter-02 P1): the dashboard in an installed, headed browser.
-// - widths 375, 768 and 1440 in light and dark: no horizontal scroll, figures filled, screenshot;
-// - reduced motion: the hero drift and the reveals finish at once;
-// - keyboard: Tab from the filters into the programs table, sort with Enter, focus ring visible;
+// Real-browser check (shelter-02 P1; dark only since shelter-03): the dashboard in an installed, headed browser.
+// - widths 375, 390, 768 and 1440: no horizontal scroll, dark only, figures filled, screenshot;
+// - the first screen: help line and headline figures at 390 × 844, and the chart's start at 1440 × 900;
+// - reduced motion: no animation runs and smooth scrolling is off;
+// - keyboard: Tab from the beds / rooms / both control to the skip link, which opens the programs
+//   table; sort with Enter, focus ring visible;
 // - map: pins drawn, a pin's popup opens;
 // - the embed card at 320×180 and 600×340, and 404.html;
 // - console: errors, failed requests and HTTP ≥ 400 responses, per page.
@@ -19,7 +21,8 @@ mkdirSync(out, { recursive: true });
 const results = [];
 const check = (name, ok, detail = "") => results.push({ name, ok: Boolean(ok), detail });
 
-const browser = await chromium.launch({ channel, headless: false });
+// BROWSER_PATH overrides the channel's install path (e.g. a Linux box with only Chrome for Testing).
+const browser = await chromium.launch(process.env.BROWSER_PATH ? { executablePath: process.env.BROWSER_PATH, headless: false } : { channel, headless: false });
 const version = browser.version();
 
 async function open(url, opts) {
@@ -44,26 +47,37 @@ async function settle(page) {
 	await page.waitForTimeout(1200);
 }
 
-// ---------------------------------------------------------------- widths × themes
-for (const theme of ["light", "dark"]) {
-	for (const [w, h] of [[375, 812], [768, 1024], [1440, 900]]) {
-		const { ctx, page, problems } = await open(base, { viewport: { width: w, height: h }, colorScheme: theme });
+// ---------------------------------------------------------------- widths (dark only, whatever the system asks for)
+for (const scheme of ["dark", "light"]) {
+	for (const [w, h] of [[375, 812], [390, 844], [768, 1024], [1440, 900]]) {
+		if (scheme === "light" && w !== 1440) continue;	// one light-preference run proves the page stays dark
+		const { ctx, page, problems } = await open(base, { viewport: { width: w, height: h }, colorScheme: scheme });
 		await settle(page);
-		const m = await page.evaluate(() => ({
-			overflow: document.documentElement.scrollWidth - window.innerWidth,
-			theme: document.documentElement.getAttribute("data-theme"),
-			label: document.querySelector('[data-figure="night-label"]').textContent.trim(),
-			people: document.querySelector('[data-figure="headline-people"]').textContent.trim(),
-			dashes: [...document.querySelectorAll("[data-figure]")].filter((n) => n.textContent.trim() === "—" && n.offsetParent).map((n) => n.dataset.figure),
-			hero: document.querySelector(".hero-art img").currentSrc.split("/").pop(),
-		}));
-		const name = `${channel}-${w}-${theme}`;
+		const m = await page.evaluate(() => {
+			const inView = (sel) => [...document.querySelectorAll(sel)].every((n) => { const r = n.getBoundingClientRect(); return r.top >= 0 && r.bottom <= window.innerHeight; });
+			return {
+				overflow: document.documentElement.scrollWidth - window.innerWidth,
+				bg: getComputedStyle(document.body).backgroundColor,
+				scheme: getComputedStyle(document.documentElement).colorScheme,
+				label: document.querySelector('[data-figure="night-label"]').textContent.trim(),
+				people: document.querySelector('[data-figure="headline-people"]').textContent.trim(),
+				dashes: [...document.querySelectorAll("[data-figure]")].filter((n) => n.textContent.trim() === "—" && n.offsetParent && !n.closest("details:not([open])")).map((n) => n.dataset.figure),
+				hero: document.querySelector(".hero-art img").currentSrc.split("/").pop(),
+				help: inView("#help"),
+				figures: inView(".headline dd"),
+				chartTop: Math.round(document.getElementById("chart-people").getBoundingClientRect().top),
+			};
+		});
+		const name = `${channel}-${w}${scheme === "light" ? "-light-preference" : ""}`;
 		await page.screenshot({ path: `${out}/${name}-top.jpg`, type: "jpeg", quality: 80 });
-		await page.screenshot({ path: `${out}/${name}-full.jpg`, fullPage: true, type: "jpeg", quality: 60 });
-		check(`${w}px ${theme}: no horizontal scroll`, m.overflow <= 0, `scrollWidth − innerWidth = ${m.overflow}px`);
-		check(`${w}px ${theme}: theme applied`, m.theme === theme, `data-theme=${m.theme}`);
-		check(`${w}px ${theme}: figures filled`, m.people !== "—" && m.dashes.length === 0, `people ${m.people}; label "${m.label}"; hero ${m.hero}; unfilled: ${m.dashes.join(", ") || "none"}`);
-		check(`${w}px ${theme}: console clean`, problems.length === 0, problems.join(" | ") || "no errors, warnings or failed requests");
+		if (scheme === "dark") await page.screenshot({ path: `${out}/${name}-full.jpg`, fullPage: true, type: "jpeg", quality: 60 });
+		const tag = `${w}px${scheme === "light" ? " (light system setting)" : ""}`;
+		check(`${tag}: no horizontal scroll`, m.overflow <= 0, `scrollWidth − innerWidth = ${m.overflow}px`);
+		check(`${tag}: dark only`, m.bg === "rgb(11, 14, 19)" && m.scheme === "dark", `body ${m.bg}, color-scheme ${m.scheme}`);
+		check(`${tag}: figures filled`, m.people !== "—" && m.dashes.length === 0, `people ${m.people}; label "${m.label}"; hero ${m.hero}; unfilled: ${m.dashes.join(", ") || "none"}`);
+		if (w === 390) check("390 × 844: help line and headline figures on the first screen", m.help && m.figures, `help ${m.help}, figures ${m.figures}`);
+		if (w === 1440 && scheme === "dark") check("1440 × 900: help line, figures and the chart's start on the first screen", m.help && m.figures && m.chartTop < h, `help ${m.help}, figures ${m.figures}, chart top at ${m.chartTop}px`);
+		check(`${tag}: console clean`, problems.length === 0, problems.join(" | ") || "no errors, warnings or failed requests");
 		await ctx.close();
 	}
 }
@@ -72,12 +86,11 @@ for (const theme of ["light", "dark"]) {
 {
 	const { ctx, page, problems } = await open(base, { viewport: { width: 1440, height: 900 }, colorScheme: "dark", reducedMotion: "reduce" });
 	await page.waitForSelector('body[data-ready="true"]');
-	const anim = await page.evaluate(() => {
-		const d = (sel) => { const n = document.querySelector(sel); return n ? getComputedStyle(n).animationDuration : "missing"; };
-		return { hero: d(".hero-art img"), reveal: d(".reveal"), meter: d(".meter > span"), heroTransform: getComputedStyle(document.querySelector(".hero-art img")).transform };
-	});
-	const instant = (v) => v === "1e-06s" || v === "0.000001s" || v === "0s" || v === "1e-6s";
-	check("reduced motion: hero drift, reveals and meter fills finish at once", instant(anim.hero) && instant(anim.reveal) && instant(anim.meter), JSON.stringify(anim));
+	const anim = await page.evaluate(() => ({
+		running: document.getAnimations().filter((a) => a.playState === "running").length,
+		scroll: getComputedStyle(document.documentElement).scrollBehavior,
+	}));
+	check("reduced motion: no animation runs, smooth scrolling off", anim.running === 0 && anim.scroll === "auto", JSON.stringify(anim));
 	check("reduced motion: console clean", problems.length === 0, problems.join(" | ") || "clean");
 	await page.screenshot({ path: `${out}/${channel}-1440-dark-reduced-motion.jpg`, type: "jpeg", quality: 80 });
 	await ctx.close();
@@ -87,13 +100,15 @@ for (const theme of ["light", "dark"]) {
 {
 	const { ctx, page, problems } = await open(base, { viewport: { width: 1440, height: 900 }, colorScheme: "dark" });
 	await settle(page);
-	await page.focus('#filters select[name="type"]');
+	await page.focus('#filters [data-type] button[data-value=""]');
 	await page.keyboard.press("Tab");
 	const first = await page.evaluate(() => ({ cls: document.activeElement.className, text: document.activeElement.textContent.trim() }));
-	check("keyboard: the first stop after the filters skips the map", first.cls.includes("skip-map"), `"${first.text}" (${first.cls})`);
+	check("keyboard: the first stop after the map's controls skips the map", first.cls.includes("skip-map"), `"${first.text}" (${first.cls})`);
 	await page.waitForTimeout(1200);	// the page scrolls smoothly to the focused link
 	await page.screenshot({ path: `${out}/${channel}-1440-dark-skip-map-focus.jpg`, type: "jpeg", quality: 80 });
 	await page.keyboard.press("Enter");
+	const opened = await page.evaluate(() => document.getElementById("all-programs").open);
+	check("keyboard: the skip link opens the programs table", opened, `details#all-programs open = ${opened}`);
 	const path = [];
 	let onHeader = false;
 	for (let i = 0; i < 40 && !onHeader; i++) {
@@ -120,7 +135,6 @@ for (const theme of ["light", "dark"]) {
 	const s2 = await page.getAttribute('#programs-table th:has(button[data-sort="people"])', "aria-sort");
 	const first2 = await page.locator("#programs-table tbody tr td:nth-child(5)").first().innerText();
 	check("keyboard: Enter sorts by People and toggles direction", s1 !== "none" && s2 !== "none" && s1 !== s2, `aria-sort ${s1} (first row ${first1}) → ${s2} (first row ${first2})`);
-	await page.addStyleTag({ content: ".masthead, .filters { position: static !important; }" });
 	await page.locator(".table-wrap").scrollIntoViewIfNeeded();
 	await page.locator(".table-wrap").screenshot({ path: `${out}/${channel}-1440-dark-table-keyboard.jpg`, type: "jpeg", quality: 80 });
 	check("keyboard: console clean", problems.length === 0, problems.join(" | ") || "clean");
@@ -128,10 +142,9 @@ for (const theme of ["light", "dark"]) {
 }
 
 // ---------------------------------------------------------------- map pins and a popup
-for (const theme of ["light", "dark"]) {
+for (const theme of ["dark"]) {
 	const { ctx, page, problems } = await open(base, { viewport: { width: 1440, height: 900 }, colorScheme: theme });
 	await settle(page);
-	await page.addStyleTag({ content: ".masthead, .filters { position: static !important; }" });
 	await page.locator("#map").scrollIntoViewIfNeeded();
 	const pins = await page.locator("#map path.leaflet-interactive").count();
 	const pin = page.locator("#map path.leaflet-interactive").nth(Math.floor(pins / 2));
@@ -147,8 +160,8 @@ for (const theme of ["light", "dark"]) {
 }
 
 // ---------------------------------------------------------------- no image drawn wider than its pixels (Aco, 17 Oct 2026)
-for (const theme of ["light", "dark"]) {
-	for (const [w, h] of [[375, 812], [768, 1024], [1440, 900], [1920, 1080]]) {
+for (const theme of ["dark"]) {
+	for (const [w, h] of [[375, 812], [390, 844], [768, 1024], [1440, 900], [1920, 1080]]) {
 		const { ctx, page } = await open(base, { viewport: { width: w, height: h }, colorScheme: theme, reducedMotion: "reduce" });
 		await settle(page);
 		const over = (await page.evaluate(async () => Promise.all([...document.images].map(async (i) => {
@@ -182,7 +195,7 @@ for (const [w, h] of [[320, 180], [600, 340]]) {
 	const t = await page.locator("h1").innerText();
 	const bg = await page.evaluate(() => getComputedStyle(document.body).backgroundImage);
 	await page.screenshot({ path: `${out}/${channel}-404-375.jpg`, type: "jpeg", quality: 80 });
-	check("404.html renders with its background and helpline", t.toLowerCase().includes("isn't here") && bg.includes("sh-tex-dusk-sky"), `h1 "${t}"; background ${bg.slice(0, 80)}`);
+	check("404.html renders with its background and helpline", t.toLowerCase().includes("isn't here") && bg.includes("sh-hero-noir"), `h1 "${t}"; background ${bg.slice(0, 80)}`);
 	check("404.html: console clean", problems.length === 0, problems.join(" | ") || "clean");
 	await ctx.close();
 }

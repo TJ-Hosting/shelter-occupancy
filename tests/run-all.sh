@@ -33,4 +33,6 @@ run "contrast check" evidence/contrast-check.txt node tests/contrast-check.mjs "
 run "image caps" evidence/imagegen-caps.txt python3 tests/imagegen-caps.py
 run "image widths" evidence/image-widths.txt python3 tests/image-widths.py
 run "screenshots" evidence/screenshots.txt node tests/screenshots.mjs "$BASE" evidence/screenshots
+mkdir -p evidence/simplify
+run "simplify measurements" evidence/simplify/measure.txt node tests/measure.mjs "$BASE"
 exit $status

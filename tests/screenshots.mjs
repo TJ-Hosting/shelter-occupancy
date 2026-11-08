@@ -1,5 +1,5 @@
-// Evidence screenshots (brief v2 §6): the dashboard at 1440 and 375 px in light and dark, with real
-// figures and the "as of" date, the map with its pins, and the embed card at both sizes.
+// Evidence screenshots (brief v2 §6; dark only since shelter-03): the dashboard at 1440 and 390 px,
+// with real figures and the "as of" date, the map with its pins, the chart, and the embed card at both sizes.
 // Usage: node tests/screenshots.mjs http://127.0.0.1:8765/ evidence/screenshots
 
 import { chromium } from "playwright";
@@ -21,9 +21,9 @@ async function settle(page) {
 
 const browser = await chromium.launch();
 const shots = [];
-for (const theme of ["dark", "light"]) {
-	for (const [w, h] of [[1440, 900], [375, 812]]) {
-		const ctx = await browser.newContext({ viewport: { width: w, height: h }, colorScheme: theme, locale: "en-CA", timezoneId: "America/Toronto", deviceScaleFactor: w === 375 ? 2 : 1 });
+for (const theme of ["dark"]) {
+	for (const [w, h] of [[1440, 900], [390, 844]]) {
+		const ctx = await browser.newContext({ viewport: { width: w, height: h }, colorScheme: theme, locale: "en-CA", timezoneId: "America/Toronto", deviceScaleFactor: w === 390 ? 2 : 1 });
 		const page = await ctx.newPage();
 		const errors = [];
 		page.on("pageerror", (e) => errors.push(e.message));
@@ -34,9 +34,6 @@ for (const theme of ["dark", "light"]) {
 		await page.screenshot({ path: `${out}/${name}-top.png` });
 		await page.screenshot({ path: `${out}/${name}-full.jpg`, fullPage: true, type: "jpeg", quality: 82 });
 		shots.push(`${name}-top.png`, `${name}-full.jpg`);
-		// Element captures scroll the element into view; unstick the masthead and filter bar so they
-		// don't float over it (capture only; the full-page shots above show the page as served).
-		await page.addStyleTag({ content: ".masthead, .filters { position: static !important; }" });
 		const map = page.locator(".map-wrap");
 		await map.scrollIntoViewIfNeeded();
 		await page.waitForLoadState("networkidle");
@@ -44,8 +41,8 @@ for (const theme of ["dark", "light"]) {
 		await map.screenshot({ path: `${out}/map-${w}-${theme}.png` });
 		shots.push(`map-${w}-${theme}.png`);
 		if (w === 1440) {
-			await page.locator("#trends").screenshot({ path: `${out}/trends-${w}-${theme}.png` });
-			shots.push(`trends-${w}-${theme}.png`);
+			await page.locator("#trend").screenshot({ path: `${out}/trend-${w}-${theme}.png` });
+			shots.push(`trend-${w}-${theme}.png`);
 		}
 		const label = await page.locator('[data-figure="night-label"]').innerText();
 		console.log(`${name}: ${label} · people ${await page.locator('[data-figure="headline-people"]').innerText()} · ${errors.length ? "ERRORS: " + errors.join("; ") : "no console errors"}`);
