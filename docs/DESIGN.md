@@ -54,18 +54,24 @@ All three pairs pass, not only the touching bands, because the three share one c
 
 **Text never wears a data colour.** Values, labels and legends use the text tokens; a swatch, line key or mark beside them carries identity. Text contrast for every token pair is checked by `tests/contrast-check.mjs` (output in `evidence/`).
 
-## 4. Charts
+## 4. The page, in order (shelter-03)
 
-- uPlot 1.6.32 (MIT, 51 KB), vendored. 2px lines, area washes at 24% (stacked) or 10% (sparkline), hairline grid one step off the surface, no dashed rules, no dual axes.
-- People charts that encode magnitude as area start at zero. Rate lines and the year-over-year lines use a non-zero floor, and the chart says so in text ("The vertical axis starts at 90%, not zero").
-- One crosshair tooltip lists every series at the cursor; values lead, labels follow. Arrow keys move the crosshair (Shift = 30 days, Home/End).
-- Every chart has a table twin (`<details>` with every night, built on first open), so no value is hover-only.
-- The occupancy-by-sector chart is HTML: rows with bars and meters, values printed beside each bar.
-- One range control (since 2021 / 3 years / 12 months) sits above the two charts it scopes; the year-over-year measure switch sits above its chart.
+One screen first. Someone who arrives from the game's **Check Shelter Availability** button needs two answers: where to get a bed tonight, and how full the shelters were last night.
 
-## 5. Map
+1. **Help bar**, first on the page: Central Intake's two numbers and 311 as `tel:` links, with the toronto.ca source.
+2. **Headline** over the hero: the title, one sentence on what the page can and can't show, then five figures, each with its date: people served, bed occupancy, room occupancy, programs at or near full (of the total), unmatched callers (Central Intake's monthly figure, with its own date).
+3. **One line for the rest:** Temporary Programs, Temporary Refugee Response and the City-wide total; "What are these?" holds the two definitions, the COVID-19 Response note and the unmatched-callers definition.
+4. **One trend chart:** people served each night, stacked; 12 months by default, or since 2021; its table behind "Show as a table".
+5. **Map** with a search box and a beds / rooms / both control; the programs table behind "Show every program as a table", reachable from the skip link past the pins.
+6. **About:** three points, the City's limitation behind a disclosure, the link to `docs/DATA.md`, sources, the Open Government Licence – Toronto line and the OpenStreetMap attribution.
+7. **Footer:** the game link and the help line again.
 
-Leaflet 1.9.4 (BSD-2), vendored. Tiles: OpenStreetMap's standard tile server, used within the OSMF tile policy (visible attribution, a "Report a map issue" link, no prefetching, the browser's own User-Agent and Referer, the URL kept in one constant). The tiles are restyled in CSS only: inverted and desaturated in dark mode, desaturated warm in light mode. Pins are code-drawn circles at the exact coordinates: coral for a bed program, violet for a room program, amber where several programs share an address, each with a 2px ring in the surface colour. CARTO's dark basemap would match bane.one more closely but now needs a registered key; see Follow-ups.
+Removed in shelter-03: the year-over-year overlay and its table, the occupancy-by-sector table, the occupancy-rate chart, the 3-year range, the separate Temporary Programs, Temporary Refugee Response and unmatched-callers panels (and the unmatched-callers sparkline), the sector and program-area filters, the sticky masthead and filter bar, the light theme and its toggle, and every illustration except the hero. At 390 × 844 the help bar and the five figures fit the first screen; at 1440 × 900 the chart starts on it too (`evidence/simplify/`).
+
+## 5. Chart and map
+
+- **Chart:** uPlot 1.6.32 (MIT), vendored. 2 px lines, area washes at 24 %, hairline grid one step off the surface, no dashed rules, no dual axes. The stacked area starts at zero. One crosshair tooltip lists every band and the City-wide total at the cursor; values lead, labels follow. Arrow keys move the crosshair (Shift = 30 days, Home/End). The table twin (every night, built on first open) means no value is hover-only. The range control (12 months / since 2021) sits beside the legend, above the chart it scopes.
+- **Map:** Leaflet 1.9.4 (BSD-2), vendored. Tiles: OpenStreetMap's standard tile server, used within the OSMF tile policy (visible attribution, a "Report a map issue" link, no prefetching, the browser's own User-Agent and Referer, the URL kept in one constant), restyled in CSS only (inverted, nearly desaturated, so the night map reads blue-grey). Pins are code-drawn circles at the exact coordinates, all in the accent blue: a small pin for one program, a larger pin with a light ring where several programs share an address. The type is chosen with the beds / rooms / both control and named in each popup, so colour carries no type. Pins are **not** coloured by how full a program is: a "not red" pin would read as "a bed is free here", which the data can't say.
 
 ## 6. Images
 
@@ -97,7 +103,7 @@ High-density screens still get fewer device pixels than they could use: the lapt
 
 ## 7. Accessibility and motion
 
-- Text contrast meets WCAG AA in both modes; checked in a real browser, including text over images measured against the rendered pixels behind it (`evidence/contrast-check.txt`). The first run of that check failed the light-mode hero, the beds/rooms art, the year-over-year band, the footer fade and the embed labels; the scrims and image opacities above are the result of fixing those, not of loosening the check.
-- Keyboard: skip link, visible 2px amber focus ring, sortable table headers are buttons with `aria-sort`, charts focusable with arrow-key readout.
-- `prefers-reduced-motion` stops the hero drift, reveals and meter fills; `prefers-contrast: more` raises muted text and hairlines; print hides the map and controls.
-- Mobile-first: one column at 375 px, the programs table scrolls inside its frame, the filter bar stays sticky.
+- Text contrast meets WCAG AA on the dark set; checked in a real browser, including text over the hero measured against the rendered pixels behind it, with the text disclosures and the programs table opened (`evidence/contrast-check.txt`).
+- Keyboard: a skip link to the figures, a skip link past the map's pins that opens the programs table, a visible 2 px focus ring in `--focus`, sortable table headers as buttons with `aria-sort`, the chart focusable with an arrow-key readout.
+- `prefers-reduced-motion` turns off smooth scrolling and any animation; `prefers-contrast: more` raises muted text and hairlines; print hides the map and the controls.
+- Mobile-first: two figure columns at 390 px, five across from 960 px; the programs table scrolls inside its frame.

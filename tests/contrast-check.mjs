@@ -2,7 +2,7 @@
 //
 // In a real browser, for every visible text element on the dashboard and the embed card:
 // - on a solid background, the text colour against the nearest opaque ancestor background;
-// - over an image (hero, bands, beds/rooms art, refugee panel, footer, embed), the text colour
+// - over an image (the hero, the embed card, the 404 page), the text colour
 //   against the actual rendered pixels behind it: all text is hidden, the page is captured, and
 //   the worst-case background (98th percentile of luminance away from the text) is used.
 // Thresholds: 4.5:1 normal text, 3:1 large text (≥ 24px, or ≥ 18.66px bold).
@@ -57,7 +57,7 @@ function decodePNG(buf) {
 }
 
 // ---------------------------------------------------------------- per page / theme / width
-const ZONES = ".hero, .band, .block, .panel-temporary, .panel-refugee, .footer, a.card";
+const ZONES = ".hero, a.card, main.notfound";	// the hero (dashboard), the embed card and the 404 page sit on images
 
 async function audit(browser, url, theme, width, height, label) {
 	const ctx = await browser.newContext({ viewport: { width, height }, colorScheme: theme, locale: "en-CA", timezoneId: "America/Toronto", reducedMotion: "reduce", deviceScaleFactor: 1 });
@@ -69,6 +69,9 @@ async function audit(browser, url, theme, width, height, label) {
 		window.scrollTo({ top: 0, behavior: "instant" });
 	});
 	await page.waitForLoadState("networkidle");
+	// Open the text disclosures and the programs table so their text is measured as a reader sees it
+	// (the chart's every-night table stays closed: its cells use the same tokens as the programs table).
+	await page.evaluate(() => document.querySelectorAll("details.whatare, details.limitation, details#all-programs").forEach((d) => { d.open = true; }));
 	await page.waitForTimeout(500);
 
 	const items = await page.evaluate((zones) => {
@@ -78,7 +81,7 @@ async function audit(browser, url, theme, width, height, label) {
 			const t = walker.currentNode;
 			if (!t.textContent.trim()) continue;
 			const el = t.parentElement;
-			if (!el || el.closest(".leaflet-container, .visually-hidden, noscript, script, style, .skip, [hidden], details:not([open]) .table-scroll")) continue;
+			if (!el || el.closest(".leaflet-container, .visually-hidden, noscript, script, style, .skip, [hidden], details:not([open]) > :not(summary)")) continue;
 			const cs = getComputedStyle(el);
 			if (cs.visibility !== "visible" || Number(cs.opacity) === 0) continue;
 			// The text's own line boxes (not the element box, which can include swatches and borders).
@@ -161,7 +164,7 @@ async function tokens(browser) {
 		out[theme] = await page.evaluate(() => {
 			const s = getComputedStyle(document.documentElement);
 			const g = (n) => s.getPropertyValue(n).trim();
-			return Object.fromEntries(["--bg", "--surface", "--surface-2", "--text", "--text-2", "--muted", "--key-text", "--axis", "--c-people", "--c-refugee", "--c-temporary", "--c-beds", "--c-rooms", "--key", "--y1", "--y6"].map((n) => [n, g(n)]));
+			return Object.fromEntries(["--bg", "--surface", "--surface-2", "--text", "--text-2", "--muted", "--key-text", "--axis", "--c-people", "--c-refugee", "--c-temporary", "--key", "--warn"].map((n) => [n, g(n)]));
 		});
 		await ctx.close();
 	}
@@ -205,14 +208,12 @@ for (const theme of ["dark"]) {
 console.log("\n3. Chart marks against the chart surface (≥ 3:1, non-text)");
 for (const theme of ["dark"]) {
 	const t = tk[theme];
-	const cells = ["--c-people", "--c-refugee", "--c-temporary", "--c-beds", "--c-rooms", "--key", "--y6"].map((n) => {
+	const cells = ["--c-people", "--c-temporary", "--c-refugee", "--key", "--warn"].map((n) => {
 		const r = ratio(parse(t[n]), parse(t["--surface"]));
 		if (r < 3) failed++;
 		return `${n} ${t[n]} ${r.toFixed(2)}${r < 3 ? " FAIL" : ""}`;
 	});
 	console.log(`${theme.padEnd(5)} on ${t["--surface"]}: ${cells.join(" · ")}`);
-	const y1 = ratio(parse(t["--y1"]), parse(t["--surface"]));
-	console.log(`      oldest-year line --y1 ${t["--y1"]} ${y1.toFixed(2)}:1 (ordinal ramp floor 2:1 by design; the year is also in the legend, tooltip and table)`);
 }
 console.log("\nColour-blind safety of chart colours: validated separately with the dataviz palette validator (docs/DESIGN.md §3).");
 console.log(`\n${failed === 0 ? "ALL CHECKS PASS" : `${failed} FAILURE(S)`}`);

@@ -2,7 +2,8 @@
 // - every geocoded program is on the map (one pin per distinct coordinate);
 // - the unplaced count is shown and each unplaced program is listed;
 // - a pin's popup names the program, sector, capacity type and last night's occupancy;
-// - the filters drive the map and the table together.
+// - the search and the beds / rooms / both control drive the map and the table together;
+// - the skip link opens the programs table, which sits behind a disclosure (shelter-03).
 // Usage: node tests/map-check.mjs http://127.0.0.1:8765/
 
 import { chromium } from "playwright";
@@ -31,8 +32,8 @@ check("mapped and unplaced counts shown", mapCount.includes(`${placed.length} of
 const listed = await page.locator("#unplaced li").allInnerTexts();
 check("every unplaced program listed", unplaced.every((p) => listed.some((t) => t.startsWith(p.program))) && listed.length === unplaced.length, `${listed.length} listed: ${unplaced.map((p) => p.program).join("; ")}`);
 
-const note = await page.locator(".notice").innerText();
-check("not-a-bed-finder note visible", (await page.locator(".notice").isVisible()) && note.includes("This map is not a bed-finder") && note.includes("416-338-4766"), note.replace(/\s+/g, " ").slice(0, 160));
+const note = await page.locator("#programs .section-head .sub").innerText();
+check("not-a-bed-finder note visible", (await page.locator("#programs .section-head .sub").isVisible()) && note.includes("Not a bed-finder") && note.includes("416-338-4766"), note.replace(/\s+/g, " ").slice(0, 160));
 
 // Click a single-program pin: the popup must carry the four facts from latest.json.
 const single = placed.find((p) => placed.filter((q) => q.geo.lat === p.geo.lat && q.geo.lon === p.geo.lon).length === 1);
@@ -50,22 +51,35 @@ check("pin popup shows name, sector, type, occupancy",
 	popupText.includes(single.program) && popupText.includes(single.sector) && popupText.includes(unit === "beds" ? "bed-based" : "room-based") && popupText.includes(expectOcc),
 	popupText.replace(/\s+/g, " ") || "popup did not open");
 
-// Filters drive both the map and the table.
-await page.selectOption('#filters select[name="sector"]', "Youth");
+// The search and the type control drive both the map and the table.
+const term = "youth";
+const hit = (p) => `${p.program} ${p.organization} ${p.location} ${p.address} ${p.shelter_group}`.toLowerCase().includes(term);
+await page.fill('#filters input[name="q"]', term);
 await page.waitForTimeout(300);
-const youth = placed.filter((p) => p.sector === "Youth");
-const youthCoords = new Set(youth.map((p) => `${p.geo.lat},${p.geo.lon}`));
-const youthPins = await page.locator("#map path.leaflet-interactive").count();
-const youthRows = await page.locator("#programs-table tbody tr").count();
-check("sector filter updates map and table", youthPins === youthCoords.size && youthRows === latest.programs.filter((p) => p.sector === "Youth").length,
-	`${youthPins} pins (expected ${youthCoords.size}), ${youthRows} rows (expected ${latest.programs.filter((p) => p.sector === "Youth").length})`);
+const found = latest.programs.filter(hit);
+const foundCoords = new Set(found.filter((p) => p.geo).map((p) => `${p.geo.lat},${p.geo.lon}`));
+const foundPins = await page.locator("#map path.leaflet-interactive").count();
+const foundRows = await page.locator("#programs-table tbody tr").count();
+check("search updates map and table", found.length > 0 && foundPins === foundCoords.size && foundRows === found.length,
+	`"${term}": ${foundPins} pins (expected ${foundCoords.size}), ${foundRows} rows (expected ${found.length})`);
 
-await page.selectOption('#filters select[name="sector"]', "");
-await page.selectOption('#filters select[name="type"]', "rooms");
+await page.fill('#filters input[name="q"]', "");
+await page.click('#filters [data-type] button[data-value="rooms"]');
 await page.waitForTimeout(300);
 const rooms = placed.filter((p) => p.capacity_type === "rooms");
 const roomPins = await page.locator("#map path.leaflet-interactive").count();
-check("capacity-type filter updates map", roomPins === new Set(rooms.map((p) => `${p.geo.lat},${p.geo.lon}`)).size, `${roomPins} pins for room programs`);
+const roomRows = await page.locator("#programs-table tbody tr").count();
+check("beds / rooms / both control updates map and table", roomPins === new Set(rooms.map((p) => `${p.geo.lat},${p.geo.lon}`)).size && roomRows === latest.programs.filter((p) => p.capacity_type === "rooms").length,
+	`${roomPins} pins and ${roomRows} rows for room programs`);
+await page.click('#filters [data-type] button[data-value=""]');
+
+// Keyboard and screen-reader users: the skip link past the pins opens the table.
+await page.focus(".skip-map");
+await page.keyboard.press("Enter");
+await page.waitForTimeout(300);
+const open = await page.evaluate(() => document.getElementById("all-programs").open);
+const rowsAll = await page.locator("#programs-table tbody tr").count();
+check("skip link opens the programs table", open && rowsAll === latest.programs.length, `table ${open ? "open" : "closed"}, ${rowsAll} rows`);
 
 await browser.close();
 

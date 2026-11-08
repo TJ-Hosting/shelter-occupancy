@@ -1,0 +1,30 @@
+shelter-03 baseline — main at 6b0edaa (origin/main), 2026-11-08 20:41 UTC
+Run on Claude Code on the web (cloud Linux container): Node v22.23.4, Python 3.13.18, Playwright 1.63.0 (preinstalled; the repo pins 1.56.1), Chromium headless shell 1243.
+Snapshot: night 2026-11-06, built 2026-11-08T18:51:53Z
+
+1. bash tests/run-all.sh (port 8765), 1 m 13 s
+   == data test (raw CKAN vs page)
+      43/43 checks passed.
+   == map check
+      7/7 checks passed.
+   == contrast check
+      ALL CHECKS PASS
+   == image caps
+      7/7 checks passed.
+   == image widths
+      FAIL → evidence/image-widths.txt
+      110/111 checks passed.
+   == screenshots
+      embed-600x340.png
+
+   Failure on main, not caused by this run: image-widths 110/111. "every image file the pages use is in the manifest" fails on Linux only:
+   assets/img/MANIFEST.json stores Windows paths (assets\\img\\…), and os.path.basename() on Linux does not split on a backslash,
+   so no referenced file matches. The same check passed on Windows (shelter-02, 111/111). Fixed in P4 by normalising the separator.
+
+2. Before-measurements for P2 (node tests/measure.mjs against main 6b0edaa, dark, reduced motion)
+   390×844: document height 14158 px · controls 20 (buttons 14, inputs 1, selects 3, disclosures 2; 20 in the page counting those inside closed disclosures) · links 40 · map pins 95 · tab stops 160 (Tab key walk)
+      above the fold: help line absent · headline figures absent · trend chart starts no (top at 5017 px)
+   1440×900: document height 8955 px · controls 20 (buttons 14, inputs 1, selects 3, disclosures 2; 20 in the page counting those inside closed disclosures) · links 44 · map pins 95 · tab stops 164 (Tab key walk)
+      above the fold: help line absent · headline figures absent · trend chart starts no (top at 3200 px)
+   (controls = buttons, inputs, selects and disclosure summaries a visitor sees without opening anything; on main the 14 buttons are
+   the theme toggle, 3 range, 3 year-over-year measure and 7 table-sort buttons)

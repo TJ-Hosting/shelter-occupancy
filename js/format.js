@@ -22,11 +22,9 @@ export function isoToSeconds(iso) {
 
 const LONG = new Intl.DateTimeFormat("en-CA", { timeZone: "UTC", weekday: "long", year: "numeric", month: "long", day: "numeric" });
 const MEDIUM = new Intl.DateTimeFormat("en-CA", { timeZone: "UTC", year: "numeric", month: "short", day: "numeric" });
-const MONTH = new Intl.DateTimeFormat("en-CA", { timeZone: "UTC", month: "short", day: "numeric" });
 
 export function dateLong(iso) { return iso ? LONG.format(utc(iso)) : "—"; }
 export function dateMedium(iso) { return iso ? MEDIUM.format(utc(iso)) : "—"; }
-export function dateMonthDay(iso) { return iso ? MONTH.format(utc(iso)) : "—"; }
 
 // Today's date in Toronto, as YYYY-MM-DD.
 export function torontoToday(now = new Date()) {

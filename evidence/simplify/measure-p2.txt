@@ -1,0 +1,13 @@
+shelter-03 P2 — one-screen story: before and after (node tests/measure.mjs, dark, reduced motion)
+
+BEFORE — main 6b0edaa
+390×844: document height 14158 px · controls 20 (buttons 14, inputs 1, selects 3, disclosures 2; 20 in the page counting those inside closed disclosures) · links 40 · map pins 95 · tab stops 160 (Tab key walk)
+   above the fold: help line absent · headline figures absent · trend chart starts no (top at 5017 px)
+1440×900: document height 8955 px · controls 20 (buttons 14, inputs 1, selects 3, disclosures 2; 20 in the page counting those inside closed disclosures) · links 44 · map pins 95 · tab stops 164 (Tab key walk)
+   above the fold: help line absent · headline figures absent · trend chart starts no (top at 3200 px)
+
+AFTER P2 — 7e81154+P2 working tree (hero image still the old dusk plate; P3 swaps it)
+390×844: document height 4326 px · controls 10 (buttons 5, inputs 1, selects 0, disclosures 4; 17 in the page counting those inside closed disclosures) · links 29 · map pins 95 · tab stops 136 (Tab key walk)
+   above the fold: help line yes · headline figures yes · trend chart starts no (top at 1237 px)
+1440×900: document height 3065 px · controls 10 (buttons 5, inputs 1, selects 0, disclosures 4; 17 in the page counting those inside closed disclosures) · links 29 · map pins 95 · tab stops 136 (Tab key walk)
+   above the fold: help line yes · headline figures yes · trend chart starts yes (top at 786 px)
