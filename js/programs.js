@@ -42,10 +42,6 @@ export function initPrograms(latest) {
 	update(true);
 }
 
-export function refreshMapTheme() {
-	if (map) drawMarkers(filtered(), false);
-}
-
 function fillSelect(select, values) {
 	for (const v of values) select.append(el("option", { value: v, text: v || "(blank)" }));
 }

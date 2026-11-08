@@ -6,8 +6,8 @@
 	<title>Toronto shelter occupancy — last night, from the City's open data</title>
 	<meta name="description" content="How many people stayed in Toronto's shelter and overnight programs last night, and how full the beds and rooms were. Every figure comes from the City of Toronto's open data, with its date.">
 	<link rel="canonical" href="https://data.tj-hosting.ca/">
-	<meta name="color-scheme" content="dark light">
-	<meta name="theme-color" content="#08090a">
+	<meta name="color-scheme" content="dark">
+	<meta name="theme-color" content="#0b0e13">
 	<meta property="og:site_name" content="Toronto shelter occupancy">
 	<meta property="og:title" content="Toronto shelter occupancy — last night, from the City's open data">
 	<meta property="og:description" content="People served, bed and room occupancy, trends since 2021 and a map of programs. A data companion to Homeless in Toronto.">
@@ -19,17 +19,9 @@
 	<meta property="og:image:alt" content="The words TORONTO SHELTER OCCUPANCY over a painted Toronto skyline at dusk.">
 	<meta name="twitter:card" content="summary_large_image">
 	<link rel="icon" href="favicon.svg" type="image/svg+xml">
-	<link rel="preload" href="vendor/oswald-5.3.0/oswald-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="stylesheet" href="vendor/uplot-1.6.32/uPlot.min.css">
 	<link rel="stylesheet" href="vendor/leaflet-1.9.4/leaflet.css">
 	<link rel="stylesheet" href="css/site.css">
-	<script>
-		// Apply a saved theme before first paint. Storage may be blocked; the system setting then wins.
-		try {
-			var t = localStorage.getItem("theme");
-			if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
-		} catch (e) {}
-	</script>
 	<script src="vendor/uplot-1.6.32/uPlot.iife.min.js" defer></script>
 	<script src="vendor/leaflet-1.9.4/leaflet.js" defer></script>
 	<script src="js/app.js" type="module"></script>
@@ -46,10 +38,6 @@
 				<a href="#programs">Map &amp; programs</a>
 				<a href="#about">About the data</a>
 			</nav>
-			<button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch to light mode">
-				<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg>
-				<span id="theme-label">Light</span>
-			</button>
 		</div>
 	</header>
 
@@ -61,8 +49,6 @@
 			<picture class="hero-art">
 				<source media="(max-width: 37.5rem)" type="image/avif" srcset="assets/img/sh-hero-portrait-480.avif 480w, assets/img/sh-hero-portrait-720.avif 720w" sizes="100vw">
 				<source media="(max-width: 37.5rem)" type="image/webp" srcset="assets/img/sh-hero-portrait-480.webp 480w, assets/img/sh-hero-portrait-720.webp 720w" sizes="100vw">
-				<source data-theme-source="light" media="(prefers-color-scheme: light)" type="image/avif" srcset="assets/img/sh-hero-islands-sunset-hd-640.avif 640w, assets/img/sh-hero-islands-sunset-hd-960.avif 960w, assets/img/sh-hero-islands-sunset-hd-1280.avif 1280w, assets/img/sh-hero-islands-sunset-hd-1664.avif 1664w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))">
-				<source data-theme-source="light" media="(prefers-color-scheme: light)" type="image/webp" srcset="assets/img/sh-hero-islands-sunset-hd-640.webp 640w, assets/img/sh-hero-islands-sunset-hd-960.webp 960w, assets/img/sh-hero-islands-sunset-hd-1280.webp 1280w, assets/img/sh-hero-islands-sunset-hd-1664.webp 1664w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))">
 				<source type="image/avif" srcset="assets/img/sh-hero-islands-dusk-hd-640.avif 640w, assets/img/sh-hero-islands-dusk-hd-960.avif 960w, assets/img/sh-hero-islands-dusk-hd-1280.avif 1280w, assets/img/sh-hero-islands-dusk-hd-1672.avif 1672w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))">
 				<img src="assets/img/sh-hero-islands-dusk-hd-1280.webp" srcset="assets/img/sh-hero-islands-dusk-hd-640.webp 640w, assets/img/sh-hero-islands-dusk-hd-960.webp 960w, assets/img/sh-hero-islands-dusk-hd-1280.webp 1280w, assets/img/sh-hero-islands-dusk-hd-1672.webp 1672w" sizes="max(100vw, calc(min(88vh, 46rem) * 1.78))" alt="" width="1672" height="941" fetchpriority="high">
 			</picture>
@@ -246,7 +232,7 @@
 							<img src="assets/img/sh-hero-winter-night-1280.webp" srcset="assets/img/sh-hero-winter-night-640.webp 640w, assets/img/sh-hero-winter-night-1280.webp 1280w" sizes="(min-width: 74rem) 74rem, 100vw" alt="" loading="lazy" width="1280" height="720">
 						</picture>
 						<div class="band-text">
-							<p class="kicker" style="color:#d9d3c6"><span class="idx" style="color:#e0a44f">03</span> · Year over year</p>
+							<p class="kicker" style="color:var(--text-2)"><span class="idx">03</span> · Year over year</p>
 							<h3>The same calendar, every year</h3>
 							<p>Each year drawn on a January-to-December axis, so the winter pattern lines up. The current year is the brightest line and stops at the latest night.</p>
 						</div>

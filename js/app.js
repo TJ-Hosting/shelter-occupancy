@@ -4,7 +4,7 @@
 
 import { n, pct, dateLong, dateMedium, nightLabel, el } from "./format.js";
 import { drawPeople, drawRates, drawYoy, drawTurnaways, rate } from "./charts.js";
-import { initPrograms, refreshMapTheme } from "./programs.js";
+import { initPrograms } from "./programs.js";
 
 const ui = { range: "all", yoy: "people" };
 let latest, history, meta;
@@ -188,46 +188,8 @@ function wireSegments(selector, key, redraw) {
 	});
 }
 
-// ---------------------------------------------------------------- theme
-function effectiveTheme() {
-	const set = document.documentElement.getAttribute("data-theme");
-	if (set) return set;
-	return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-}
-
-function applyTheme(theme, persist) {
-	document.documentElement.setAttribute("data-theme", theme);
-	if (persist) {
-		try { localStorage.setItem("theme", theme); } catch (e) { /* storage blocked: theme lasts for this visit */ }
-	}
-	document.querySelectorAll("[data-theme-source]").forEach((s) => s.setAttribute("media", theme === "light" ? "all" : "not all"));
-	const other = theme === "light" ? "dark" : "light";
-	document.getElementById("theme-label").textContent = other === "light" ? "Light" : "Dark";
-	document.getElementById("theme-toggle").setAttribute("aria-label", `Switch to ${other} mode`);
-	document.querySelector('meta[name="theme-color"]').setAttribute("content", theme === "light" ? "#f3efe6" : "#08090a");
-}
-
-function wireTheme() {
-	applyTheme(effectiveTheme(), false);
-	document.getElementById("theme-toggle").addEventListener("click", () => {
-		applyTheme(effectiveTheme() === "light" ? "dark" : "light", true);
-		if (history) drawAll();
-		refreshMapTheme();
-	});
-	window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => {
-		let saved = null;
-		try { saved = localStorage.getItem("theme"); } catch (e) { /* ignore */ }
-		if (saved) return;
-		document.documentElement.removeAttribute("data-theme");
-		applyTheme(effectiveTheme(), false);
-		if (history) drawAll();
-		refreshMapTheme();
-	});
-}
-
 // ---------------------------------------------------------------- boot
 async function main() {
-	wireTheme();
 	try {
 		[latest, history, meta] = await Promise.all([load("data/latest.json"), load("data/history.json"), load("data/meta.json")]);
 	} catch (err) {

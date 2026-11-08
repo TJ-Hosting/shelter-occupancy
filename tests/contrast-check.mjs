@@ -1,4 +1,4 @@
-// Contrast check (brief v2 §6): WCAG AA for text in light and dark modes, and chart colours.
+// Contrast check (brief v2 §6; dark only since shelter-03): WCAG AA for text, and chart colours.
 //
 // In a real browser, for every visible text element on the dashboard and the embed card:
 // - on a solid background, the text colour against the nearest opaque ancestor background;
@@ -154,7 +154,7 @@ async function audit(browser, url, theme, width, height, label) {
 // ---------------------------------------------------------------- tokens and chart marks
 async function tokens(browser) {
 	const out = {};
-	for (const theme of ["dark", "light"]) {
+	for (const theme of ["dark"]) {
 		const ctx = await browser.newContext({ colorScheme: theme });
 		const page = await ctx.newPage();
 		await page.goto(base, { waitUntil: "domcontentloaded" });
@@ -170,7 +170,7 @@ async function tokens(browser) {
 
 const browser = await chromium.launch();
 const runs = [];
-for (const theme of ["dark", "light"]) {
+for (const theme of ["dark"]) {
 	for (const [w, h] of [[1440, 900], [375, 812]]) runs.push(await audit(browser, base, theme, w, h, "dashboard"));
 }
 runs.push(await audit(browser, new URL("embed/", base).href, "dark", 320, 180, "embed 320×180"));
@@ -190,7 +190,7 @@ for (const r of runs) {
 }
 
 console.log("\n2. Text tokens against surfaces");
-for (const theme of ["dark", "light"]) {
+for (const theme of ["dark"]) {
 	const t = tk[theme];
 	for (const fgName of ["--text", "--text-2", "--muted", "--key-text", "--axis"]) {
 		const cells = ["--bg", "--surface", "--surface-2"].map((bgName) => {
@@ -203,7 +203,7 @@ for (const theme of ["dark", "light"]) {
 }
 
 console.log("\n3. Chart marks against the chart surface (≥ 3:1, non-text)");
-for (const theme of ["dark", "light"]) {
+for (const theme of ["dark"]) {
 	const t = tk[theme];
 	const cells = ["--c-people", "--c-refugee", "--c-temporary", "--c-beds", "--c-rooms", "--key", "--y6"].map((n) => {
 		const r = ratio(parse(t[n]), parse(t["--surface"]));

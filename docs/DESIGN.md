@@ -1,73 +1,58 @@
 # DESIGN — the Homeless in Toronto look, applied to the City's numbers
 
-The dashboard borrows its look from *Homeless in Toronto* (https://bane.one). Tokens were sampled from the live site on 2026-10-16: `https://bane.one/css/main.css` (`:root`) for the dark game page, and the inline `<style>` in `https://bane.one/about.html` for the light text page. TJ's bar is "visually stunning, never at the cost of a number"; the rules below are how this page keeps both.
+The dashboard borrows its look from *Homeless in Toronto* (https://torontohomeless.com), the board game it accompanies. Since shelter-03 (8 Nov 2026) it follows the game's night-city noir and is dark only, like the game: no light mode and no theme toggle. Tokens were read on 2026-11-08 from the live game's CSS (`https://torontohomeless.com/_app/base-dzZPECeO.css` and its inline splash style) and from the game's token file, `src/styles/tokens.css` in `TJ-Hosting/homeless` at `2414eae`. TJ's bar is "visually stunning, never at the cost of a number"; the rules below are how this page keeps both.
 
-## 1. What was sampled from bane.one
+## 1. Tokens, from the game
 
-| bane.one token | Value | Used here as |
+| Game token | Value | Used here as |
 |---|---|---|
-| `--ink` | `#08090a` | dark page background (`--bg`) |
-| `--ink-2` | `#101113` | dark card surface (`--surface`) |
-| `--ink-3` | `#191a1d` | dark raised surface (`--surface-2`) |
-| `--hair` | `#2b2d31` | dark hairlines |
-| `--hair-soft` | `rgba(214,206,190,0.14)` | masthead rule |
-| `--paper` | `#ece7dc` | dark text (`--text`) |
-| `--paper-2` | `#d9d3c6` | dark body text (`--text-2`) |
-| `--muted` | `#8e8b85` | raised to `#a19d95` here so small labels clear WCAG AA on `#101113` |
-| `--key` | `#e0a44f` (sodium amber) | accent, links, focus ring in dark mode |
-| `--cold` | `#8fb0c4` | kept as a token; the chart blue is a validated step (§3) |
-| `--loss` | `#c4543f` | the bed coral is a validated sibling (§3) |
-| `--display` | `"Oswald", "Arial Narrow", …` (about page) | display face; **Oswald 5.3.0 is vendored** so it renders the same everywhere |
-| `--body` | `system-ui, -apple-system, "Segoe UI", …` | body text |
-| `--mono` | `ui-monospace, "Cascadia Mono", …` | letter-spaced uppercase labels and kickers |
-| about page, light mode | bg `#f3efe6`, surface `#e6e0d3`, text `#1b1a18`, text-2 `#33312c`, muted `#6a675f`, hair `#cdc6b6` | light mode (`--muted` darkened to `#625f58`, card surface lightened to `#faf7f0`) |
+| `--bg` | `#0b0e13` | page background (`--bg`), `theme-color` |
+| `--panel` (`--hit-paper`) | `#121821` | card and chart surface (`--surface`) |
+| `--hit-surface-raised` | `#182130` | raised surface: tooltips, table heads (`--surface-2`) |
+| `--line` (`--hit-accent-muted`) | `#284058` | hairlines and card borders (`--hair`) |
+| `--hit-rule` | `rgb(160 190 230 / 0.22)` | masthead rule (`--hair-soft`) |
+| `--ink` (`--hit-ink`) | `#e6edf5` | headings and figures (`--text`) |
+| `--hit-cost` | `#c9d6e6` | body text (`--text-2`), the game's quiet neutral |
+| `--muted` | `#9fb0c4` | small labels, axis text (`--muted`, `--axis`) |
+| `--accent` (`--hit-accent`) | `#7fb0e0` | accent: rules, the active control, the skip link (`--key`) |
+| `--hit-link` | `#9cc4f0` | link text (`--key-text`) |
+| `--focus` (`--hit-focus-ring`) | `#bfe0ff` | 2 px focus ring (`--focus`) |
+| `--hit-warning` | `#e5343f` | **the one warning red** (`--warn`): marks "at or near full" and nothing else |
+| `--hit-scrim` | `rgb(4 6 10 / 0.7)` | image scrims (`--scrim`) |
+| `color-scheme` | `dark` | `color-scheme: dark`, `<meta name="color-scheme" content="dark">` |
 
-Composition borrowed with the tokens: square corners, 1px hairline grids instead of shadows, bold uppercase condensed headings with wide tracking, small mono kickers, a film-grain overlay on the hero, a "need help now" panel in amber, generous dark space. bane.one is dark-first; this page follows the visitor's system setting and offers a toggle (stored in `localStorage` when allowed).
+The game's own rule for the red is "the notice row and the lost home only; never for a cost, a button or a figure". Here it is a mark beside the "at or near full" count and on the table's ≥ 95 tag; it never colours text or a number, and nothing else on the page is red. The public CSS does not carry the red; it was read from the token file named above.
 
-Sunset light over Toronto comes from the image pack (amber, coral, rose, violet into navy) and from the chart colours below, which are drawn from the same family.
+Composition borrowed with the tokens: square corners, thin blue-grey rules instead of shadows, uppercase condensed headings with wide tracking, small mono labels, a film-grain overlay on the hero, generous dark space.
 
 ## 2. Type
 
-- **Display:** Oswald (variable, 200–700), SIL OFL 1.1, from `@fontsource-variable/oswald@5.3.0`, vendored as `vendor/oswald-5.3.0/oswald-latin-wght-normal.woff2` (28 KB, preloaded, `font-display: swap`). Headings and the big figures. bane.one names Oswald first in its about-page stack but does not ship it, so most visitors there see Arial Narrow or a system fallback; vendoring makes the condensed look reliable.
-- **Body:** the system UI stack, as on bane.one.
-- **Numbers:** hero and tile figures use Oswald's proportional figures; table columns and axis ticks use `tabular-nums`.
-- Deviation from the dataviz skill's default (hero figure in the body sans): the brief's ruling is to match bane.one, whose identity is the condensed display face, so the hero figure is set in Oswald.
+- **Display:** the game's stack, `"Bahnschrift SemiBold Condensed", "Arial Narrow", "Segoe UI", system-ui, sans-serif`, weight 600, uppercase, `letter-spacing: 0.1em` for headings. Nothing is downloaded: Windows shows Bahnschrift, other systems a narrow or system sans, exactly as the game does. Oswald is no longer used or preloaded; its vendored files stay in `vendor/oswald-5.3.0/` (unreferenced).
+- **Body:** `system-ui, -apple-system, "Segoe UI", sans-serif`, as in the game.
+- **Mono:** `ui-monospace, Consolas, monospace`, for letter-spaced uppercase labels.
+- **Numbers:** headline figures in the display face; table columns and axis ticks use `tabular-nums`.
 
 ## 3. Colour for data
 
-Every chart colour does one job and was run through the dataviz validator (`validate_palette.js`: OKLCH lightness band, chroma floor, protan/deutan separation, normal-vision floor, contrast against the chart surface) for the pair it actually appears in, in both modes.
+Every chart colour does one job and was run through the dataviz validator (`validate_palette.js`: OKLCH lightness band 0.48–0.67, chroma floor 0.10, protan/deutan separation ≥ 8, normal-vision floor ≥ 15, contrast ≥ 3:1 against the chart surface) for the colours that actually share a chart, on the dark surface `#121821` only. The colours are steps from the game's blue family; the validator's band rules out the game's own `#7fb0e0` as a data colour (L 0.74, chroma 0.087 reads grey next to the others), so it stays the UI accent.
 
-| Entity | Light | Dark | Where |
+| Entity | Colour | OKLCH (L, C, h) | Where |
 |---|---|---|---|
-| People, headline programs | `#b7791f` | `#bd7f24` | people chart, sector people bars |
-| Temporary Programs | `#2a9a6c` | `#36a87d` | stacked band (between the two above), panel rule |
-| Temporary Refugee Response | `#2f7dbb` | `#4a8fd0` | stacked band, panel rule |
-| Beds | `#d0573f` | `#d9604a` | beds block, rate chart, map pins, meters |
-| Rooms | `#7b5ea7` | `#9479cf` | rooms block, rate chart, map pins, meters |
+| People, headline programs | `#136b94` | 0.50, 0.10, 235° | people chart, bottom band |
+| Temporary Programs (COVID-19 Response before 2024) | `#33a3b4` | 0.66, 0.10, 210° | people chart, middle band |
+| Temporary Refugee Response | `#7577e3` | 0.62, 0.14, 280° | people chart, top band; its top edge is the City-wide total |
+| At or near full (≥ 95 %) | `#e5343f` | the game's warning red | a mark only: the headline count and the table tag |
 
-Validator results (2026-10-16), surfaces `#faf7f0` light and `#101113` dark:
+Validator results (2026-11-08, dark, surface `#121821`):
 
-| Pair | Mode | Lightness band | Chroma | CVD ΔE (worst) | Normal-vision ΔE | Contrast ≥ 3:1 |
+| Pair or set | Pairs tested | Lightness band | Chroma | CVD ΔE (worst) | Normal-vision ΔE (worst) | Contrast ≥ 3:1 |
 |---|---|---|---|---|---|---|
-| people / refugee | light | pass | pass | 21.9 (protan) | 25.2 | pass |
-| beds / rooms | light | pass | pass | 17.3 (protan) | 20.9 | pass |
-| people / refugee | dark | pass | pass | 22.9 (protan) | 24.7 | pass |
-| beds / rooms | dark | pass | pass | 19.7 (protan) | 21.1 | pass |
-| people / temporary / refugee (stack, adjacent pairs) | light | pass | pass | 8.8 (protan, people ↔ temporary) | 17.0 (temporary ↔ refugee) | pass |
-| people / temporary / refugee (stack, adjacent pairs) | dark | pass | pass | 9.8 (deutan, people ↔ temporary) | 16.5 (temporary ↔ refugee) | pass |
+| headline / Temporary Programs / refugee (stacked people chart) | all three pairs | pass | pass | 11.9 deutan (refugee ↔ Temporary Programs); tritan 8.3 | 16.3 (refugee ↔ Temporary Programs) | pass (3.02, 5.97, 4.67) |
+| same, adjacent bands only | headline ↔ Temporary, Temporary ↔ refugee | pass | pass | 11.9 deutan | 16.3 | pass |
 
-The Temporary Programs teal was added in shelter-02 (2026-10-18) and validated as the middle of the three-band stack; tritan separation is low (4.5 light, 3.7 dark), so the legend, the tooltip rows and the table carry identity too.
+All three pairs pass, not only the touching bands, because the three share one chart. The headline blue is the darkest step (3.02:1 against the surface, just over the floor); its band also carries a 24 % wash, a legend swatch and a tooltip row, and every value is in the table. The warning red is 4.15:1 against `#121821` and 4.51:1 against `#0b0e13` (≥ 3:1 for a mark); it shares no chart with the blues.
 
-All four entities together fail the *all-pairs* test (amber ↔ coral in light, violet ↔ blue in dark). Those pairs never share a chart, every chart has a legend, and every block names its type in text, so colour is never the only identity channel.
-
-**Year-over-year overlay** is ordinal (years have an order), so it uses one amber ramp, oldest faintest, current year strongest and thickest, validated with `--ordinal`:
-
-- light (on `#faf7f0`): `#cfa66a #bf9047 #ab792c #93631b #784d10 #5a3707` — monotone, ΔL ≥ 0.06, lightest step 2.11:1, hue spread 8° → pass
-- dark (on `#101113`): `#6d5532 #8a6b3a #a78342 #c49b4a #e0b352 #f6cd6a` — monotone, ΔL ≥ 0.06, faintest step 2.69:1, hue spread 11° → pass
-
-The ramp has six slots, assigned by recency (`--y1` oldest … `--y6` current), so 2027 needs no CSS change; the chart shows the latest six years.
-
-**Text never wears a data colour.** Values, labels and legends use the text tokens; a swatch, line key or meter beside them carries identity. Text contrast for every token pair is checked by `tests/contrast-check.mjs` (output in `evidence/`).
+**Text never wears a data colour.** Values, labels and legends use the text tokens; a swatch, line key or mark beside them carries identity. Text contrast for every token pair is checked by `tests/contrast-check.mjs` (output in `evidence/`).
 
 ## 4. Charts
 

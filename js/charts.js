@@ -1,5 +1,5 @@
-// Charts, drawn with uPlot (vendor/uplot-1.6.32). Colours come from CSS tokens so light and
-// dark mode each use their own validated steps (docs/DESIGN.md §3). Every chart has a table
+// Charts, drawn with uPlot (vendor/uplot-1.6.32). Colours come from the CSS tokens, validated
+// against the dark chart surface (docs/DESIGN.md §3). Every chart has a table
 // twin (see app.js), so the tooltip never gates a value.
 
 import { n, pct, css, el, isoToSeconds, dateMedium, dateMonthDay } from "./format.js";
