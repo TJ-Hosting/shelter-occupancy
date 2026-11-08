@@ -21,28 +21,14 @@ OUT = os.path.join(ROOT, "assets", "img")
 LEDGERS = [os.path.join(ROOT, "assets", "pack", "LEDGER.jsonl"), os.path.join(ROOT, "assets", "LEDGER.jsonl")]
 
 # name in pack → (widths, use on the site, alt text or "" for decorative)
+# Since shelter-03 (8 Nov 2026) the site ships one image: the game's noir title backdrop, wide and
+# tall (from TJ-Hosting/homeless; ledger lines in assets/pack/LEDGER.jsonl). The earlier pack
+# images are no longer referenced; their files stay in assets/img until Barney rules on deleting
+# them (shelter-02 Q2), and they are listed here no more, so a rebuild leaves them untouched.
+HERO_ALT = "A painted Toronto skyline at night across the lake, the CN Tower lit in thin stripes under low dark clouds."
 SHIP = {
-	# Heroes from the 17 Oct laptop pack (Codex, 1672 and 1664 px); the largest width is the source width.
-	"sh-hero-islands-dusk-hd": ([640, 960, 1280, 1672], "hero background, dark mode", ""),
-	"sh-hero-islands-sunset-hd": ([640, 960, 1280, 1664], "hero background, light mode", ""),
-	"sh-hero-portrait": ([480, 720], "hero background on narrow screens", ""),
-	"sh-hero-winter-night": ([640, 1280], "band above the year-over-year chart", ""),
-	"sh-sc-cot": ([480, 960], "beds block illustration", ""),
-	"sh-sc-hotel-corridor": ([480, 960], "rooms block illustration", ""),
-	"sh-sc-windows": ([640, 1248], "context section illustration",
-		"Illustration: a brick apartment building at night in falling snow, its windows lit in warm colours."),
-	"sh-sc-streetcar": ([640, 1248], "footer band", ""),
-	"sh-tex-dusk-sky": ([640, 1280], "refugee-response panel and 404 background", ""),
-	"sh-tex-city-bokeh": ([640, 1280], "Temporary Programs panel background", ""),
-	"sh-sc-doorway-v2": ([640, 1088], "context section illustration",
-		"Illustration: an open front door at night, warm light from an empty hallway spilling onto snowy steps."),
-	"sh-embed-band": ([640, 1280], "embed card background", ""),
-	"sh-spot-tea": ([320, 640], "context section spot",
-		"Illustration: a steaming mug of tea on a windowsill, the Toronto skyline blurred outside."),
-	"sh-spot-key": ([320, 640], "context section spot",
-		"Illustration: a door key on a ring beside a lamp on a nightstand."),
-	"sh-spot-coat": ([320, 640], "context section spot",
-		"Illustration: a winter coat and scarf hanging on a wall hook."),
+	"sh-hero-noir": ([640, 960, 1280, 1664], "hero background on wider screens, embed card, 404 page", HERO_ALT),
+	"sh-hero-noir-tall": ([480, 720, 941], "hero background on narrow screens", HERO_ALT),
 }
 QUALITY = {"avif": 52, "webp": 76}
 

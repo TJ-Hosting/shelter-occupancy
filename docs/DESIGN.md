@@ -75,31 +75,16 @@ Removed in shelter-03: the year-over-year overlay and its table, the occupancy-b
 
 ## 6. Images
 
-Atmosphere only, never data, never people. From the pre-generated pack (`assets/pack/`), converted by `scripts/build_images.py` to AVIF and WebP at responsive widths, never upscaled in the files; each shipped file is listed in `assets/img/MANIFEST.json` with its ledger line.
+One image, from the game: its noir title backdrop, a painted Toronto skyline at night across the lake, the CN Tower lit in thin stripes, no people (TJ-Hosting's own art, GPT Image, 28 Oct 2026; provenance in `CREDITS.md` and `assets/pack/LEDGER.jsonl`). The brief named the game's 1280 px title poster; the same still exists on the game at 1664 px (wide) and 941 px (tall), so those are the masters.
 
 | Image | Where | Treatment |
 |---|---|---|
-| `sh-hero-islands-dusk-hd` (1672 px, Codex, 17 Oct) | hero, dark mode | dark scrim gradients + grain; slow 40 s settle (off with reduced motion) |
-| `sh-hero-islands-sunset-hd` (1664 px, Codex, 17 Oct) | hero, light mode | a scrim dark on the text column and open on the right, so the sunset glows; the hero stays an "evening" zone in both modes |
-| `sh-tex-city-bokeh` | Temporary Programs panel | the same wash as the refugee panel |
-| `sh-sc-doorway-v2` (Codex, 17 Oct) | "What this shows", under the spots | with alt text; covered by the section's AI-generated caption |
-| `sh-hero-portrait` | hero below 600 px | a deeper scrim from a third of the way down, because the portrait plate puts bright sky behind the text |
-| `sh-sc-cot`, `sh-sc-hotel-corridor` | beds and rooms blocks | 20% (dark) / 10% (light), masked into the card's right side |
-| `sh-hero-winter-night` | band above the year-over-year chart | dark gradient under the heading |
-| `sh-tex-dusk-sky` | refugee-response panel, 404 | 14% (dark) / 7% (light) wash |
-| `sh-sc-windows`, three spots (tea, key, coat) | "What this shows" | with alt text and a caption saying they are AI-generated atmosphere |
-| `sh-sc-streetcar` | footer | heavy dark scrim |
-| `sh-embed-band` | embed card | dark scrim |
-| `sh-og-share` | share image 1200×630 | rendered with the title by `scripts/build_og.mjs` |
+| `sh-hero-noir` (1664×936) at 640, 960, 1280, 1664 | hero above 600 px, embed card, 404 page, share image | a dark scrim, lighter behind the title and heavier behind the figures; film grain; alt text on the hero |
+| `sh-hero-noir-tall` (941×1672) at 480, 720, 941 | hero up to 600 px | the art box stops at 34 rem and sits on its foot, so the lit skyline shows behind the title and the first figures |
 
-**Not shipped:** `sh-sc-doorway` (a house number "142", lettering on the doormat, and a framed photo in the hallway that appears to show people; replaced by `sh-sc-doorway-v2`) and `sh-sc-bench-snow` (an empty bench in snow beside a turn-away figure would suggest that unmatched callers sleep outside, which the data does not say). The pack's 1280 px `sh-hero-islands-dusk` and `-sunset` were replaced by the HD versions (shelter-02): side by side in the page at 1440 and 1920 px (`evidence/images/compare/`), the HD skylines are clearly sharper. The scrims keep their mood calm, though the HD sunset is more saturated and photographic than the pack's painterly plates.
+The figure tiles are 84 % surface over a 6 px blur, so the skyline's lights glow through without touching text contrast (checked against the rendered pixels).
 
-**Resolution: never upscaled, in the files or on the page** (Aco, 17 Oct 2026). `scripts/build_images.py` never writes a width larger than the source, and `tests/image-widths.py` checks every file. On the page no image is drawn wider than its pixels at 375, 768, 1440 or 1920 CSS px (`tests/browser-check.mjs`). To get there:
-- the hero's `sizes` accounts for its height (`max(100vw, min(88vh, 46rem) × 1.78)`), and above 1664 px the hero stops at its source width with soft dark edges;
-- the footer art keeps its 3:2 shape at no more than 1,248 px wide;
-- the two panel washes use their 1,280 px files, in a box no taller than the source's 720 px.
-
-High-density screens still get fewer device pixels than they could use: the laptop's models stop at about 1,672 px, and the 2560 px request was not met.
+**Resolution: never upscaled, in the files or on the page** (Aco, 17 Oct 2026). `scripts/build_images.py` never writes a width larger than the source, and `tests/image-widths.py` checks every file. Above 1664 CSS px the hero stops at its source width with soft dark edges. The earlier pack images (sunset and dusk heroes, scenes, spots, textures) are no longer referenced; their files stay in `assets/img/` until Barney rules on deleting them (shelter-02 Q2).
 
 ## 7. Accessibility and motion
 
