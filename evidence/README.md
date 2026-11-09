@@ -1,6 +1,6 @@
 # Evidence — latest run: shelter-03 (noir restyle and one-screen simplify)
 
-`tests/run-all.sh` on 2026-11-09 at about 05:50 UTC (after the QA fixes) against the site served locally, with the live City of Toronto CKAN API (details in `run-info.txt`; the P4 commit holds exactly the tree that was tested). Snapshot: the night of 2026-11-06. Run in a cloud Linux container (Claude Code on the web), Playwright 1.63.0 with Chromium 153.
+`tests/run-all.sh` on 2026-11-09 at about 05:50 UTC (after the QA fixes) against the site served locally, with the live City of Toronto CKAN API (details in `run-info.txt`; commit `e06bd43` holds exactly the tree that was tested). Snapshot: the night of 2026-11-06. Run in a cloud Linux container (Claude Code on the web), Playwright 1.63.0 with Chromium 153.
 
 | File | What it shows | Result |
 |---|---|---|
