@@ -1,4 +1,4 @@
-Data test — 2026-11-08T21:06:15.638Z
+Data test — 2026-11-09T05:53:39.960Z
 Page: http://127.0.0.1:8765/ · snapshot night 2026-11-06 · night label shown: "Latest count — night of Friday, November 6, 2026"
 Raw: CKAN daily-shelter-overnight-service-occupancy-capacity, resource 42714176-4f05-44e6-b157-2b57f29b856a, 124 rows for 2026-11-06 (datastore_search, filtered). Newest night in the current resource: 2026-11-06.
 Package last_refreshed 2026-11-08 13:37:11.780694. Panels: headline = PROGRAM_AREA not "Temporary Programs", "COVID-19 Response" or "Temporary Refugee Response" (89 programs), Temporary Programs incl. COVID-19 Response (20), refugee = "Temporary Refugee Response" (15).

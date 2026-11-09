@@ -148,7 +148,8 @@ function drawMarkers(rows, refit) {
 			radius: several ? 9 : 6, color: several ? css("--text") : surface, weight: 2, fillColor: pin, fillOpacity: 1,
 		});
 		m.bindPopup(() => popup(group), { maxWidth: 320 });
-		m.bindTooltip(group.length > 1 ? `${group.length} programs · ${group[0].address}` : group[0].program, { direction: "top", offset: [0, -6] });
+		// A DOM node, not a string: Leaflet sets string content as HTML, and this text is the City's.
+		m.bindTooltip(el("span", { text: group.length > 1 ? `${group.length} programs · ${group[0].address}` : group[0].program }), { direction: "top", offset: [0, -6] });
 		m.addTo(layer);
 		m.getElement()?.setAttribute("data-ll", `${lat},${lon}`);	// lets tests/map-check.mjs find a pin
 	}

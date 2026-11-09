@@ -81,6 +81,33 @@ const open = await page.evaluate(() => document.getElementById("all-programs").o
 const rowsAll = await page.locator("#programs-table tbody tr").count();
 check("skip link opens the programs table", open && rowsAll === latest.programs.length, `table ${open ? "open" : "closed"}, ${rowsAll} rows`);
 
+// City text is text: a program name carrying markup must reach the pin tooltip as text, never as HTML
+// (Leaflet sets string tooltip content with innerHTML; QA finding M2, 9 Nov 2026).
+{
+	const evil = '<img src=x onerror="window.__xss=1">Markup test';
+	const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "en-CA", timezoneId: "America/Toronto" });
+	const p2 = await ctx.newPage();
+	const target = single;
+	await p2.route("**/data/latest.json", async (route) => {
+		const body = JSON.parse(JSON.stringify(latest));
+		body.programs.find((p) => p.id === target.id).program = evil;
+		await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(body) });
+	});
+	await p2.goto(base, { waitUntil: "networkidle" });
+	await p2.waitForSelector('body[data-ready="true"]');
+	const pin2 = p2.locator(`#map path[data-ll="${target.geo.lat},${target.geo.lon}"]`);
+	await p2.locator("#map").scrollIntoViewIfNeeded();
+	await pin2.hover({ force: true });
+	await p2.waitForSelector(".leaflet-tooltip", { timeout: 5000 }).catch(() => {});
+	const r = await p2.evaluate(() => ({
+		xss: window.__xss === 1,
+		injected: document.querySelectorAll(".leaflet-tooltip img, #programs-table img, #unplaced img").length,
+		tip: document.querySelector(".leaflet-tooltip")?.textContent || "",
+	}));
+	check("City text stays text in the pin tooltip", !r.xss && r.injected === 0 && r.tip.includes("<img"), `script ran: ${r.xss}; injected elements: ${r.injected}; tooltip text: ${r.tip.slice(0, 60)}`);
+	await ctx.close();
+}
+
 await browser.close();
 
 const pass = results.filter((r) => r.ok).length;

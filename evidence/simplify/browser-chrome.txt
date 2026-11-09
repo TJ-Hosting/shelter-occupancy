@@ -1,4 +1,4 @@
-Browser check — 2026-11-08T21:07:38.688Z — chrome 153.0.8010.12, headed — http://127.0.0.1:8765/
+Browser check — 2026-11-09T05:55:03.174Z — chrome 153.0.8010.12, headed — http://127.0.0.1:8765/
 PASS  375px: no horizontal scroll
       scrollWidth − innerWidth = -15px
 PASS  375px: dark only
@@ -84,7 +84,7 @@ PASS  embed 600×340: fits, filled
 PASS  embed 600×340: console clean
       clean
 PASS  404.html renders with its background and helpline
-      h1 "THIS PAGE ISN'T HERE"; background url("http://127.0.0.1:8765/assets/img/sh-hero-noir-1280.webp")
+      h1 "THIS PAGE ISN'T HERE"; background url("http://127.0.0.1:8765/assets/img/sh-hero-noir-1664.webp")
 PASS  404.html: console clean
       clean
 

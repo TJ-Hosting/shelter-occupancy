@@ -1,18 +1,18 @@
 # Evidence — latest run: shelter-03 (noir restyle and one-screen simplify)
 
-`tests/run-all.sh` on 2026-11-08 at 21:06 UTC against the site served locally, with the live City of Toronto CKAN API (details in `run-info.txt`; the P4 commit holds exactly the tree that was tested). Snapshot: the night of 2026-11-06. Run in a cloud Linux container (Claude Code on the web), Playwright 1.63.0 with Chromium 153.
+`tests/run-all.sh` on 2026-11-09 at about 05:50 UTC (after the QA fixes) against the site served locally, with the live City of Toronto CKAN API (details in `run-info.txt`; the P4 commit holds exactly the tree that was tested). Snapshot: the night of 2026-11-06. Run in a cloud Linux container (Claude Code on the web), Playwright 1.63.0 with Chromium 153.
 
 | File | What it shows | Result |
 |---|---|---|
 | `data-test.txt` | Every figure the page still shows, recomputed from the raw CKAN resource (filtered `datastore_search`, independent of the pipeline): headline people, bed and room rates with occupied and capacity, programs, programs at or near full, Temporary Programs, refugee response, City-wide, the 2023-12-31 history night, the embed card, every date, unmatched callers | 28/28 pass |
-| `map-check.txt` | Pins vs geocoded addresses, unplaced count and list, popup content, the not-a-bed-finder line, search and the beds / rooms / both control driving map and table, the skip link opening the table | 8/8 pass |
+| `map-check.txt` | Pins vs geocoded addresses, unplaced count and list, popup content, the not-a-bed-finder line, search and the beds / rooms / both control driving map and table, the skip link opening the table, City text staying text in the pin tooltip | 9/9 pass |
 | `contrast-check.txt` | WCAG AA for every visible text element at 1440 and 375 px (dark only; text over the hero measured against rendered pixels; text disclosures and the programs table opened), the embed card, text tokens, chart marks and the warning red | all pass |
 | `imagegen-caps.txt` | The 40-call and US$10 caps enforced in code, with no API call | 7/7 pass |
 | `image-widths.txt` | Every file in `assets/img` no wider than its source; manifest images ledgered; every image the pages use is in the manifest | 101/101 pass |
 | `screenshots.txt`, `screenshots/` | Dashboard at 1440 and 390 px (viewport `-top.png` and `-full.jpg`), the map, the trend chart, the embed card at 320×180 and 600×340 | 9 files, no console errors |
 | `simplify/measure.txt` | Page height, visible controls, tab stops, and what fits the first screen at 390×844 and 1440×900 | help line and figures on the first screen at both; chart starts at 786 px on desktop |
 
-The suite ran twice: the first run was green, then the headed browser check found the hero image drawn ×1.36 at 768 px; after the fix (the art box capped at 16:9) the whole suite was run again and is what is recorded here.
+The suite ran twice on 8 Nov: the first run was green, then the headed browser check found the hero image drawn ×1.36 at 768 px and the art box was capped at 16:9. An independent QA pass on 9 Nov (report in the store: `shelter-occupancy/dispatches/QA-shelter-03.md`) found two majors, both fixed: the 404 background drawn up to ×2 (now never wider than its 1,664 px file) and a pin tooltip that set City text as HTML (now a text node; the new map check fails on the old code). The run recorded here is after those fixes.
 
 ## `simplify/` (shelter-03)
 

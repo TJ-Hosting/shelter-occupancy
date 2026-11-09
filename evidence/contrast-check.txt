@@ -1,4 +1,4 @@
-Contrast check — 2026-11-08T21:06:29.456Z — http://127.0.0.1:8765/
+Contrast check — 2026-11-09T05:53:54.936Z — http://127.0.0.1:8765/
 WCAG AA: 4.5:1 normal text, 3:1 large text. Text over images is measured against the rendered pixels behind its glyph band (middle 60% of each line box; 98th-percentile worst case), with motion reduced.
 
 1. Every visible text element, rendered

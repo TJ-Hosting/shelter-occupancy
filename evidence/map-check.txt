@@ -1,4 +1,4 @@
-Map check — 2026-11-08T21:06:18.842Z — http://127.0.0.1:8765/
+Map check — 2026-11-09T05:53:44.764Z — http://127.0.0.1:8765/
 Snapshot night: 2026-11-06; 124 programs, 118 geocoded, 6 unplaced.
 PASS  one pin per geocoded address
       95 pins drawn; 95 distinct coordinates for 118 geocoded programs
@@ -16,5 +16,7 @@ PASS  beds / rooms / both control updates map and table
       25 pins and 34 rows for room programs
 PASS  skip link opens the programs table
       table open, 124 rows
+PASS  City text stays text in the pin tooltip
+      script ran: false; injected elements: 0; tooltip text: <img src=x onerror="window.__xss=1">Markup test
 
-8/8 checks passed.
+9/9 checks passed.
