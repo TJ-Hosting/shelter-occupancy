@@ -1,118 +1,94 @@
 # DESIGN — the Homeless in Toronto look, applied to the City's numbers
 
-The dashboard borrows its look from *Homeless in Toronto* (https://bane.one). Tokens were sampled from the live site on 2026-10-16: `https://bane.one/css/main.css` (`:root`) for the dark game page, and the inline `<style>` in `https://bane.one/about.html` for the light text page. TJ's bar is "visually stunning, never at the cost of a number"; the rules below are how this page keeps both.
+The dashboard borrows its look from *Homeless in Toronto* (https://torontohomeless.com), the board game it accompanies. Since shelter-03 (8 Nov 2026) it follows the game's night-city noir and is dark only, like the game: no light mode and no theme toggle. Tokens were read on 2026-11-08 from the live game's CSS (`https://torontohomeless.com/_app/base-dzZPECeO.css` and its inline splash style) and from the game's token file, `src/styles/tokens.css` in `TJ-Hosting/homeless` at `2414eae`. TJ's bar is "visually stunning, never at the cost of a number"; the rules below are how this page keeps both.
 
-## 1. What was sampled from bane.one
+## 1. Tokens, from the game
 
-| bane.one token | Value | Used here as |
+| Game token | Value | Used here as |
 |---|---|---|
-| `--ink` | `#08090a` | dark page background (`--bg`) |
-| `--ink-2` | `#101113` | dark card surface (`--surface`) |
-| `--ink-3` | `#191a1d` | dark raised surface (`--surface-2`) |
-| `--hair` | `#2b2d31` | dark hairlines |
-| `--hair-soft` | `rgba(214,206,190,0.14)` | masthead rule |
-| `--paper` | `#ece7dc` | dark text (`--text`) |
-| `--paper-2` | `#d9d3c6` | dark body text (`--text-2`) |
-| `--muted` | `#8e8b85` | raised to `#a19d95` here so small labels clear WCAG AA on `#101113` |
-| `--key` | `#e0a44f` (sodium amber) | accent, links, focus ring in dark mode |
-| `--cold` | `#8fb0c4` | kept as a token; the chart blue is a validated step (§3) |
-| `--loss` | `#c4543f` | the bed coral is a validated sibling (§3) |
-| `--display` | `"Oswald", "Arial Narrow", …` (about page) | display face; **Oswald 5.3.0 is vendored** so it renders the same everywhere |
-| `--body` | `system-ui, -apple-system, "Segoe UI", …` | body text |
-| `--mono` | `ui-monospace, "Cascadia Mono", …` | letter-spaced uppercase labels and kickers |
-| about page, light mode | bg `#f3efe6`, surface `#e6e0d3`, text `#1b1a18`, text-2 `#33312c`, muted `#6a675f`, hair `#cdc6b6` | light mode (`--muted` darkened to `#625f58`, card surface lightened to `#faf7f0`) |
+| `--bg` | `#0b0e13` | page background (`--bg`), `theme-color` |
+| `--panel` (`--hit-paper`) | `#121821` | card and chart surface (`--surface`) |
+| `--hit-surface-raised` | `#182130` | raised surface: tooltips, table heads (`--surface-2`) |
+| `--line` (`--hit-accent-muted`) | `#284058` | hairlines and card borders (`--hair`) |
+| `--hit-rule` | `rgb(160 190 230 / 0.22)` | masthead rule (`--hair-soft`) |
+| `--ink` (`--hit-ink`) | `#e6edf5` | headings and figures (`--text`) |
+| `--hit-cost` | `#c9d6e6` | body text (`--text-2`), the game's quiet neutral |
+| `--muted` | `#9fb0c4` | small labels, axis text (`--muted`, `--axis`) |
+| `--accent` (`--hit-accent`) | `#7fb0e0` | accent: rules, the active control, the skip link (`--key`) |
+| `--hit-link` | `#9cc4f0` | link text (`--key-text`) |
+| `--focus` (`--hit-focus-ring`) | `#bfe0ff` | 2 px focus ring (`--focus`) |
+| `--hit-warning` | `#e5343f` | **the one warning red** (`--warn`): marks "at or near full" and nothing else |
+| `--hit-scrim` | `rgb(4 6 10 / 0.7)` | image scrims (`--scrim`) |
+| `color-scheme` | `dark` | `color-scheme: dark`, `<meta name="color-scheme" content="dark">` |
 
-Composition borrowed with the tokens: square corners, 1px hairline grids instead of shadows, bold uppercase condensed headings with wide tracking, small mono kickers, a film-grain overlay on the hero, a "need help now" panel in amber, generous dark space. bane.one is dark-first; this page follows the visitor's system setting and offers a toggle (stored in `localStorage` when allowed).
+The game's own rule for the red is "the notice row and the lost home only; never for a cost, a button or a figure". Here it is a mark beside the "at or near full" count and on the table's ≥ 95 tag; it never colours text or a number, and nothing else on the page is red. The public CSS does not carry the red; it was read from the token file named above.
 
-Sunset light over Toronto comes from the image pack (amber, coral, rose, violet into navy) and from the chart colours below, which are drawn from the same family.
+Composition borrowed with the tokens: square corners, thin blue-grey rules instead of shadows, uppercase condensed headings with wide tracking, small mono labels, a film-grain overlay on the hero, generous dark space.
 
 ## 2. Type
 
-- **Display:** Oswald (variable, 200–700), SIL OFL 1.1, from `@fontsource-variable/oswald@5.3.0`, vendored as `vendor/oswald-5.3.0/oswald-latin-wght-normal.woff2` (28 KB, preloaded, `font-display: swap`). Headings and the big figures. bane.one names Oswald first in its about-page stack but does not ship it, so most visitors there see Arial Narrow or a system fallback; vendoring makes the condensed look reliable.
-- **Body:** the system UI stack, as on bane.one.
-- **Numbers:** hero and tile figures use Oswald's proportional figures; table columns and axis ticks use `tabular-nums`.
-- Deviation from the dataviz skill's default (hero figure in the body sans): the brief's ruling is to match bane.one, whose identity is the condensed display face, so the hero figure is set in Oswald.
+- **Display:** the game's stack, `"Bahnschrift SemiBold Condensed", "Arial Narrow", "Segoe UI", system-ui, sans-serif`, weight 600, uppercase, `letter-spacing: 0.1em` for headings. Nothing is downloaded: Windows shows Bahnschrift, other systems a narrow or system sans, exactly as the game does. Oswald is no longer used or preloaded; its vendored files stay in `vendor/oswald-5.3.0/` (unreferenced).
+- **Body:** `system-ui, -apple-system, "Segoe UI", sans-serif`, as in the game.
+- **Mono:** `ui-monospace, Consolas, monospace`, for letter-spaced uppercase labels.
+- **Numbers:** headline figures in the display face; table columns and axis ticks use `tabular-nums`.
 
 ## 3. Colour for data
 
-Every chart colour does one job and was run through the dataviz validator (`validate_palette.js`: OKLCH lightness band, chroma floor, protan/deutan separation, normal-vision floor, contrast against the chart surface) for the pair it actually appears in, in both modes.
+Every chart colour does one job and was run through the dataviz validator (`validate_palette.js`: OKLCH lightness band 0.48–0.67, chroma floor 0.10, protan/deutan separation ≥ 8, normal-vision floor ≥ 15, contrast ≥ 3:1 against the chart surface) for the colours that actually share a chart, on the dark surface `#121821` only. The colours are steps from the game's blue family; the validator's band rules out the game's own `#7fb0e0` as a data colour (L 0.74, chroma 0.087 reads grey next to the others), so it stays the UI accent.
 
-| Entity | Light | Dark | Where |
+| Entity | Colour | OKLCH (L, C, h) | Where |
 |---|---|---|---|
-| People, headline programs | `#b7791f` | `#bd7f24` | people chart, sector people bars |
-| Temporary Programs | `#2a9a6c` | `#36a87d` | stacked band (between the two above), panel rule |
-| Temporary Refugee Response | `#2f7dbb` | `#4a8fd0` | stacked band, panel rule |
-| Beds | `#d0573f` | `#d9604a` | beds block, rate chart, map pins, meters |
-| Rooms | `#7b5ea7` | `#9479cf` | rooms block, rate chart, map pins, meters |
+| People, headline programs | `#136b94` | 0.50, 0.10, 235° | people chart, bottom band |
+| Temporary Programs (COVID-19 Response before 2024) | `#33a3b4` | 0.66, 0.10, 210° | people chart, middle band |
+| Temporary Refugee Response | `#7577e3` | 0.62, 0.14, 280° | people chart, top band; its top edge is the City-wide total |
+| At or near full (≥ 95 %) | `#e5343f` | the game's warning red | a mark only: the headline count and the table tag |
 
-Validator results (2026-10-16), surfaces `#faf7f0` light and `#101113` dark:
+Validator results (2026-11-08, dark, surface `#121821`):
 
-| Pair | Mode | Lightness band | Chroma | CVD ΔE (worst) | Normal-vision ΔE | Contrast ≥ 3:1 |
+| Pair or set | Pairs tested | Lightness band | Chroma | CVD ΔE (worst) | Normal-vision ΔE (worst) | Contrast ≥ 3:1 |
 |---|---|---|---|---|---|---|
-| people / refugee | light | pass | pass | 21.9 (protan) | 25.2 | pass |
-| beds / rooms | light | pass | pass | 17.3 (protan) | 20.9 | pass |
-| people / refugee | dark | pass | pass | 22.9 (protan) | 24.7 | pass |
-| beds / rooms | dark | pass | pass | 19.7 (protan) | 21.1 | pass |
-| people / temporary / refugee (stack, adjacent pairs) | light | pass | pass | 8.8 (protan, people ↔ temporary) | 17.0 (temporary ↔ refugee) | pass |
-| people / temporary / refugee (stack, adjacent pairs) | dark | pass | pass | 9.8 (deutan, people ↔ temporary) | 16.5 (temporary ↔ refugee) | pass |
+| headline / Temporary Programs / refugee (stacked people chart) | all three pairs | pass | pass | 11.9 deutan (refugee ↔ Temporary Programs); tritan 8.3 | 16.3 (refugee ↔ Temporary Programs) | pass (3.02, 5.97, 4.67) |
+| same, adjacent bands only | headline ↔ Temporary, Temporary ↔ refugee | pass | pass | 11.9 deutan | 16.3 | pass |
 
-The Temporary Programs teal was added in shelter-02 (2026-10-18) and validated as the middle of the three-band stack; tritan separation is low (4.5 light, 3.7 dark), so the legend, the tooltip rows and the table carry identity too.
+All three pairs pass, not only the touching bands, because the three share one chart. The headline blue is the darkest step (3.02:1 against the surface, just over the floor); its band also carries a 24 % wash, a legend swatch and a tooltip row, and every value is in the table. The warning red is 4.15:1 against `#121821` and 4.51:1 against `#0b0e13` (≥ 3:1 for a mark); it shares no chart with the blues.
 
-All four entities together fail the *all-pairs* test (amber ↔ coral in light, violet ↔ blue in dark). Those pairs never share a chart, every chart has a legend, and every block names its type in text, so colour is never the only identity channel.
+**Text never wears a data colour.** Values, labels and legends use the text tokens; a swatch, line key or mark beside them carries identity. Text contrast for every token pair is checked by `tests/contrast-check.mjs` (output in `evidence/`).
 
-**Year-over-year overlay** is ordinal (years have an order), so it uses one amber ramp, oldest faintest, current year strongest and thickest, validated with `--ordinal`:
+## 4. The page, in order (shelter-03)
 
-- light (on `#faf7f0`): `#cfa66a #bf9047 #ab792c #93631b #784d10 #5a3707` — monotone, ΔL ≥ 0.06, lightest step 2.11:1, hue spread 8° → pass
-- dark (on `#101113`): `#6d5532 #8a6b3a #a78342 #c49b4a #e0b352 #f6cd6a` — monotone, ΔL ≥ 0.06, faintest step 2.69:1, hue spread 11° → pass
+One screen first. Someone who arrives from the game's **Check Shelter Availability** button needs two answers: where to get a bed tonight, and how full the shelters were last night.
 
-The ramp has six slots, assigned by recency (`--y1` oldest … `--y6` current), so 2027 needs no CSS change; the chart shows the latest six years.
+1. **Help bar**, first on the page: Central Intake's two numbers and 311 as `tel:` links, with the toronto.ca source.
+2. **Headline** over the hero: the title, one sentence on what the page can and can't show, then five figures, each with its date: people served, bed occupancy, room occupancy, programs at or near full (of the total), unmatched callers (Central Intake's monthly figure, with its own date).
+3. **One line for the rest:** Temporary Programs, Temporary Refugee Response and the City-wide total; "What are these?" holds the two definitions, the COVID-19 Response note and the unmatched-callers definition.
+4. **One trend chart:** people served each night, stacked; 12 months by default, or since 2021; its table behind "Show as a table".
+5. **Map** with a search box and a beds / rooms / both control; the programs table behind "Show every program as a table", reachable from the skip link past the pins.
+6. **About:** three points, the City's limitation behind a disclosure, the link to `docs/DATA.md`, sources, the Open Government Licence – Toronto line and the OpenStreetMap attribution.
+7. **Footer:** the game link and the help line again.
 
-**Text never wears a data colour.** Values, labels and legends use the text tokens; a swatch, line key or meter beside them carries identity. Text contrast for every token pair is checked by `tests/contrast-check.mjs` (output in `evidence/`).
+Removed in shelter-03: the year-over-year overlay and its table, the occupancy-by-sector table, the occupancy-rate chart, the 3-year range, the separate Temporary Programs, Temporary Refugee Response and unmatched-callers panels (and the unmatched-callers sparkline), the sector and program-area filters, the sticky masthead and filter bar, the light theme and its toggle, and every illustration except the hero. At 390 × 844 the help bar and the five figures fit the first screen; at 1440 × 900 the chart starts on it too (`evidence/simplify/`).
 
-## 4. Charts
+## 5. Chart and map
 
-- uPlot 1.6.32 (MIT, 51 KB), vendored. 2px lines, area washes at 24% (stacked) or 10% (sparkline), hairline grid one step off the surface, no dashed rules, no dual axes.
-- People charts that encode magnitude as area start at zero. Rate lines and the year-over-year lines use a non-zero floor, and the chart says so in text ("The vertical axis starts at 90%, not zero").
-- One crosshair tooltip lists every series at the cursor; values lead, labels follow. Arrow keys move the crosshair (Shift = 30 days, Home/End).
-- Every chart has a table twin (`<details>` with every night, built on first open), so no value is hover-only.
-- The occupancy-by-sector chart is HTML: rows with bars and meters, values printed beside each bar.
-- One range control (since 2021 / 3 years / 12 months) sits above the two charts it scopes; the year-over-year measure switch sits above its chart.
-
-## 5. Map
-
-Leaflet 1.9.4 (BSD-2), vendored. Tiles: OpenStreetMap's standard tile server, used within the OSMF tile policy (visible attribution, a "Report a map issue" link, no prefetching, the browser's own User-Agent and Referer, the URL kept in one constant). The tiles are restyled in CSS only: inverted and desaturated in dark mode, desaturated warm in light mode. Pins are code-drawn circles at the exact coordinates: coral for a bed program, violet for a room program, amber where several programs share an address, each with a 2px ring in the surface colour. CARTO's dark basemap would match bane.one more closely but now needs a registered key; see Follow-ups.
+- **Chart:** uPlot 1.6.32 (MIT), vendored. 2 px lines, area washes at 24 %, hairline grid one step off the surface, no dashed rules, no dual axes. The stacked area starts at zero. One crosshair tooltip lists every band and the City-wide total at the cursor; values lead, labels follow. Arrow keys move the crosshair (Shift = 30 days, Home/End). The table twin (every night, built on first open) means no value is hover-only. The range control (12 months / since 2021) sits beside the legend, above the chart it scopes.
+- **Map:** Leaflet 1.9.4 (BSD-2), vendored. Tiles: OpenStreetMap's standard tile server, used within the OSMF tile policy (visible attribution, a "Report a map issue" link, no prefetching, the browser's own User-Agent and Referer, the URL kept in one constant), restyled in CSS only (inverted, nearly desaturated, so the night map reads blue-grey). Pins are code-drawn circles at the exact coordinates, all in the accent blue: a small pin for one program, a larger pin with a light ring where several programs share an address. The type is chosen with the beds / rooms / both control and named in each popup, so colour carries no type. Pins are **not** coloured by how full a program is: a "not red" pin would read as "a bed is free here", which the data can't say.
 
 ## 6. Images
 
-Atmosphere only, never data, never people. From the pre-generated pack (`assets/pack/`), converted by `scripts/build_images.py` to AVIF and WebP at responsive widths, never upscaled in the files; each shipped file is listed in `assets/img/MANIFEST.json` with its ledger line.
+One image, from the game: its noir title backdrop, a painted Toronto skyline at night across the lake, the CN Tower lit in thin stripes, no people (TJ-Hosting's own art, GPT Image, 28 Oct 2026; provenance in `CREDITS.md` and `assets/pack/LEDGER.jsonl`). The brief named the game's 1280 px title poster; the same still exists on the game at 1664 px (wide) and 941 px (tall), so those are the masters.
 
 | Image | Where | Treatment |
 |---|---|---|
-| `sh-hero-islands-dusk-hd` (1672 px, Codex, 17 Oct) | hero, dark mode | dark scrim gradients + grain; slow 40 s settle (off with reduced motion) |
-| `sh-hero-islands-sunset-hd` (1664 px, Codex, 17 Oct) | hero, light mode | a scrim dark on the text column and open on the right, so the sunset glows; the hero stays an "evening" zone in both modes |
-| `sh-tex-city-bokeh` | Temporary Programs panel | the same wash as the refugee panel |
-| `sh-sc-doorway-v2` (Codex, 17 Oct) | "What this shows", under the spots | with alt text; covered by the section's AI-generated caption |
-| `sh-hero-portrait` | hero below 600 px | a deeper scrim from a third of the way down, because the portrait plate puts bright sky behind the text |
-| `sh-sc-cot`, `sh-sc-hotel-corridor` | beds and rooms blocks | 20% (dark) / 10% (light), masked into the card's right side |
-| `sh-hero-winter-night` | band above the year-over-year chart | dark gradient under the heading |
-| `sh-tex-dusk-sky` | refugee-response panel, 404 | 14% (dark) / 7% (light) wash |
-| `sh-sc-windows`, three spots (tea, key, coat) | "What this shows" | with alt text and a caption saying they are AI-generated atmosphere |
-| `sh-sc-streetcar` | footer | heavy dark scrim |
-| `sh-embed-band` | embed card | dark scrim |
-| `sh-og-share` | share image 1200×630 | rendered with the title by `scripts/build_og.mjs` |
+| `sh-hero-noir` (1664×936) at 640, 960, 1280, 1664 | hero above 600 px, embed card, 404 page, share image | a dark scrim, lighter behind the title and heavier behind the figures; film grain; alt text on the hero |
+| `sh-hero-noir-tall` (941×1672) at 480, 720, 941 | hero up to 600 px | the art box stops at 34 rem and sits on its foot, so the lit skyline shows behind the title and the first figures |
 
-**Not shipped:** `sh-sc-doorway` (a house number "142", lettering on the doormat, and a framed photo in the hallway that appears to show people; replaced by `sh-sc-doorway-v2`) and `sh-sc-bench-snow` (an empty bench in snow beside a turn-away figure would suggest that unmatched callers sleep outside, which the data does not say). The pack's 1280 px `sh-hero-islands-dusk` and `-sunset` were replaced by the HD versions (shelter-02): side by side in the page at 1440 and 1920 px (`evidence/images/compare/`), the HD skylines are clearly sharper. The scrims keep their mood calm, though the HD sunset is more saturated and photographic than the pack's painterly plates.
+The figure tiles are 84 % surface over a 6 px blur, so the skyline's lights glow through without touching text contrast (checked against the rendered pixels).
 
-**Resolution: never upscaled, in the files or on the page** (Aco, 17 Oct 2026). `scripts/build_images.py` never writes a width larger than the source, and `tests/image-widths.py` checks every file. On the page no image is drawn wider than its pixels at 375, 768, 1440 or 1920 CSS px (`tests/browser-check.mjs`). To get there:
-- the hero's `sizes` accounts for its height (`max(100vw, min(88vh, 46rem) × 1.78)`), and above 1664 px the hero stops at its source width with soft dark edges;
-- the footer art keeps its 3:2 shape at no more than 1,248 px wide;
-- the two panel washes use their 1,280 px files, in a box no taller than the source's 720 px.
-
-High-density screens still get fewer device pixels than they could use: the laptop's models stop at about 1,672 px, and the 2560 px request was not met.
+**Resolution: never upscaled, in the files or on the page** (Aco, 17 Oct 2026). `scripts/build_images.py` never writes a width larger than the source, and `tests/image-widths.py` checks every file. The wide art box is never taller than 16:9 at the page's width (`min(100%, 56.25vw)`), so `cover` never scales the file up when the headline wraps into a tall block, and its foot fades into the page; above 1664 CSS px the hero stops at its source width with soft dark edges. The 404 page's background is sized `min(1664px, max(100vw, 177.78vh))`, so it covers the screen up to the file's width and leaves dark edges beyond. `tests/browser-check.mjs` checks `<img>` elements at 375–1920 px; CSS backgrounds were checked by hand (QA, 9 Nov 2026). The earlier pack images (sunset and dusk heroes, scenes, spots, textures) are no longer referenced; their files stay in `assets/img/` until Barney rules on deleting them (shelter-02 Q2).
 
 ## 7. Accessibility and motion
 
-- Text contrast meets WCAG AA in both modes; checked in a real browser, including text over images measured against the rendered pixels behind it (`evidence/contrast-check.txt`). The first run of that check failed the light-mode hero, the beds/rooms art, the year-over-year band, the footer fade and the embed labels; the scrims and image opacities above are the result of fixing those, not of loosening the check.
-- Keyboard: skip link, visible 2px amber focus ring, sortable table headers are buttons with `aria-sort`, charts focusable with arrow-key readout.
-- `prefers-reduced-motion` stops the hero drift, reveals and meter fills; `prefers-contrast: more` raises muted text and hairlines; print hides the map and controls.
-- Mobile-first: one column at 375 px, the programs table scrolls inside its frame, the filter bar stays sticky.
+- Text contrast meets WCAG AA on the dark set; checked in a real browser, including text over the hero measured against the rendered pixels behind it, with the text disclosures and the programs table opened (`evidence/contrast-check.txt`).
+- Keyboard: a skip link to the figures, a skip link past the map's pins that opens the programs table, a visible 2 px focus ring in `--focus`, sortable table headers as buttons with `aria-sort`, the chart focusable with an arrow-key readout.
+- `prefers-reduced-motion` turns off smooth scrolling and any animation; `prefers-contrast: more` raises muted text and hairlines; print hides the map and the controls.
+- Mobile-first: two figure columns at 390 px, five across from 960 px; the programs table scrolls inside its frame.

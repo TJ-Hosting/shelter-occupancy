@@ -50,6 +50,7 @@ const shown = await page.evaluate(() => {
 	const out = {};
 	document.querySelectorAll("[data-figure]").forEach((n) => { if (!(n.dataset.figure in out)) out[n.dataset.figure] = n.textContent.trim(); });
 	out.sources = [...document.querySelectorAll('[data-source="occupancy"]')].map((n) => n.textContent.trim());
+	out.nightShort = [...document.querySelectorAll('[data-figure="night-short"]')].map((n) => n.textContent.trim());
 	return out;
 });
 const snapshot = await page.evaluate(async (night) => {
@@ -99,10 +100,15 @@ for (const res of pkg.resources.filter((r) => r.datastore_active === true || r.d
 if (!rows.length) throw new Error(`no raw rows for ${snapshotDate}`);
 
 function totals(filter) {
-	const t = { people: 0, programs: 0, beds: { occ: 0, cap: 0 }, rooms: { occ: 0, cap: 0 } };
+	const t = { people: 0, programs: 0, nearFull: 0, beds: { occ: 0, cap: 0 }, rooms: { occ: 0, cap: 0 } };
 	for (const r of rows.filter(filter)) {
 		t.people += Number(r.SERVICE_USER_COUNT);
 		t.programs += 1;
+		const kind = r.CAPACITY_TYPE === "Bed Based Capacity" ? ["BEDS", "BED"] : ["ROOMS", "ROOM"];
+		const cityRate = r[`OCCUPANCY_RATE_${kind[0]}`];
+		const programRate = cityRate !== null && cityRate !== undefined && String(cityRate).trim() !== ""
+			? Number(cityRate) : rate(Number(r[`OCCUPIED_${kind[0]}`]), Number(r[`CAPACITY_ACTUAL_${kind[1]}`]));
+		if (programRate != null && programRate >= 95) t.nearFull += 1;
 		if (r.CAPACITY_TYPE === "Bed Based Capacity") {
 			t.beds.occ += Number(r.OCCUPIED_BEDS);
 			t.beds.cap += Number(r.CAPACITY_ACTUAL_BED);
@@ -123,35 +129,19 @@ const citywide = totals(() => true);
 const num = (s) => { const d = String(s ?? "").replace(/[^\d]/g, ""); return d ? Number(d) : NaN; };	// a missing figure fails the sum
 
 // ---------------------------------------------------------------- 3. compare
+// Every figure the page still shows (shelter-03: one headline row, one line for the rest).
 check("headline people served", fmtN(headline.people), shown["headline-people"]);
 check("headline bed rate", fmtRate(rate(headline.beds.occ, headline.beds.cap)), shown["headline-beds-rate"]);
 check("headline room rate", fmtRate(rate(headline.rooms.occ, headline.rooms.cap)), shown["headline-rooms-rate"]);
 check("headline beds occupied", fmtN(headline.beds.occ), shown["headline-beds-occupied"]);
 check("headline beds capacity", fmtN(headline.beds.cap), shown["headline-beds-capacity"]);
-check("headline beds unoccupied", fmtN(headline.beds.cap - headline.beds.occ), shown["headline-beds-unoccupied"]);
 check("headline rooms occupied", fmtN(headline.rooms.occ), shown["headline-rooms-occupied"]);
 check("headline rooms capacity", fmtN(headline.rooms.cap), shown["headline-rooms-capacity"]);
-check("headline rooms unoccupied", fmtN(headline.rooms.cap - headline.rooms.occ), shown["headline-rooms-unoccupied"]);
 check("headline programs", fmtN(headline.programs), shown["headline-programs"]);
+check("headline programs at or near full (City rate ≥ 95%)", fmtN(headline.nearFull), shown["headline-near-full"]);
 check("Temporary Programs people served", fmtN(temporary.people), shown["temporary-people"]);
-check("Temporary Programs bed rate", fmtRate(rate(temporary.beds.occ, temporary.beds.cap)), shown["temporary-beds-rate"]);
-check("Temporary Programs room rate", fmtRate(rate(temporary.rooms.occ, temporary.rooms.cap)), shown["temporary-rooms-rate"]);
-check("Temporary Programs beds occupied", fmtN(temporary.beds.occ), shown["temporary-beds-occupied"]);
-check("Temporary Programs beds capacity", fmtN(temporary.beds.cap), shown["temporary-beds-capacity"]);
-check("Temporary Programs rooms occupied", fmtN(temporary.rooms.occ), shown["temporary-rooms-occupied"]);
-check("Temporary Programs rooms capacity", fmtN(temporary.rooms.cap), shown["temporary-rooms-capacity"]);
-check("Temporary Programs programs", fmtN(temporary.programs), shown["temporary-programs"]);
 check("refugee people served", fmtN(refugee.people), shown["refugee-people"]);
-check("refugee bed rate", fmtRate(rate(refugee.beds.occ, refugee.beds.cap)), shown["refugee-beds-rate"]);
-check("refugee room rate", fmtRate(rate(refugee.rooms.occ, refugee.rooms.cap)), shown["refugee-rooms-rate"]);
-check("refugee beds occupied", fmtN(refugee.beds.occ), shown["refugee-beds-occupied"]);
-check("refugee beds capacity", fmtN(refugee.beds.cap), shown["refugee-beds-capacity"]);
-check("refugee rooms occupied", fmtN(refugee.rooms.occ), shown["refugee-rooms-occupied"]);
-check("refugee rooms capacity", fmtN(refugee.rooms.cap), shown["refugee-rooms-capacity"]);
-check("refugee programs", fmtN(refugee.programs), shown["refugee-programs"]);
 check("City-wide people served", fmtN(citywide.people), shown["citywide-people"]);
-check("City-wide bed rate", fmtRate(rate(citywide.beds.occ, citywide.beds.cap)), shown["citywide-beds-rate"]);
-check("City-wide room rate", fmtRate(rate(citywide.rooms.occ, citywide.rooms.cap)), shown["citywide-rooms-rate"]);
 // The headline leaves out both temporary areas, and the three panels add up to the City-wide line.
 check("snapshot: no headline program is in either temporary area", "none", headlineAreas.filter((a) => a === REFUGEE || TEMPORARY_AREAS.includes(a)).join(", ") || "none");
 
@@ -181,6 +171,7 @@ const d = new Date(`${snapshotDate}T00:00:00Z`);
 const medium = new Intl.DateTimeFormat("en-CA", { timeZone: "UTC", year: "numeric", month: "short", day: "numeric" }).format(d);
 const long = new Intl.DateTimeFormat("en-CA", { timeZone: "UTC", weekday: "long", year: "numeric", month: "long", day: "numeric" }).format(d);
 check("night label names the snapshot's night", true, shown["night-label"].includes(long));
+check("every headline figure's date names that night", true, shown.nightShort.length === 4 && shown.nightShort.every((t) => t.endsWith(medium)));
 check("every occupancy source line says 'as of' that night", true, shown.sources.length > 0 && shown.sources.every((s) => s.startsWith(`Source: City of Toronto Open Data, as of ${medium}`)));
 check("embed source line says 'as of' that night", `Source: City of Toronto Open Data, as of ${medium}`, card.source);
 
@@ -190,6 +181,7 @@ const queue = ci.resources.find((r) => r.name === "Central Intake Service Queue 
 const lastQ = (await ckan("datastore_search", { resource_id: queue.id, sort: "Date desc", limit: 1 })).records[0];
 check("unmatched callers (latest operational date)", fmtN(lastQ["Unmatched callers"]), shown["ta-unmatched"]);
 check("unmatched callers date", new Intl.DateTimeFormat("en-CA", { timeZone: "UTC", weekday: "long", year: "numeric", month: "long", day: "numeric" }).format(new Date(`${String(lastQ.Date).slice(0, 10)}T00:00:00Z`)), shown["ta-date"]);
+check("unmatched callers date beside the figure", new Intl.DateTimeFormat("en-CA", { timeZone: "UTC", year: "numeric", month: "short", day: "numeric" }).format(new Date(`${String(lastQ.Date).slice(0, 10)}T00:00:00Z`)), shown["ta-date-short"]);
 
 // ---------------------------------------------------------------- report
 const pass = results.filter((r) => r.ok).length;

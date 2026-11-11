@@ -1,0 +1,5 @@
+Measure — 2026-11-09T05:54:14.432Z — http://127.0.0.1:8765/
+390×844: document height 4326 px · controls 10 (buttons 5, inputs 1, selects 0, disclosures 4; 17 in the page counting those inside closed disclosures) · links 29 · map pins 95 · tab stops 136 (Tab key walk)
+   above the fold: help line yes · headline figures yes · trend chart starts no (top at 1237 px)
+1440×900: document height 3065 px · controls 10 (buttons 5, inputs 1, selects 0, disclosures 4; 17 in the page counting those inside closed disclosures) · links 29 · map pins 95 · tab stops 136 (Tab key walk)
+   above the fold: help line yes · headline figures yes · trend chart starts yes (top at 786 px)

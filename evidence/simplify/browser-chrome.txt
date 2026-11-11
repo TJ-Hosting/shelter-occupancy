@@ -1,0 +1,91 @@
+Browser check — 2026-11-09T05:55:03.174Z — chrome 153.0.8010.12, headed — http://127.0.0.1:8765/
+PASS  375px: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  375px: dark only
+      body rgb(11, 14, 19), color-scheme dark
+PASS  375px: figures filled
+      people 4,341; label "Latest count — night of Friday, November 6, 2026"; hero sh-hero-noir-tall-480.avif; unfilled: none
+PASS  375px: console clean
+      no errors, warnings or failed requests
+PASS  390px: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  390px: dark only
+      body rgb(11, 14, 19), color-scheme dark
+PASS  390px: figures filled
+      people 4,341; label "Latest count — night of Friday, November 6, 2026"; hero sh-hero-noir-tall-480.avif; unfilled: none
+PASS  390 × 844: help line and headline figures on the first screen
+      help true, figures true
+PASS  390px: console clean
+      no errors, warnings or failed requests
+PASS  768px: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  768px: dark only
+      body rgb(11, 14, 19), color-scheme dark
+PASS  768px: figures filled
+      people 4,341; label "Latest count — night of Friday, November 6, 2026"; hero sh-hero-noir-960.avif; unfilled: none
+PASS  768px: console clean
+      no errors, warnings or failed requests
+PASS  1440px: no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  1440px: dark only
+      body rgb(11, 14, 19), color-scheme dark
+PASS  1440px: figures filled
+      people 4,341; label "Latest count — night of Friday, November 6, 2026"; hero sh-hero-noir-1664.avif; unfilled: none
+PASS  1440 × 900: help line, figures and the chart's start on the first screen
+      help true, figures true, chart top at 786px
+PASS  1440px: console clean
+      no errors, warnings or failed requests
+PASS  1440px (light system setting): no horizontal scroll
+      scrollWidth − innerWidth = -15px
+PASS  1440px (light system setting): dark only
+      body rgb(11, 14, 19), color-scheme dark
+PASS  1440px (light system setting): figures filled
+      people 4,341; label "Latest count — night of Friday, November 6, 2026"; hero sh-hero-noir-1664.avif; unfilled: none
+PASS  1440px (light system setting): console clean
+      no errors, warnings or failed requests
+PASS  reduced motion: no animation runs, smooth scrolling off
+      {"running":0,"scroll":"auto"}
+PASS  reduced motion: console clean
+      clean
+PASS  keyboard: the first stop after the map's controls skips the map
+      "Skip the map: every program is in the table below" (skip skip-map)
+PASS  keyboard: the skip link opens the programs table
+      details#all-programs open = true
+PASS  keyboard: after the skip link, Tab reaches the table's sort buttons
+      Tab path after Enter on the skip link: summary → th:program
+PASS  keyboard: focus ring visible on the sort button
+      solid 2px rgb(191, 224, 255)
+PASS  keyboard: every column header is a reachable button
+      sector, area, capacity_type, people, occupied, rate
+PASS  keyboard: Enter sorts by People and toggles direction
+      aria-sort descending (first row 359) → ascending (first row 1)
+PASS  keyboard: console clean
+      clean
+PASS  map dark: pins drawn and a popup opens
+      95 pins; popup: 185 YORKLAND BLVD, NORTH YORK Fred Victor Uptown Hotel Program Mixed Adult · room-based · Temporary Programs 264 of 264 rooms occupied (100.
+PASS  map dark: console clean
+      clean
+PASS  375px dark: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  390px dark: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  768px dark: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  1440px dark: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  1920px dark: no image drawn wider than its source (CSS px)
+      none upscaled
+PASS  embed 320×180: fits, filled
+      Toronto shelters · Night of Nov 6 · 4,341 people
+PASS  embed 320×180: console clean
+      clean
+PASS  embed 600×340: fits, filled
+      Toronto shelters · Night of Nov 6 · 4,341 people
+PASS  embed 600×340: console clean
+      clean
+PASS  404.html renders with its background and helpline
+      h1 "THIS PAGE ISN'T HERE"; background url("http://127.0.0.1:8765/assets/img/sh-hero-noir-1664.webp")
+PASS  404.html: console clean
+      clean
+
+44/44 checks passed.

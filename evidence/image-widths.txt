@@ -1,33 +1,9 @@
-PASS  sh-hero-islands-dusk-hd: outputs ≤ source width 1672px  (8 outputs)
-PASS  sh-hero-islands-dusk-hd: ledger line  (assets\pack\LEDGER.jsonl line 26)
-PASS  sh-hero-islands-sunset-hd: outputs ≤ source width 1664px  (8 outputs)
-PASS  sh-hero-islands-sunset-hd: ledger line  (assets\pack\LEDGER.jsonl line 27)
-PASS  sh-hero-portrait: outputs ≤ source width 720px  (4 outputs)
-PASS  sh-hero-portrait: ledger line  (assets\pack\LEDGER.jsonl line 3)
-PASS  sh-hero-winter-night: outputs ≤ source width 1280px  (4 outputs)
-PASS  sh-hero-winter-night: ledger line  (assets\pack\LEDGER.jsonl line 4)
-PASS  sh-sc-cot: outputs ≤ source width 1248px  (4 outputs)
-PASS  sh-sc-cot: ledger line  (assets\pack\LEDGER.jsonl line 6)
-PASS  sh-sc-hotel-corridor: outputs ≤ source width 1248px  (4 outputs)
-PASS  sh-sc-hotel-corridor: ledger line  (assets\pack\LEDGER.jsonl line 10)
-PASS  sh-sc-windows: outputs ≤ source width 1248px  (4 outputs)
-PASS  sh-sc-windows: ledger line  (assets\pack\LEDGER.jsonl line 8)
-PASS  sh-sc-streetcar: outputs ≤ source width 1248px  (4 outputs)
-PASS  sh-sc-streetcar: ledger line  (assets\pack\LEDGER.jsonl line 9)
-PASS  sh-tex-dusk-sky: outputs ≤ source width 1280px  (4 outputs)
-PASS  sh-tex-dusk-sky: ledger line  (assets\pack\LEDGER.jsonl line 15)
-PASS  sh-tex-city-bokeh: outputs ≤ source width 1280px  (4 outputs)
-PASS  sh-tex-city-bokeh: ledger line  (assets\pack\LEDGER.jsonl line 16)
-PASS  sh-sc-doorway-v2: outputs ≤ source width 1536px  (4 outputs)
-PASS  sh-sc-doorway-v2: ledger line  (assets\pack\LEDGER.jsonl line 28)
-PASS  sh-embed-band: outputs ≤ source width 1280px  (4 outputs)
-PASS  sh-embed-band: ledger line  (assets\pack\LEDGER.jsonl line 25)
-PASS  sh-spot-tea: outputs ≤ source width 1024px  (4 outputs)
-PASS  sh-spot-tea: ledger line  (assets\pack\LEDGER.jsonl line 22)
-PASS  sh-spot-key: outputs ≤ source width 1024px  (4 outputs)
-PASS  sh-spot-key: ledger line  (assets\pack\LEDGER.jsonl line 23)
-PASS  sh-spot-coat: outputs ≤ source width 1024px  (4 outputs)
-PASS  sh-spot-coat: ledger line  (assets\pack\LEDGER.jsonl line 21)
+PASS  sh-hero-noir: outputs ≤ source width 1664px  (8 outputs)
+PASS  sh-hero-noir: ledger line  (assets/pack/LEDGER.jsonl line 29)
+PASS  sh-hero-noir-tall: outputs ≤ source width 941px  (6 outputs)
+PASS  sh-hero-noir-tall: ledger line  (assets/pack/LEDGER.jsonl line 30)
+PASS  sh-og-share: outputs ≤ source width 1664px  (1 outputs)
+PASS  sh-og-share: ledger line  (assets/pack/LEDGER.jsonl line 29)
 PASS  sh-embed-band-1280.avif: 1280px ≤ source 1280px
 PASS  sh-embed-band-1280.webp: 1280px ≤ source 1280px
 PASS  sh-embed-band-640.avif: 640px ≤ source 1280px
@@ -60,6 +36,20 @@ PASS  sh-hero-islands-sunset-hd-640.avif: 640px ≤ source 1664px
 PASS  sh-hero-islands-sunset-hd-640.webp: 640px ≤ source 1664px
 PASS  sh-hero-islands-sunset-hd-960.avif: 960px ≤ source 1664px
 PASS  sh-hero-islands-sunset-hd-960.webp: 960px ≤ source 1664px
+PASS  sh-hero-noir-1280.avif: 1280px ≤ source 1664px
+PASS  sh-hero-noir-1280.webp: 1280px ≤ source 1664px
+PASS  sh-hero-noir-1664.avif: 1664px ≤ source 1664px
+PASS  sh-hero-noir-1664.webp: 1664px ≤ source 1664px
+PASS  sh-hero-noir-640.avif: 640px ≤ source 1664px
+PASS  sh-hero-noir-640.webp: 640px ≤ source 1664px
+PASS  sh-hero-noir-960.avif: 960px ≤ source 1664px
+PASS  sh-hero-noir-960.webp: 960px ≤ source 1664px
+PASS  sh-hero-noir-tall-480.avif: 480px ≤ source 941px
+PASS  sh-hero-noir-tall-480.webp: 480px ≤ source 941px
+PASS  sh-hero-noir-tall-720.avif: 720px ≤ source 941px
+PASS  sh-hero-noir-tall-720.webp: 720px ≤ source 941px
+PASS  sh-hero-noir-tall-941.avif: 941px ≤ source 941px
+PASS  sh-hero-noir-tall-941.webp: 941px ≤ source 941px
 PASS  sh-hero-portrait-480.avif: 480px ≤ source 720px
 PASS  sh-hero-portrait-480.webp: 480px ≤ source 720px
 PASS  sh-hero-portrait-720.avif: 720px ≤ source 720px
@@ -108,8 +98,8 @@ PASS  sh-tex-dusk-sky-1280.avif: 1280px ≤ source 1280px
 PASS  sh-tex-dusk-sky-1280.webp: 1280px ≤ source 1280px
 PASS  sh-tex-dusk-sky-640.avif: 640px ≤ source 1280px
 PASS  sh-tex-dusk-sky-640.webp: 640px ≤ source 1280px
-PASS  every image file the pages use is in the manifest  (58 files referenced)
+PASS  every image file the pages use is in the manifest  (14 files referenced)
 
-Note: 12 file(s) in assets/img are not in the manifest and no page uses them (checked for width above): sh-hero-islands-dusk-1280.avif, sh-hero-islands-dusk-1280.webp, sh-hero-islands-dusk-640.avif, sh-hero-islands-dusk-640.webp, sh-hero-islands-dusk-960.avif, sh-hero-islands-dusk-960.webp, sh-hero-islands-sunset-1280.avif, sh-hero-islands-sunset-1280.webp, sh-hero-islands-sunset-640.avif, sh-hero-islands-sunset-640.webp, sh-hero-islands-sunset-960.avif, sh-hero-islands-sunset-960.webp
+Note: 80 file(s) in assets/img are not in the manifest and no page uses them (checked for width above): sh-embed-band-1280.avif, sh-embed-band-1280.webp, sh-embed-band-640.avif, sh-embed-band-640.webp, sh-hero-islands-dusk-1280.avif, sh-hero-islands-dusk-1280.webp, sh-hero-islands-dusk-640.avif, sh-hero-islands-dusk-640.webp, sh-hero-islands-dusk-960.avif, sh-hero-islands-dusk-960.webp, sh-hero-islands-dusk-hd-1280.avif, sh-hero-islands-dusk-hd-1280.webp, sh-hero-islands-dusk-hd-1672.avif, sh-hero-islands-dusk-hd-1672.webp, sh-hero-islands-dusk-hd-640.avif, sh-hero-islands-dusk-hd-640.webp, sh-hero-islands-dusk-hd-960.avif, sh-hero-islands-dusk-hd-960.webp, sh-hero-islands-sunset-1280.avif, sh-hero-islands-sunset-1280.webp, sh-hero-islands-sunset-640.avif, sh-hero-islands-sunset-640.webp, sh-hero-islands-sunset-960.avif, sh-hero-islands-sunset-960.webp, sh-hero-islands-sunset-hd-1280.avif, sh-hero-islands-sunset-hd-1280.webp, sh-hero-islands-sunset-hd-1664.avif, sh-hero-islands-sunset-hd-1664.webp, sh-hero-islands-sunset-hd-640.avif, sh-hero-islands-sunset-hd-640.webp, sh-hero-islands-sunset-hd-960.avif, sh-hero-islands-sunset-hd-960.webp, sh-hero-portrait-480.avif, sh-hero-portrait-480.webp, sh-hero-portrait-720.avif, sh-hero-portrait-720.webp, sh-hero-winter-night-1280.avif, sh-hero-winter-night-1280.webp, sh-hero-winter-night-640.avif, sh-hero-winter-night-640.webp, sh-sc-cot-480.avif, sh-sc-cot-480.webp, sh-sc-cot-960.avif, sh-sc-cot-960.webp, sh-sc-doorway-v2-1088.avif, sh-sc-doorway-v2-1088.webp, sh-sc-doorway-v2-640.avif, sh-sc-doorway-v2-640.webp, sh-sc-hotel-corridor-480.avif, sh-sc-hotel-corridor-480.webp, sh-sc-hotel-corridor-960.avif, sh-sc-hotel-corridor-960.webp, sh-sc-streetcar-1248.avif, sh-sc-streetcar-1248.webp, sh-sc-streetcar-640.avif, sh-sc-streetcar-640.webp, sh-sc-windows-1248.avif, sh-sc-windows-1248.webp, sh-sc-windows-640.avif, sh-sc-windows-640.webp, sh-spot-coat-320.avif, sh-spot-coat-320.webp, sh-spot-coat-640.avif, sh-spot-coat-640.webp, sh-spot-key-320.avif, sh-spot-key-320.webp, sh-spot-key-640.avif, sh-spot-key-640.webp, sh-spot-tea-320.avif, sh-spot-tea-320.webp, sh-spot-tea-640.avif, sh-spot-tea-640.webp, sh-tex-city-bokeh-1280.avif, sh-tex-city-bokeh-1280.webp, sh-tex-city-bokeh-640.avif, sh-tex-city-bokeh-640.webp, sh-tex-dusk-sky-1280.avif, sh-tex-dusk-sky-1280.webp, sh-tex-dusk-sky-640.avif, sh-tex-dusk-sky-640.webp
 
-111/111 checks passed.
+101/101 checks passed.
