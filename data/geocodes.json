@@ -665,6 +665,34 @@
 			"source": "address-points",
 			"match": "747 Warden Ave",
 			"checked": "2026-10-16"
+		},
+		"136 Spadina Rd|M5R 2T8": {
+			"lat": 43.673102,
+			"lon": -79.406656,
+			"source": "address-points",
+			"match": "136 Spadina Rd",
+			"checked": "2026-11-24"
+		},
+		"81 Elizabeth St|M5G 1P4": {
+			"lat": 43.654281,
+			"lon": -79.384521,
+			"source": "address-points",
+			"match": "81 Elizabeth St",
+			"checked": "2026-11-24"
+		},
+		"12 Holmes Ave|M2N 4N4": {
+			"lat": 43.778285,
+			"lon": -79.41425,
+			"source": "address-points",
+			"match": "12 Holmes Ave",
+			"checked": "2026-11-24"
+		},
+		"885 Scarborough Golf Club Road|M1G 1J6": {
+			"lat": 43.772745,
+			"lon": -79.219086,
+			"source": "address-points",
+			"match": "885 Scarborough Golf Club Rd",
+			"checked": "2026-11-24"
 		}
 	}
 }
