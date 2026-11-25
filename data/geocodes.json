@@ -693,6 +693,13 @@
 			"source": "address-points",
 			"match": "885 Scarborough Golf Club Rd",
 			"checked": "2026-11-24"
+		},
+		"349 George St|M5A 2N2": {
+			"lat": 43.660136,
+			"lon": -79.374302,
+			"source": "address-points",
+			"match": "349 George St",
+			"checked": "2026-11-25"
 		}
 	}
 }
